@@ -63,11 +63,22 @@ reproducibly, independent of global KiCad libs; lib tables pointing only at `lib
   **pad 1 = cathode (banded end), pad 2 = anode**; `D_MELF` silk band/notch + F.Fab glyph
   are on the pad-1 side. Symbol drawn pin1=K / pin2=A, so symbol↔footprint polarity is
   consistent. Board net intent (board_spec): anode(pin2)→+V rail, cathode(pin1)→R_ref.
+  - **DO NOT "fix" the polarity.** Post-review note: the `D_MELF` `F.Fab` diode glyph (stock
+    KiCad 10) can *look* ambiguous, but tracing it confirms consistency — the two diagonals
+    converge at the apex `x=-0.649` (triangle points left) with the cathode bar on the
+    **pad-1 side**, same side as the silk band and the symbol's pin 1=K. Pads/silk/fab/symbol
+    all agree pad 1 = cathode; the netlist is correct. Do not flip the symbol or "correct"
+    the fab. (Optional, assembly-clarity only: mirror the `F.Fab` glyph in X — cosmetic, no
+    electrical effect.)
 - **ADS1115 pinout:** VSSOP-10 (DGS, MO-187 var BA, 0.5 mm pitch) → `MSOP-10_3x3mm_P0.5mm`.
   Pinout verified 3 ways (TI datasheet mirror, KiCad `Analog_ADC` symbol, known breakouts;
   all agree): 1 ADDR · 2 ALERT/RDY · 3 GND · 4 AIN0 · 5 AIN1 · 6 AIN2 · 7 AIN3 · 8 VDD ·
   9 SDA · 10 SCL. ADDR strap→addr (GND/VDD/SDA/SCL = 0x48/49/4A/4B) fielded; this board uses
   0x48 + 0x49.
+  - **Naming nit (post-review, cosmetic):** the symbol Value/MPN say `ADS1115IDGS`/VSSOP-10
+    while the footprint is named `MSOP-10_3x3mm_P0.5mm`. Same physical land (JEDEC MO-187
+    var BA); KiCad's canonical name is kept on purpose (matches `ki_fp_filters`). Equivalence
+    is documented in the symbol `Package` field and `docs/datasheets/components.md`. Left as-is.
 
 **Decisions (rationale + spec ref):**
 - **Copied std KiCad footprints rather than hand-authoring pad geometry** — they are
