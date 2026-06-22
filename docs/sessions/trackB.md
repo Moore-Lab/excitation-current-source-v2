@@ -64,7 +64,7 @@ harness, test2 (cancellation) and test3 (°C budget), but flagged 2 MAJOR + 2 ni
 **Next action:** Hand back for integration. At Wave 3, produce the SPICE-format
 `sim/netlists/rtd-readout.net` and re-point per `sim/README.md`.
 
-**Commit:** <recorded in the follow-up, as in TrackB-001>
+**Commit:** da2c103 (review fixes + this entry); hash recorded in the follow-up.
 
 ---
 
