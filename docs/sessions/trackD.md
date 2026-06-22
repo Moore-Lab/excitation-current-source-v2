@@ -75,4 +75,4 @@ install_hooks,hooks/pre-commit}`, `README.md`, `docs/sessions/trackD.md`.
 `hardware/rtd-readout.kicad_sch`, run `sh scripts/run_gates` (now non-vacuous) and commit the
 resulting `reports/{erc,drc}/` JSON; optionally `sh scripts/install_hooks` on `integration`.
 
-**Commit:** <filled at commit>
+**Commit:** 213ee50 (scripts + README + this log). Hash recorded by the follow-up log commit.
