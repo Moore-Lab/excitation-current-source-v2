@@ -82,4 +82,4 @@ the now-populated `sim/` subdirs.)
 to `sim/netlists/rtd-readout.net` and re-point the decks per the node/knob contract in
 `sim/README.md` (replace the `.include channel.inc` line), then re-run `run_all.py`.
 
-**Commit:** <filled by the commit that includes this entry>
+**Commit:** 0617208 (harness + reports + this log); hash recorded in the follow-up.
