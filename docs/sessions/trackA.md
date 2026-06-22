@@ -96,4 +96,4 @@ reproducibly, independent of global KiCad libs; lib tables pointing only at `lib
 start Track E off post-A `integration`. Track E binds these symbols/footprints into the
 schematic and runs the first ERC.
 
-**Commit:** <filled by the commit below>
+**Commit:** 3f8c8f4 (libraries + lib tables + datasheets). Log hash filled in the follow-up.
