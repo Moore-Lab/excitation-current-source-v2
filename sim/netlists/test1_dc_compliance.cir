@@ -1,0 +1,29 @@
+* Test 1 - DC operating point & CRD compliance
+* ----------------------------------------------------------------------------
+* Proves TESTING_PLAN Part 1 #1: across the full Pt100 sweep and at the
+* worst-case low rail, the voltage across the CRD stays above its limiting
+* voltage VL so it keeps regulating. Paths are relative to the REPO ROOT
+* (run_all sets cwd there).
+* ----------------------------------------------------------------------------
+.include sim/models/params.inc
+.include sim/models/crd.inc
+.include sim/models/meas.inc
+.include sim/models/knobs.inc
+
+Vrail rail 0 DC {VRAIL_NOM}
+.include sim/models/channel.inc
+
+.control
+set wr_singlescale
+set wr_vecnames
+* columns written: rrtd(scale)  Vcrd  Vref  Vrtd  Vrail
+* --- nominal rail (5.0 V) ---
+alter Vrail = 5.0
+dc Vrrtd 80 158 1
+wrdata reports/sim/data/test1_rail_nom.dat (v(rail)-v(top)) (v(top)-v(mid)) v(mid) v(rail)
+* --- worst-case low rail (4.5 V, -10 %) ---
+alter Vrail = 4.5
+dc Vrrtd 80 158 1
+wrdata reports/sim/data/test1_rail_min.dat (v(rail)-v(top)) (v(top)-v(mid)) v(mid) v(rail)
+.endc
+.end

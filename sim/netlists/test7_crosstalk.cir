@@ -1,0 +1,63 @@
+* Test 7 - Shared-ground crosstalk between two channels
+* ----------------------------------------------------------------------------
+* Proves TESTING_PLAN Part 1 #7. Two unit cells share a finite star-ground
+* return impedance RG (sg -> true ground). Each V_RTD is Kelvin-sensed across
+* its own RTD (midX - sg), so the common ground bounce is rejected; the residual
+* coupling is second-order, entering only through the CRD's finite dynamic
+* impedance Z_CRD (sg bounce shifts the voltage across the aggressor's CRD and
+* thus its current). We perturb channel A's RTD across the full Pt100 range and
+* watch channel B's recovered ratio move. Sweeping RG sets the max acceptable
+* star-ground resistance.
+* Self-contained (two channels), reuses crd/meas. Channel B held at RTD_0.
+* Output (per RG): rrtdA(scale)  ratioB = v(nrtdB)/v(nrefB)
+* ----------------------------------------------------------------------------
+.include sim/models/params.inc
+.include sim/models/crd.inc
+.include sim/models/meas.inc
+
+.param RTD_B = 100         $ victim channel RTD, fixed [Ohm]
+
+Vrail rail 0 DC {VRAIL_NOM}
+* shared knob nodes (no tempco/offset for this test)
+Vdt   dt   0 DC 0
+Vtcgr tcgr 0 DC 0
+Voff  off  0 DC 0
+Vkca  kca  0 DC 1
+Vkcb  kcb  0 DC 1
+* aggressor RTD value (swept) carried as a node
+Vrrtda rrtda 0 DC {RTD_0}
+* shared star-ground return impedance (alter to sweep)
+RG sg 0 1
+
+* ---- Channel A (aggressor) ----
+Xcrda rail topA kca crd
+RrefA topA midA {R_REF0}
+RrtdA midA sg R = 'v(rrtda)'
+XrefA topA midA nrefA              adc_vref
+XrtdA midA sg   nrtdA dt tcgr off  adc_vrtd
+
+* ---- Channel B (victim) ----
+Xcrdb rail topB kcb crd
+RrefB topB midB {R_REF0}
+RrtdB midB sg {RTD_B}
+XrefB topB midB nrefB              adc_vref
+XrtdB midB sg   nrtdB dt tcgr off  adc_vrtd
+
+.control
+set wr_singlescale
+set wr_vecnames
+* victim ratio vs aggressor RTD, at several star-ground resistances
+alter RG = 0.01
+dc Vrrtda 80 158 1
+wrdata reports/sim/data/test7_rg_0p01.dat (v(nrtdB)/v(nrefB))
+alter RG = 0.1
+dc Vrrtda 80 158 1
+wrdata reports/sim/data/test7_rg_0p1.dat  (v(nrtdB)/v(nrefB))
+alter RG = 1
+dc Vrrtda 80 158 1
+wrdata reports/sim/data/test7_rg_1.dat    (v(nrtdB)/v(nrefB))
+alter RG = 10
+dc Vrrtda 80 158 1
+wrdata reports/sim/data/test7_rg_10.dat   (v(nrtdB)/v(nrefB))
+.endc
+.end
