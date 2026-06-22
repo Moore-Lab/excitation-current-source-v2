@@ -1,0 +1,27 @@
+* ref200.lib -- behavioural model of ONE REF200 100 uA current-source section.
+*
+* TI publishes no SPICE/PSpice model for the REF200 (checked product page; see
+* models/README.md). Per TESTING_PLAN.md the section is therefore modelled as an
+* ideal DC current source in parallel with a finite output resistance.
+*
+* Current direction (SPICE convention): "I N+ N- value" drives `value` from N+ to N-
+* INSIDE the source, so externally `value` is pushed OUT of N- and pulled INTO N+.
+* We want the section to pull from the rail and deliver current into the load top
+* node, so callers wire:  Xsec rail topnode ref200_src
+*   N+ = rail (hi)     -> current pulled from rail
+*   N- = topnode (lo)  -> current delivered into R_ref / RTD stack toward GND
+*
+* Parameters:
+*   iset = section current   (100u resolved; 200u for Mode A by paralleling two)
+*   rout = output resistance  (datasheet 20-100 MEG; 50 MEG nominal)
+*
+* NOTE ON NOISE: an ideal I-source is noiseless in `.noise`, so the REF200 current
+* noise (datasheet: 1 nA p-p over 0.1-10 Hz flicker; 20 pA/rtHz white) is NOT in this
+* element. The noise deck (06_noise.cir) computes the PASSIVE/Johnson + RC-filter
+* spectrum natively, and the analysis script adds the excitation current noise from
+* these datasheet figures in closed form. See models/README.md "Noise".
+
+.subckt ref200_src hi lo  iset=100u rout=50meg
+Isrc hi lo dc {iset}
+Rout hi lo {rout}
+.ends ref200_src

@@ -1,0 +1,47 @@
+* 07_crosstalk.cir -- shared star-ground crosstalk (TESTING_PLAN Part 1, test 7)
+*
+* Two unit cells whose Force- returns share a finite star-ground resistance Rstar. The
+* aggressor channel A is a sweepable independent current source; the victim channel B is a
+* normal REF200 cell read Kelvin-differential. As A's current swings 0 -> I, we record the
+* change in B's differential V_RTD. Coupling is set by the second-order path
+* dV_RTD_B/dI_A = -Rstar * R_rtd / Rout (the star bump steals a little of B's compliance via
+* finite Rout; the differential Kelvin reading rejects the bump itself). Coupling scales
+* linearly with Rstar, so this sets the acceptable star-ground trace resistance.
+* PASS (analysis.py): coupling over a full I_A swing is below the noise floor for Rstar.
+
+.include netlists/_generated_params.inc
+.include models/ref200.lib
+
+Vrail rail 0 dc {v_rail}
+
+* --- Channel A : aggressor, current = i_exc * (sweep index/100), 0 .. full I ---
+Vswp    swp 0 dc 0
+BIa     rail toprefA I = '{i_exc} * v(swp)/100'
+RoutA   rail toprefA {rout_src}
+RrefA   toprefA rtdA_hi {r_ref}
+RrtdA   rtdA_hi rtdA_bot {r_rtd_nom}
+RfleadA rtdA_bot star 0.1
+
+* --- Channel B : victim, normal REF200 cell ---
+XsrcB   rail toprefB ref200_src iset={i_exc} rout={rout_src}
+RrefB   toprefB rtdB_hi {r_ref}
+RrtdB   rtdB_hi rtdB_bot {r_rtd_nom}
+RfleadB rtdB_bot star 0.1
+
+* --- shared star-ground return resistance ---
+Rstar   star 0 {star_gnd_r}
+
+.options reltol=1e-12 abstol=1e-18 vntol=1e-15 gmin=1e-15
+
+.control
+set wr_singlescale
+set wr_vecnames
+dc Vswp 0 100 1
+let i_a     = i_exc * v(swp)/100
+let v_rtd_b = v(rtdB_hi) - v(rtdB_bot)
+let v_star  = v(star)
+* coupling computed in-SPICE (double precision) so the ~1e-11 V shift survives wrdata:
+let dv_rtd_b = v_rtd_b - v_rtd_b[0]
+wrdata scratch/07_crosstalk.data i_a v_rtd_b dv_rtd_b v_star
+.endc
+.end

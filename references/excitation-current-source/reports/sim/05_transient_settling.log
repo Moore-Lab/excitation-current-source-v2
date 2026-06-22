@@ -1,0 +1,12 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * 05_transient_settling.cir -- sense rc settling vs mux dwell (testing_plan part 1, test 5)
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using transient initial conditions
+
+No. of Data Rows : 2511
+Note: Simulation executed from .control section 

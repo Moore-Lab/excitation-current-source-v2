@@ -1,0 +1,35 @@
+# .gitignore — REF200 RTD board
+# Rule (docs/DIRECTORY_MANAGEMENT.md): source is committed; anything a command can
+# regenerate is ignored (fab/) or committed only as a report (reports/). Keep
+# *.kicad_pro tracked (board setup / netclasses / rules = source); ignore *.kicad_prl
+# (per-user local state).
+
+# --- KiCad local / auto-generated ---
+*-backups/
+*.kicad_prl
+_autosave-*
+*-bak
+fp-info-cache
+*.lck
+~*.lck
+
+# --- Generated manufacturing outputs (cut at a tagged rev; never linger in-tree) ---
+fab/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- SPICE scratch (keep decks in sim/, final results in reports/sim; ignore scratch) ---
+sim/scratch/
+
+# --- Library verification scratch (see SESSION_LOG Session 001 risks) ---
+libraries/_verify/
+
+# --- OS / editor junk ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*~

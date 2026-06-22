@@ -1,0 +1,32 @@
+* 04_compliance_corner.cir -- worst-case compliance corner (TESTING_PLAN Part 1, test 4)
+*
+* Stack every term against the source: MAX RTD resistance + MIN supply + R_ref high by
+* its deviation. PASS: voltage across the REF200 source still >= 2.5 V (target >= 3 V).
+* Single operating point at the corner.
+
+.include netlists/_generated_params.inc
+.include models/ref200.lib
+
+* min supply
+Vrail rail 0 dc {v_rail_min}
+Xsrc  rail topref ref200_src iset={i_exc} rout={rout_src}
+* R_ref at the high end of its tol+tempco band (worst case for headroom)
+Rref  topref rtd_hi '{r_ref}*(1 + {r_ref_dev})'
+* RTD at top of band (max resistance, max voltage burden)
+Rrtd  rtd_hi 0 {r_rtd_max}
+
+.options reltol=1e-9 abstol=1e-15 vntol=1e-12
+
+.control
+set wr_singlescale
+set wr_vecnames
+op
+let v_rtd  = v(rtd_hi)
+let v_ref  = v(topref) - v(rtd_hi)
+let v_burden = v(topref)
+let headroom = v(rail) - v(topref)
+let i_actual = abs(i(Vrail))
+print v_rtd v_ref v_burden headroom i_actual
+wrdata scratch/04_compliance_corner.data v_rtd v_ref v_burden headroom i_actual
+.endc
+.end

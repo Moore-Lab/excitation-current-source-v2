@@ -1,0 +1,14 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * 06_noise.cir -- passive-chain noise referred to the adc input (testing_plan test 6)
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+No. of Data Rows : 301
+
+No. of Data Rows : 1
+onoise_total = 2.030593e-07
+Note: Simulation executed from .control section 

@@ -1,0 +1,28 @@
+{
+  "schema": "ref200-bench/1",
+  "stage": "baseline_series_chain",
+  "run_id": "example",
+  "started_utc": "2026-06-19T06:32:34+00:00",
+  "config": "Pt100 R0=100ohm  3ch  I=100uA  R_ref=100ohm  mode=full_differential  range=+/-0.1V  res_idx=8  settling=0us",
+  "rtd_type": "Pt100",
+  "measurement_mode": "full_differential",
+  "device": {
+    "backend": "mock",
+    "note": "SYNTHETIC series-chain placeholder"
+  },
+  "conditions": "synthetic old-board data; noise grows up the channel index",
+  "csv": "baseline_series_chain_example.csv",
+  "columns": [
+    "iso_time",
+    "t_rel_s",
+    "stage",
+    "channel",
+    "v_ref",
+    "v_rtd",
+    "r_calc",
+    "t_calc",
+    "r_known",
+    "i_meas_a",
+    "note"
+  ]
+}

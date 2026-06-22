@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# scripts/run_gates — the single entry point that validates the board.
+#
+# Runs the ERC and DRC gates, writes JSON reports under reports/erc|drc/, prints a
+# summary, and exits nonzero if any gate that actually ran reported errors.
+#
+# It DEGRADES GRACEFULLY: if hardware/<project>.kicad_sch|pcb don't exist yet (e.g.
+# before Track E lands the schematic), the corresponding gate is reported as SKIPPED
+# and does not fail the run. With neither file present the result is a clean
+# "nothing to check" exit 0 — so this is safe to wire into CI / a pre-commit hook now.
+#
+# Usage:  scripts/run_gates [tag]      (tag names the reports, e.g. s002 -> erc_s002.json)
+set -uo pipefail
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+. "$SCRIPT_DIR/lib/common.sh"
+
+TAG="$(resolve_tag "${1:-}")"
+
+echo "== run_gates (project=$PROJECT, tag=$TAG) ==" >&2
+
+overall=0
+ran_any=0
+erc_status="SKIP (no schematic)"
+drc_status="SKIP (no PCB)"
+
+# --- ERC -------------------------------------------------------------------
+if [ -f "$SCH" ]; then
+  ran_any=1
+  if "$SCRIPT_DIR/erc.sh" "$TAG" >/dev/null; then
+    erc_status="PASS"
+  else
+    erc_status="FAIL"
+    overall=1
+  fi
+fi
+
+# --- DRC -------------------------------------------------------------------
+if [ -f "$PCB" ]; then
+  ran_any=1
+  if "$SCRIPT_DIR/drc.sh" "$TAG" >/dev/null; then
+    drc_status="PASS"
+  else
+    drc_status="FAIL"
+    overall=1
+  fi
+fi
+
+# --- Summary ---------------------------------------------------------------
+{
+  echo "------------------------------------------------"
+  printf '  ERC : %s\n' "$erc_status"
+  printf '  DRC : %s\n' "$drc_status"
+  echo "------------------------------------------------"
+  if [ "$ran_any" -eq 0 ]; then
+    echo "  nothing to check yet (no schematic or PCB present) — OK"
+  elif [ "$overall" -eq 0 ]; then
+    echo "  all gates passed"
+  else
+    echo "  GATE FAILURE — see reports/ for details"
+  fi
+} >&2
+
+exit "$overall"

@@ -1,0 +1,1 @@
+"""Staged bench bring-up procedures (Stage 0 -> Stage 8). See test/README.md."""

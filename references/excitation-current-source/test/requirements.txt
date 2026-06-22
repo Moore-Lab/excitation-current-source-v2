@@ -1,0 +1,7 @@
+# Track C bench tooling dependencies.
+#
+# numpy is the only hard dependency for the hardware-free dry run (mock backend).
+# labjack-ljm is required ONLY on the bench (real T7); it also needs the LabJack
+# LJM runtime installed separately: https://support.labjack.com/docs/ljm-software
+numpy>=1.24
+labjack-ljm>=1.23   # bench only; not needed for --mock runs

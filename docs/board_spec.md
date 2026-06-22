@@ -1,0 +1,132 @@
+# board_spec.md — RTD Readout Board
+
+Electrical design source of truth. Every component value and layout choice traces back
+here. The companion process docs (`PARALLEL_PLAN.md`, the track briefs, the checklist,
+the testing plan) implement what this file specifies.
+
+## What the board does
+
+Reads up to 7 four-wire RTDs on an existing LabJack T7 Pro whose 7 differential analog
+pairs are **all already committed to the RTD voltage measurements**. Each RTD gets its own
+constant-current loop (so it sits near ground — this kills the common-mode/position-
+dependent noise that a series chain produced), and the per-channel excitation current is
+measured **live** so the source's accuracy and drift never enter the result.
+
+The trick that makes it fit with zero spare analog channels: the current-sense voltage is
+digitized on the board by I²C ADC(s) on the T7's digital lines, not on an analog pair.
+
+## Signal chain, per channel
+
+```
+   +V rail (5 V; higher improves CRD regulation if available)
+      │
+   [ CRD ]            current-regulator diode, ~220 µA (1N5283 / CDLL5283), two-terminal
+      │  I (same current through everything below)
+  TOP ●───────────────► ADS1115 IN+   ┐ V_ref read differentially on-board, over I²C
+   [R_ref]                            │
+  MID ●───────────────► ADS1115 IN−   ┘
+      │  Force+  (to RTD)
+      ▼
+   [ RTD 4-wire ]   Sense+ ●─────────► T7 AINx+  ┐ V_RTD on the existing T7 diff pair
+                    Sense− ●─────────► T7 AINx−  ┘ (Kelvin, full 4-wire)
+      │  Force−
+      ▼
+   STAR GND
+```
+
+## The measurement
+
+The same current `I` flows through `R_ref` and the RTD. V_RTD is measured by the T7;
+V_ref is measured by an ADS1115. Because they are on **different ADCs**, the raw ratio
+carries the ratio of the two converters' gains:
+
+    V_RTD_meas / V_ref_meas = (G_T7 / G_ADS) · (R_RTD / R_ref)
+
+Fold everything constant into a single per-channel calibration constant **C**:
+
+    R_RTD = C · (V_RTD_meas / V_ref_meas)
+
+Measure C once by substituting a known resistor for the RTD:
+
+    C = R_known · (V_ref_meas / V_RTD_meas)│_known
+
+C absorbs `R_ref`'s value, the gain ratio, and any fixed offsets. Consequences:
+
+- The CRD's ±10 % tolerance, tempco, and channel-to-channel spread are **irrelevant** —
+  the current is measured live and cancels.
+- `R_ref`'s **absolute value is irrelevant** (absorbed into C). Only its **stability**
+  (tempco, low noise) matters.
+- The accuracy limiters after cross-cal are: (1) the `R_known` used at calibration time
+  (a 0.01 % part, used once), (2) `R_ref` tempco between recals, and (3) the **relative
+  gain tempco of the two ADCs** between recals. Keep both converters thermally stable and
+  recalibrate periodically.
+
+Sensitivity, as a feel for the budget (Pt100): a fractional error `ΔI/I`-equivalent in the
+ratio shows up as ≈ `260 · (error)` °C. So ~100 ppm of combined drift ≈ 0.026 °C.
+
+## Components
+
+### Current source — CRD (current-regulator diode)
+- **1N5283 / CDLL5283**, ~0.22 mA nominal, ±10 %, two-terminal, JEDEC-registered, in
+  production (Microchip/Microsemi, Central, Digitron). Use the **CDLL5283** MELF for a
+  permanent SMD board. Anode → rail, cathode → R_ref.
+- Exact current is unimportant (measured live). It must only be **stable over one scan**
+  and quiet. Compliance: needs a few volts across it to regulate; on a 5 V rail with
+  ~0.25 V of load drop it sees ~4.7 V — verify against the chosen CRD's limiting voltage
+  `VL`. A higher rail (e.g. 12 V) raises its dynamic impedance; CRD dissipation is trivial
+  (~mW).
+
+### Reference resistor R_ref
+- Stable, low-tempco (≤10 ppm/°C), low-noise. **Absolute tolerance does not matter**
+  (cross-cal absorbs it) — do not pay for 0.01 % here; pay for tempco and stability.
+- **Size R_ref to the ADS1115 input range, not to the RTD.** Target V_ref near full-scale
+  of the chosen PGA range, with margin for the CRD's +10 % spread so it never clips.
+  Default: **R_ref ≈ 910 Ω** → V_ref ≈ 200 mV nominal (≈ 220 mV at +10 % CRD), comfortably
+  inside the ADS1115 **±0.256 V** range (7.8125 µV/LSB). If you prefer headroom, R_ref =
+  1 kΩ on the ±0.512 V range.
+
+### Current-sense ADC — ADS1115 (I²C)
+- 16-bit, programmable-gain, I²C, four selectable addresses (0x48–0x4B via the ADDR pin).
+  Two true differential inputs per chip (AIN0-1, AIN2-3). **7 channels → 4 chips → 8
+  differential V_ref reads** on a single 2-wire bus.
+- Read V_ref **differentially** at the R_ref pads. The V_ref common-mode (≈ V_RTD + V_ref/2,
+  a few hundred mV) is well within the ADS1115's GND–VDD input range.
+- Supply 3.3–5 V (e.g. from the T7's VS); add per-chip decoupling and bus pull-ups
+  (4.7 kΩ typical; 2.2 kΩ if the bus is long/fast). Average several conversions per read to
+  beat the LSB noise on the small signal.
+
+### RTD voltage — existing T7 Pro pairs
+- V_RTD on each RTD's existing differential pair, Kelvin-sensed at the RTD. Range: **±0.1 V**
+  for Pt100 (≈18–35 mV at ~220 µA), **±1 V** for Pt1000 (≈180–345 mV). Set the resolution
+  index high and give each channel adequate mux settling.
+
+## Board as the hub / interfaces
+
+The board is the measurement hub. It takes the RTDs in, forms each current loop with a CRD
+and R_ref, digitizes V_ref locally on the ADS1115s, and routes outward:
+- **RTD connectors:** 4-wire (Force+, Force−, Sense+, Sense−) per RTD.
+- **To the T7 analog (CB37):** the 7 Sense± pairs (V_RTD). Only these analog lines leave the
+  board; V_ref never travels as analog.
+- **To the T7 digital (I²C):** SDA, SCL, VS, GND.
+- **Power in:** to the rail/LDO.
+
+## Layout-critical points (full list in BOARD_DEV_CHECKLIST.md)
+- **Star ground:** all RTD Force− returns and the analog ground meet at one point. Shared
+  return impedance between channels is the crosstalk path.
+- **RTD at the bottom of each loop** (low common-mode) — the reason the board exists.
+- **Mixed-signal discipline (new):** the I²C bus and ADS1115 digital side are switching
+  digital traffic next to µV-level analog. Partition analog/digital grounds with a single-
+  point tie, keep I²C away from the R_ref taps and the sense pairs, decouple every ADS1115.
+- Each ADS1115 sits **next to its two R_ref pairs**; route V_ref as a tight differential
+  pair with the shortest possible path.
+- 4-wire Kelvin preserved to each RTD; light sense-line RC filter at the T7 input.
+- Test points on: each TOP node, each MID/Sense+ node, the rail, GND, SDA, SCL.
+
+## Open inputs (resolve before schematic capture)
+1. **Pt100 or Pt1000?** → T7 range (±0.1 vs ±1 V) and signal level. (Does not affect R_ref
+   sizing, which keys off the ADS range, or the CRD.)
+2. **How many of the 7 channels are RTDs?** → number of CRD/R_ref unit cells and ADS1115
+   count (1 chip per 2 channels). Up to 7.
+
+Neither blocks as hard as before: cross-cal + ratiometric absorb component values, so these
+mostly set ranges and counts, not precision.

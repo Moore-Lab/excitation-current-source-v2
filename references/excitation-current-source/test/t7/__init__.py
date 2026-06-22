@@ -1,0 +1,1 @@
+"""LabJack T7 Pro control layer (real LJM backend + hardware-free mock)."""

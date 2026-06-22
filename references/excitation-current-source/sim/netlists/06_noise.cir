@@ -1,0 +1,35 @@
+* 06_noise.cir -- passive-chain noise referred to the ADC input (TESTING_PLAN test 6)
+*
+* `.noise` over the V_RTD differential measurement path. ngspice natively includes the
+* Johnson noise of R_ref, the RTD, the source output resistance, and the two sense-filter
+* resistors, band-limited by the filter cap, output-referred to the ADC differential input
+* v(adcp,adcn). The REF200 EXCITATION current noise is added afterwards by analysis.py from
+* the datasheet (ideal current sources are noiseless in `.noise` -- see models/README.md).
+*
+* PASS (decided in analysis.py): total excitation + passive-chain RMS noise referred to the
+* ADC input sits BELOW the T7 ADC noise floor -- i.e. the architecture is not the limiter.
+
+.include netlists/_generated_params.inc
+.include models/ref200.lib
+
+Vrail rail 0 dc {v_rail} ac 0
+Xsrc  rail topref ref200_src iset={i_exc} rout={rout_src}
+Rref  topref rtd_hi {r_ref}
+Rrtd  rtd_hi 0 {r_rtd_nom}
+
+* differential sense filter on V_RTD (across the RTD: rtd_hi .. 0)
+Rf1 rtd_hi adcp {filt_r}
+Rf2 0      adcn {filt_r}
+Cf  adcp adcn {filt_c}
+
+.control
+set wr_singlescale
+set wr_vecnames
+* output = differential ADC voltage; input ref = Vrail; 0.1 Hz .. 100 kHz
+noise v(adcp,adcn) Vrail dec 50 0.1 100k 1
+print onoise_total
+* spectrum lives in the first noise plot (frequency, onoise_spectrum, inoise_spectrum)
+setplot noise1
+wrdata scratch/06_noise.data frequency onoise_spectrum inoise_spectrum
+.endc
+.end

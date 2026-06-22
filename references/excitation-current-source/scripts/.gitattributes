@@ -1,0 +1,6 @@
+# All automation in this directory is POSIX shell. Force LF line endings so the
+# scripts run under Git Bash on Windows (a CRLF in the shebang breaks /usr/bin/env).
+# The repo root uses `* text=auto`, which would otherwise apply CRLF on Windows checkout.
+*.sh        text eol=lf
+run_gates   text eol=lf
+pre-commit  text eol=lf

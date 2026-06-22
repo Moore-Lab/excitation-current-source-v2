@@ -1,0 +1,16 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * 04_compliance_corner.cir -- worst-case compliance corner (testing_plan part 1, test 4)
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+No. of Data Rows : 1
+v_rtd = 3.149457e-02
+v_ref = 2.002280e-02
+v_burden = 5.151737e-02
+headroom = 4.698483e+00
+i_actual = 2.001879e-04
+Note: Simulation executed from .control section 

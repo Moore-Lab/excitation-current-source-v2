@@ -1,0 +1,35 @@
+* 05_transient_settling.cir -- sense RC settling vs mux dwell (TESTING_PLAN Part 1, test 5)
+*
+* The sense anti-alias/EMI filter (board_spec section 6) is R in each leg + C across the
+* differential pair: differential time constant tau = (2*filt_r)*filt_c. When the T7's
+* internal mux hops to this channel, the cap holds the PREVIOUS channel's voltage and must
+* re-settle to this channel's V_RTD. Worst-case step = (max - min) sense voltage seen in a
+* scan. PASS: settles to < 1/2 ADC LSB within the planned mux dwell (mux_dwell, see
+* analysis.py which locates the settling time from v(adcp)).
+*
+* Differential equivalent: a Thevenin sense source (this channel's V_RTD, = low end of the
+* band) through the differential series resistance into the cap, with the cap pre-charged
+* (.ic) to the worst-case previous channel voltage (high end of the band).
+
+.include netlists/_generated_params.inc
+
+* this channel's true differential sense voltage (settling TARGET = low end of band)
+Vsense vp 0 dc {v_sense_lo}
+* differential series resistance = both 1k sense legs in series
+Rser   vp adcp '2*{filt_r}'
+* filter cap across the pair
+Cf     adcp 0 {filt_c}
+
+* cap pre-charged to the worst-case previous-channel voltage (high end of band)
+.ic v(adcp)={v_sense_hi}
+
+.control
+set wr_singlescale
+set wr_vecnames
+* ~5 mux-dwell windows (mux_dwell = 1 ms); tmax 2 us for fine early resolution
+tran 2u 5m 0 2u uic
+let v_adc = v(adcp)
+let err_v = v(adcp) - v_sense_lo
+wrdata scratch/05_transient_settling.data v_adc err_v
+.endc
+.end

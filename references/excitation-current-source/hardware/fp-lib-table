@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "ref200-rtd")(type "KiCad")(uri "${KIPRJMOD}/../libraries/footprints/ref200-rtd.pretty")(options "")(descr "Project-local footprints for the REF200 RTD readout board"))
+)

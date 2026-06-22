@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# scripts/hooks/pre-commit — block a commit if the ERC/DRC gates fail.
+#
+# Opt-in (it is NOT installed automatically). Enable for your checkout with:
+#     git config core.hooksPath scripts/hooks
+# Disable again with:
+#     git config --unset core.hooksPath
+# Bypass for a single commit (use sparingly, and justify in the session log):
+#     git commit --no-verify
+#
+# Before Track E lands the schematic/PCB this is a no-op (run_gates reports
+# "nothing to check" and exits 0), so it is safe to enable now.
+set -uo pipefail
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+if [ ! -x "$REPO_ROOT/scripts/run_gates" ] && [ ! -f "$REPO_ROOT/scripts/run_gates" ]; then
+  echo "pre-commit: scripts/run_gates missing — skipping gate check" >&2
+  exit 0
+fi
+
+echo "pre-commit: running ERC/DRC gates..." >&2
+if bash "$REPO_ROOT/scripts/run_gates" precommit; then
+  exit 0
+else
+  echo "pre-commit: gates FAILED — commit blocked. Fix violations or use --no-verify (and log why)." >&2
+  exit 1
+fi

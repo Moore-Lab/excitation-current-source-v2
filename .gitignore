@@ -1,0 +1,39 @@
+# .gitignore — RTD readout board (CRD + ADS1115, ratiometric)
+# Rule (docs/DIRECTORY_MANAGEMENT.md): source is committed; anything a command can
+# regenerate is ignored (fab/) or committed only as a report (reports/). Keep
+# *.kicad_pro tracked (board setup / netclasses / rules = source); ignore *.kicad_prl
+# (per-user local state).
+
+# --- KiCad local / auto-generated ---
+*-backups/
+*.kicad_prl
+_autosave-*
+*-bak
+fp-info-cache
+*.lck
+~*.lck
+
+# --- Generated manufacturing outputs (cut at a tagged rev; never linger in-tree) ---
+fab/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- SPICE scratch (keep decks in sim/, final results in reports/sim; ignore scratch) ---
+sim/scratch/
+
+# --- Library verification scratch ---
+libraries/_verify/
+
+# --- Vendored reference: old REF200 project. Files are committed for reference; its
+#     original git history is preserved on disk as .git.disabled but not tracked. ---
+references/excitation-current-source/.git.disabled/
+
+# --- OS / editor junk ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*~

@@ -1,0 +1,38 @@
+* 03_accuracy_rref.cir -- accuracy sensitivity to R_ref (TESTING_PLAN Part 1, test 3)
+*
+* SPICE half of the accuracy deliverable: sweep the ACTUAL R_ref across its combined
+* tolerance + tempco band (+/- r_ref_dev) at the nominal RTD, while the recovery formula
+* uses the NOMINAL (stored/calibrated) R_ref. This shows the recovered-R error tracks the
+* R_ref deviation essentially 1:1 -- i.e. R_ref is the dominant accuracy term, exactly as
+* the architecture intends (REF200 current drops out).
+*
+* The full Monte-Carlo accuracy budget and the mapping to an equivalent TEMPERATURE error
+* in degC (combining R_ref tol+tempco, T7 ADC offset/gain/noise, source-current spread)
+* is done in sim/scripts/analysis.py, which uses the exact ratiometric relation that
+* deck 02 validated against SPICE. This deck is the SPICE cross-check of that relation.
+
+.include netlists/_generated_params.inc
+.include models/ref200.lib
+
+Vrail rail 0 dc {v_rail}
+Xsrc  rail topref ref200_src iset={i_exc} rout={rout_src}
+* R_ref ACTUAL deviates with v(sweep) in [-1,+1] -> +/- r_ref_dev fractional
+Rref  topref rtd_hi R = '{r_ref}*(1 + {r_ref_dev}*v(sweep))'
+Vsw   sweep 0 dc 0
+Rrtd  rtd_hi 0 {r_rtd_nom}
+
+.options reltol=1e-12 abstol=1e-18 vntol=1e-15 gmin=1e-15
+
+.control
+set wr_singlescale
+set wr_vecnames
+dc Vsw -1 1 0.05
+let r_ref_act = r_ref*(1 + r_ref_dev*v(sweep))
+let v_rtd     = v(rtd_hi)
+let v_ref     = v(topref) - v(rtd_hi)
+* recovery uses NOMINAL r_ref (the stored calibration constant):
+let r_calc    = r_ref * v_rtd / v_ref
+let err_ppm   = 1e6 * (r_calc - r_rtd_nom) / r_rtd_nom
+wrdata scratch/03_accuracy_rref.data r_ref_act v_rtd v_ref r_calc err_ppm
+.endc
+.end
