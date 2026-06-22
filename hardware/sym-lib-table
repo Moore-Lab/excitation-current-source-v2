@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "rtd-readout")(type "KiCad")(uri "${KIPRJMOD}/../libraries/symbols/rtd-readout.kicad_sym")(options "")(descr "Project-local symbols for the RTD readout board (CRD, R_ref, ADS1115, connectors, passives, test point)"))
+)
