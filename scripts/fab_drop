@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+# scripts/fab_drop — cut the manufacturing drop into fab/ (gitignored).
+# Produces gerbers + drill + position file + STEP + BOM. Per
+# docs/DIRECTORY_MANAGEMENT.md, run this ONLY at a reviewed, tagged rev and
+# capture the result with a git tag (e.g. fab-rev-A); never leave fab/ in-tree.
+# Exit: 0 ok, 1 an export failed, 2 cannot run.
+set -u
+SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+. "$SCRIPT_DIR/lib.sh"
+
+kicad_ok    || { err "kicad-cli not found (set \$KICAD_CLI or install KiCad $KICAD_PINNED)"; exit 2; }
+[ -f "$PCB_FILE" ] || { err "PCB not found: $PCB_FILE"; exit 2; }
+
+check_kicad_version
+log "Fab drop -> $FAB_DIR  (reminder: run only at a tagged, DRC-clean rev)"
+mkdir -p "$FAB_DIR/gerbers" "$FAB_DIR/drill" "$FAB_DIR/pos" "$FAB_DIR/bom"
+
+rc=0
+"$KICAD" pcb export gerbers --output "$FAB_DIR/gerbers/" "$PCB_FILE"                || rc=1
+"$KICAD" pcb export drill   --output "$FAB_DIR/drill/"   "$PCB_FILE"                || rc=1
+"$KICAD" pcb export pos     --output "$FAB_DIR/pos/${BOARD_BASENAME}-pos.csv" \
+                            --format csv --units mm "$PCB_FILE"                     || rc=1
+"$KICAD" pcb export step    --output "$FAB_DIR/${BOARD_BASENAME}.step" "$PCB_FILE"  || rc=1
+
+# Fab BOM (from the schematic) alongside the board outputs, if the schematic exists.
+if [ -f "$SCH_FILE" ]; then
+  RTD_GATE_TAG="${RTD_GATE_TAG:-fab}" BOM_DIR="$FAB_DIR/bom" "$SCRIPT_DIR/export_bom" >/dev/null || rc=1
+fi
+
+[ "$rc" -eq 0 ] && log "Fab drop complete: $FAB_DIR" || err "fab drop had failures (see above)"
+exit $rc

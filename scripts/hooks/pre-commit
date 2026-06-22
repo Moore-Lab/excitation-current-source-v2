@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# Pre-commit hook: block commits that fail the cheap gates (ERC/DRC).
+# Opt-in — install with `sh scripts/install_hooks`. Before any KiCad design
+# files exist, run_gates exits 0, so this is a no-op until Track E/F land.
+root="$(git rev-parse --show-toplevel)"
+exec sh "$root/scripts/run_gates"

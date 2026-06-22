@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+# scripts/export_bom — BOM export (canonical command, docs/BOARD_DEV_CHECKLIST.md).
+# Includes the Tempco field (R_ref is spec'd on stability, not tolerance — see
+# docs/board_spec.md §Reference resistor). Writes reports/bom/bom_<tag>.csv.
+# Exit: 0 ok, 2 cannot run.
+set -u
+SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+. "$SCRIPT_DIR/lib.sh"
+
+kicad_ok    || { err "kicad-cli not found (set \$KICAD_CLI or install KiCad $KICAD_PINNED)"; exit 2; }
+[ -f "$SCH_FILE" ] || { err "schematic not found: $SCH_FILE"; exit 2; }
+
+mkdir -p "$BOM_DIR"
+out="$BOM_DIR/bom_$(gate_tag).csv"
+fields="Reference,Value,Footprint,MPN,Manufacturer,Tolerance,Tempco,Datasheet"
+check_kicad_version
+log "BOM: $SCH_FILE"
+"$KICAD" sch export bom \
+  --fields "$fields" --labels "$fields" \
+  --group-by "Value,Footprint" --sort-field Reference --exclude-dnp \
+  --output "$out" "$SCH_FILE" || { err "BOM export failed"; exit 2; }
+info "BOM report: $out"
+printf '%s\n' "$out"

@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+# scripts/export_netlist — export the schematic netlist for the SPICE harness.
+# Output lands in sim/netlists/ (Track B's tree). This script only *writes* that
+# file at run time (integration/Track B), it never touches Track B's sources here.
+# Exit: 0 ok, 2 cannot run.
+set -u
+SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+. "$SCRIPT_DIR/lib.sh"
+
+kicad_ok    || { err "kicad-cli not found (set \$KICAD_CLI or install KiCad $KICAD_PINNED)"; exit 2; }
+[ -f "$SCH_FILE" ] || { err "schematic not found: $SCH_FILE"; exit 2; }
+
+mkdir -p "$NETLIST_DIR"
+out="$NETLIST_DIR/${BOARD_BASENAME}.net"
+check_kicad_version
+log "Netlist: $SCH_FILE"
+"$KICAD" sch export netlist --output "$out" "$SCH_FILE" || { err "netlist export failed"; exit 2; }
+info "Netlist: $out"
+printf '%s\n' "$out"

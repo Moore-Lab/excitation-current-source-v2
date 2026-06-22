@@ -1,0 +1,3 @@
+# Everything in scripts/ is POSIX sh. Keep LF on every platform — a CRLF
+# checkout on Windows makes `sh` choke on the trailing CR ($'\r': not found).
+* text eol=lf

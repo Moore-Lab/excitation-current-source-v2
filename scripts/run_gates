@@ -1,0 +1,51 @@
+#!/usr/bin/env sh
+# scripts/run_gates — single entry point for the cheap, machine-checkable gates.
+#
+# Runs ERC then DRC, writes JSON under reports/{erc,drc}/, and returns nonzero if
+# any gate reports an error-severity violation. Degrades gracefully: when the
+# KiCad design files don't exist yet (before Track E/F land), it reports "not
+# present" and exits 0 — so every session and the integration step can run it.
+#
+# Usage:  sh scripts/run_gates [--tag NNN]
+#   --tag NNN   stamp reports as erc_NNN.json / drc_NNN.json (default: latest)
+#
+# Exit: 0 = clean or nothing to check; 1 = a gate failed; 2 = present but ungatable.
+set -u
+SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+. "$SCRIPT_DIR/lib.sh"
+
+RTD_GATE_TAG="${RTD_GATE_TAG:-}"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --tag)   shift; RTD_GATE_TAG="${1:-}" ;;
+    --tag=*) RTD_GATE_TAG="${1#--tag=}" ;;
+    -h|--help) sed -n '2,12p' "$0"; exit 0 ;;
+    *) err "unknown argument: $1 (try --help)"; exit 2 ;;
+  esac
+  shift
+done
+export RTD_GATE_TAG="${RTD_GATE_TAG:-latest}"
+
+log "== RTD-readout gates (tag=$(gate_tag)) =="
+if kicad_ok; then info "kicad-cli: $KICAD ($(kicad_version))"; else info "kicad-cli: NOT FOUND on PATH or known install dirs"; fi
+
+have_sch=0; have_pcb=0
+[ -f "$SCH_FILE" ] && have_sch=1
+[ -f "$PCB_FILE" ] && have_pcb=1
+
+if [ "$have_sch" -eq 0 ] && [ "$have_pcb" -eq 0 ]; then
+  log "No KiCad design files present yet (hardware/${BOARD_BASENAME}.kicad_sch|pcb)."
+  log "Nothing to check — gates pass vacuously. (Track E adds the schematic, F the PCB.)"
+  exit 0
+fi
+
+# Files exist, so kicad-cli is now mandatory.
+kicad_ok || { err "design files present but kicad-cli not found — cannot gate"; exit 2; }
+
+rc=0
+if [ "$have_sch" -eq 1 ]; then "$SCRIPT_DIR/erc" >/dev/null || rc=1; else info "ERC skipped: no schematic yet"; fi
+if [ "$have_pcb" -eq 1 ]; then "$SCRIPT_DIR/drc" >/dev/null || rc=1; else info "DRC skipped: no PCB yet"; fi
+
+if [ "$rc" -eq 0 ]; then log "== GATES PASS =="; else log "== GATES FAIL (inspect reports/{erc,drc}/) =="; fi
+exit $rc
