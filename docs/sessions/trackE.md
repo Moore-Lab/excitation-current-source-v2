@@ -115,4 +115,4 @@ clean. Then **Track F** (layout) off post-E `integration`: respect star-ground a
 Force− returns, keep the I²C/`VS` digital side away from the `CHn_TOP/MID` taps and Sense
 pairs, ADS1115 next to its two R_ref pairs, light RC on Sense at the T7 input.
 
-**Commit:** <filled by commit below>
+**Commit:** `6c807e0` (schematic + libs + netlist + log); this hash recorded in a follow-up.
