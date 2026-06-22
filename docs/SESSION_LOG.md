@@ -30,6 +30,39 @@ one-entry summary per merged track.
 
 ---
 
+## Session 002 — 2026-06-22 — Resolve open inputs + stand up Wave-0 parallelism
+
+**Branch / commit at start:** main @ 82efa90.
+**State before:** Repo skeleton in place (Session 001). `board_spec.md` had 2 unresolved open
+inputs gating Track E. No parallel branches yet.
+
+**Objective:** Lock the two board decisions and set up the Wave-0 parallel mechanism so tracks
+A–D can run.
+
+**Actions:**
+- Recorded Lucas's decisions in `docs/board_spec.md` (Open inputs → **Resolved inputs**).
+- Created `integration` branch and Wave-0 worktrees `../rtd-trackA..D` per `PARALLEL_PLAN.md`.
+
+**Files touched:** `docs/board_spec.md`, `docs/SESSION_LOG.md`.
+
+**Validation:** ERC / DRC / SPICE — n/a (no design files yet).
+
+**Decisions (rationale + spec ref):**
+- **RTD type = Pt100** → T7 **±0.1 V** range — Lucas — `board_spec.md` §Resolved inputs #1.
+- **3 RTD channels** → 3 CRD/R_ref unit cells, **2 ADS1115** (ADDR 0x48/0x49; 4 diff reads,
+  1 spare), 3 RTD 4-wire connectors, 3 of 7 T7 Sense± pairs used — Lucas — §Resolved inputs #2.
+
+**Open issues / risks:** none new. Pt100's small V_RTD (18–35 mV) makes T7 resolution-index
+and mux settling the thing the bench plan must verify (Track C / Wave 3).
+
+**Next action:** Hand each Wave-0 session its brief (`docs/tasks/TRACK_{A,B,C,D}_*.md`) in its
+worktree; integrate **A first** (libraries gate the schematic), then B/C/D, then start **E**
+off post-A `integration`.
+
+**Commit:** cd7d0e7
+
+---
+
 ## Session 001 — 2026-06-22 — Repo skeleton + doc relocation + reference vendoring
 
 **Tooling:** KiCad <not yet pinned>, ngspice <not yet pinned> — to be recorded at first gate run.

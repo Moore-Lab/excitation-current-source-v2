@@ -122,11 +122,19 @@ and R_ref, digitizes V_ref locally on the ADS1115s, and routes outward:
 - 4-wire Kelvin preserved to each RTD; light sense-line RC filter at the T7 input.
 - Test points on: each TOP node, each MID/Sense+ node, the rail, GND, SDA, SCL.
 
-## Open inputs (resolve before schematic capture)
-1. **Pt100 or Pt1000?** → T7 range (±0.1 vs ±1 V) and signal level. (Does not affect R_ref
-   sizing, which keys off the ADS range, or the CRD.)
-2. **How many of the 7 channels are RTDs?** → number of CRD/R_ref unit cells and ADS1115
-   count (1 chip per 2 channels). Up to 7.
+## Resolved inputs (locked 2026-06-22, Session 002 — Lucas)
+1. **RTD type = Pt100.** → T7 range **±0.1 V** (≈18–35 mV at ~220 µA). Set a high resolution
+   index and adequate mux settling per channel. (Does not affect R_ref sizing, which keys off
+   the ADS range, or the CRD.)
+2. **Channel count = 3** of the 7 T7 differential pairs are RTDs. This fixes the repeated
+   hardware:
+   - **3 CRD/R_ref unit cells** (3× CRD 1N5283/CDLL5283, 3× R_ref ≈910 Ω on the ADS ±0.256 V
+     range).
+   - **2 ADS1115** (1 chip per 2 channels → ceil(3/2) = 2): 4 differential V_ref reads, **3
+     used, 1 spare**. Strap ADDR for **0x48 and 0x49**.
+   - **3 RTD 4-wire connectors**; 3 of the 7 Sense± pairs go to the T7 analog (CB37). The
+     other 4 T7 pairs remain free for non-RTD use.
 
-Neither blocks as hard as before: cross-cal + ratiometric absorb component values, so these
-mostly set ranges and counts, not precision.
+Cross-cal + ratiometric absorb component values, so these set ranges and counts, not
+precision. The build is intentionally scalable: adding channels later means more unit cells
+and (every 2 channels) another ADS1115 — no architectural change.
