@@ -72,9 +72,12 @@ check_kicad_version() {
 # Override per run with `--tag s007` (run_gates) or RTD_GATE_TAG in the env.
 gate_tag() { printf '%s' "${RTD_GATE_TAG:-latest}"; }
 
-# Indicative severity tally from a KiCad JSON report. The exit code from
-# --exit-code-violations is authoritative; this is only for the human summary.
-count_severity() { # <json-file> <severity>  (KiCad JSON is one field per line)
+# Indicative severity tally for the human summary only — the line-count ASSUMES
+# KiCad's pretty-printed JSON (one "severity" field per line), which 10.0.3
+# emits. It is deliberately not a real JSON parse (no jq dependency); if a future
+# KiCad minifies the report this under-counts. That is acceptable because the
+# pass/fail signal is the gate's --exit-code-violations exit code, never this.
+count_severity() { # <json-file> <severity>
   [ -f "$1" ] || { printf '0'; return; }
   printf '%s' "$(grep -c "\"severity\"[[:space:]]*:[[:space:]]*\"$2\"" "$1" 2>/dev/null || printf 0)"
 }

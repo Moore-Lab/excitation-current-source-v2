@@ -5,6 +5,45 @@ Per-track development record (parallel mode). **Newest entry on top.** Same sche
 
 ---
 
+## Track D / Session 1b — 2026-06-22 — Review fixes (netlist format + two doc nits)
+
+**Branch / commit at start:** `trackD` @ 797c8ac (clean). **Trigger:** trackD review — 1 MINOR
+coordination item + 2 nits; no blocking defects.
+
+**Actions:**
+1. **[MINOR] `export_netlist` now emits `--format spice`** (was KiCad's `kicadsexpr` default).
+   Verified against Track B's tree: its ngspice decks `.include` `sim/netlists/rtd-readout.net`
+   (`trackB.md` "Next action" + `sim/README.md` §Wave-3 hook), so they need a flat SPICE deck,
+   not s-expr. Header rewritten to say SPICE + flag the node/knob contract Track E/Wave-3 must
+   satisfy. Smoke-tested: `--format spice` on a KiCad 10.0.3 demo → exit 0, flat `.title`+
+   component deck (`.include`-able).
+2. **[NIT] `lib.sh` `count_severity`** — expanded the comment: the line-count assumes 10.0.3's
+   pretty-printed JSON, is intentionally not a jq parse, and is summary-only because the
+   `--exit-code-violations` exit code is the authoritative pass/fail.
+3. **[NIT] `hooks/pre-commit`** — added a caveat: it gates the **working tree, not the staged
+   index**, and writes `*_latest.json` without staging them (standard pre-commit behavior).
+
+**Files touched:** `scripts/export_netlist`, `scripts/lib.sh`, `scripts/hooks/pre-commit`,
+`docs/sessions/trackD.md`.
+
+**Validation:** SPICE netlist export exit 0 on demo (flat deck confirmed); `run_gates` still
+exit 0 (no design files). ERC/DRC vs this board still n/a (no `hardware/*.kicad_*`).
+
+**Decisions (rationale + spec ref):** netlist format = `spice` because Track B `.include`s it
+into ngspice decks (`sim/README.md` §Wave-3). No conflict — only my owned `scripts/**` touched;
+the actual export runs at integration, not now.
+
+**Open issues / risks:** unchanged. The exported netlist must present Track B's node/knob
+contract (`rail/top/mid/nref/nrtd` + knob sources) — a Track E/Wave-3 alignment task, flagged
+in the script header, not gatable by Track D alone.
+
+**Next action:** unchanged from Session 1 below — integration runs `run_gates` non-vacuously
+once Track E lands the schematic.
+
+**Commit:** <filled at commit>
+
+---
+
 ## Track D / Session 1 — 2026-06-22 — Stand up the gate scripts, run_gates, README
 
 **Tooling:** KiCad **10.0.3** (`C:\Program Files\KiCad\10.0\bin\kicad-cli.exe`); ngspice not

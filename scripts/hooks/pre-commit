@@ -2,5 +2,11 @@
 # Pre-commit hook: block commits that fail the cheap gates (ERC/DRC).
 # Opt-in — install with `sh scripts/install_hooks`. Before any KiCad design
 # files exist, run_gates exits 0, so this is a no-op until Track E/F land.
+#
+# Caveat (standard pre-commit behavior): this gates the WORKING TREE, not the
+# staged index — a partially-staged commit is checked against on-disk files, not
+# what's being committed. It also writes reports/{erc,drc}/*_latest.json as a
+# side effect without staging them; `git add` those (or run with --tag) if you
+# want the committed report to match the gated state.
 root="$(git rev-parse --show-toplevel)"
 exec sh "$root/scripts/run_gates"
