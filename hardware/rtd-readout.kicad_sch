@@ -8,8 +8,15 @@
 		(title "RTD Readout Board - 4-wire RTD x3, ratiometric (T7 + ADS1115)")
 		(rev "A")
 		(comment 1 "Track E schematic; parts from project-local rtd-readout lib (Track A)")
+		(comment 2 "ACCEPTED DEVIATION: three separate unit_cell_chN sheets (not one reused sheet) -- edit each by hand")
 	)
 	(lib_symbols
+	)
+	(text "NOTE: CH1/CH2/CH3 are THREE SEPARATE unit_cell sheets (accepted deviation, frozen 3-ch board).\nA change to the unit cell must be applied to all three sheets by hand. See docs/sessions/trackE.md."
+		(exclude_from_sim no)
+		(at 25.4 80 0)
+		(effects (font (size 1.27 1.27)) (justify left top))
+		(uuid "ac2b217f-037c-446c-9d3c-cfd8fa84d6e2")
 	)
 	(sheet
 		(at 25.4 25.4)

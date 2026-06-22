@@ -84,12 +84,16 @@ exist — tracks were renumbered; "libraries" is now Track A). Lucas confirmed t
   so files are generated; labels-on-pin-endpoints give a guaranteed-correct netlist without
   fragile wire geometry. Electrically identical; a human can prettify in Eeschema later. The
   `.kicad_sch` is the canonical source from now on (generator is a one-time aid).
-- **Hierarchy = root + 3 separate `unit_cell_chN` sheets** (not one sheet reused ×3) —
-  deviation from the brief's "unit_cell sheet (×N)". Reason: distinct per-channel **global**
-  nets (`CHn_*`) require distinct sheets; one reused sheet would need sheet-pin/hierarchical-
-  label plumbing per instance, far more error-prone to hand-author. Same parts/counts, ERC-
-  clean. (`PARALLEL_PLAN.md` allows the E1/E2 split; this is a finer split.)
-  **Approved by Lucas (2026-06-22): the three-sheet structure is acceptable.**
+- **ACCEPTED DEVIATION — Hierarchy = root + 3 separate `unit_cell_chN` sheets** (not one sheet
+  reused ×3), deviating from the brief's "unit_cell sheet (×N)". Reason: distinct per-channel
+  **global** nets (`CHn_*`) require distinct sheets; one reused sheet would need sheet-pin/
+  hierarchical-label plumbing per instance, far more error-prone to hand-author. Same parts/
+  counts, ERC-clean. (`PARALLEL_PLAN.md` allows the E1/E2 split; this is a finer split.)
+  **Status: accepted** by Lucas (2026-06-22) and at integration review for this frozen
+  3-channel board. **Consequence (recorded):** there is no single source unit cell — a future
+  change to the unit cell must be applied **to all three `unit_cell_chN.kicad_sch` sheets by
+  hand**. A one-line note to this effect is in the root `rtd-readout.kicad_sch` (title-block
+  `comment 2` + an on-canvas `(text ...)` note) so the next reader isn't surprised.
 - **AGND ≡ GND (single net)** — board_spec calls for analog/digital ground **partition with a
   single-point tie**; that tie is a **layout** construct (Track F), so schematically it is one
   `GND` net. J4 AGND pins and all returns are on `GND`. — board_spec §Layout-critical points.
@@ -107,8 +111,10 @@ exist — tracks were renumbered; "libraries" is now Track A). Lucas confirmed t
 - Schematic is **label-connected** (no drawn wires/junctions); visually it reads as labelled
   pin stubs, not a traditional drawing. Functionally complete and ERC/BOM/netlist-correct, but
   if Lucas wants a "pretty" schematic for review, that's GUI cleanup (purely cosmetic).
-- `reports/` evidence sits in **Track D's** owned dirs — left **untracked** on purpose; the
-  integrator should regenerate gate outputs rather than merge these.
+- `reports/` gate artifacts (erc/bom/netlist/pdf) were **removed** from the worktree per the
+  integration-review housekeeping note (they sit in Track D's owned dirs and are regenerable);
+  the tree is clean for merge. ERC 0/0 re-confirmed before this commit. Track D / the
+  integrator regenerates committed gate snapshots.
 - ERC is 0/0 with default severities; if Track F's later edits change pin usage, re-run ERC.
 
 **Next action:** Integrator: merge `trackE` into `integration` after A (done) — gates re-run
