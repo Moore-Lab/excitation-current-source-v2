@@ -40,7 +40,7 @@ in the script header, not gatable by Track D alone.
 **Next action:** unchanged from Session 1 below — integration runs `run_gates` non-vacuously
 once Track E lands the schematic.
 
-**Commit:** <filled at commit>
+**Commit:** 77311e8 (review fixes + this log).
 
 ---
 
