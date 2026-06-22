@@ -89,6 +89,7 @@ exist — tracks were renumbered; "libraries" is now Track A). Lucas confirmed t
   nets (`CHn_*`) require distinct sheets; one reused sheet would need sheet-pin/hierarchical-
   label plumbing per instance, far more error-prone to hand-author. Same parts/counts, ERC-
   clean. (`PARALLEL_PLAN.md` allows the E1/E2 split; this is a finer split.)
+  **Approved by Lucas (2026-06-22): the three-sheet structure is acceptable.**
 - **AGND ≡ GND (single net)** — board_spec calls for analog/digital ground **partition with a
   single-point tie**; that tie is a **layout** construct (Track F), so schematically it is one
   `GND` net. J4 AGND pins and all returns are on `GND`. — board_spec §Layout-critical points.
