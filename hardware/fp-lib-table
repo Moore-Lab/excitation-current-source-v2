@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "rtd-readout")(type "KiCad")(uri "${KIPRJMOD}/../libraries/footprints/rtd-readout.pretty")(options "")(descr "Project-local footprints for the RTD readout board (vetted from KiCad 10 std libs, verified vs datasheets)"))
+)
