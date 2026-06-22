@@ -1,0 +1,1370 @@
+(kicad_sch
+	(version 20251024)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "91a16046-4274-4b56-9ae7-e85849d88ae2")
+	(paper "A3")
+	(lib_symbols
+(symbol "rtd-readout:CRD_1N5283"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "CRD ~220uA"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:D_MELF"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.microchip.com/en-us/product/cdll5283-current-regulator-diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Current-regulator diode (constant-current diode), ~0.22 mA, two-terminal, DO-213AB MELF. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CDLL5283"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Microchip (Microsemi / ex-Central Semiconductor)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Polarity" "Pin 1 = K (cathode, banded end). Pin 2 = A (anode). Matches D_MELF pad 1 = cathode."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Current_nom" "~0.22 mA (1N5283), +/-10%; stability over one scan is what matters, not absolute value."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "CRD current regulator diode constant current 1N5283 CDLL5283 RTD excitation MELF"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "D*MELF*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "CRD_1N5283_0_1"
+			(polyline
+				(pts
+					(xy -1.27 1.27) (xy -1.27 -1.27)
+				)
+				(stroke
+					(width 0.2032)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.27 1.27) (xy -0.635 1.27) (xy -0.635 0.635)
+				)
+				(stroke
+					(width 0.2032)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.27 -1.27) (xy -1.905 -1.27) (xy -1.905 -0.635)
+				)
+				(stroke
+					(width 0.2032)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+				)
+				(stroke
+					(width 0.2032)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "CRD_1N5283_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:R_ref"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "910R"
+			(at -2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_1206_3216Metric"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.susumu.co.jp/common/pdf/n_catalog_partition06_en.pdf"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Reference resistor for ratiometric current sense. ~910 ohm sets V_ref ~200 mV nominal inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RG3216P-911-B-T5"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Susumu (representative; any <=10 ppm/C thin-film ~910R is acceptable)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tempco" "<= 10 ppm/C (binding spec)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Stability" "Low long-term drift, low excess noise (thin-film or foil). Absolute tolerance is NOT the spec - cross-cal absorbs the value; do not pay for 0.01%, pay for tempco/stability."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "reference resistor precision low tempco stable ratiometric R_ref"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "R_ref_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "R_ref_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:Conn_RTD_4W"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_RTD_4W"
+			(at 0 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.farnell.com/datasheets/100425.pdf"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "4-wire RTD input, Phoenix MKDS-1,5-4-5.08 screw terminal. Kelvin: Force+, Sense+, Sense-, Force-. One per RTD channel (3 used)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "1729160 (MKDS 1,5/4-5,08)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Phoenix Contact (or any 4-pos 5.08 mm screw terminal)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector RTD 4-wire kelvin screw terminal"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TerminalBlock*1x04*5.08*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_RTD_4W_0_1"
+			(rectangle
+				(start -2.54 6.35)
+				(end 2.54 -6.35)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "Conn_RTD_4W_1_1"
+			(pin passive line
+				(at -7.62 5.08 0)
+				(length 5.08)
+				(name "Force+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 1.27 0)
+				(length 5.08)
+				(name "Sense+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -1.27 0)
+				(length 5.08)
+				(name "Sense-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -5.08 0)
+				(length 5.08)
+				(name "Force-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:TestPoint"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "TP"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "TestPoint_0_1"
+			(circle
+				(center 0 1.27)
+				(radius 0.762)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "TestPoint_1_1"
+			(pin passive line
+				(at 0 -2.54 90)
+				(length 3.81)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	)
+	(symbol
+		(lib_id "rtd-readout:CRD_1N5283")
+		(at 50.8 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ee1c7d0d-162c-41f3-a199-b1ee525d4be5")
+		(property "Reference" "D3"
+			(at 53.34 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "CRD ~220uA"
+			(at 48.26 64.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:D_MELF"
+			(at 50.8 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.microchip.com/en-us/product/cdll5283-current-regulator-diode"
+			(at 50.8 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Current-regulator diode (constant-current diode), ~0.22 mA, two-terminal, DO-213AB MELF. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
+			(at 50.8 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CDLL5283"
+			(at 50.8 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Microchip (Microsemi / ex-Central Semiconductor)"
+			(at 50.8 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Polarity" "Pin 1 = K (cathode, banded end). Pin 2 = A (anode). Matches D_MELF pad 1 = cathode."
+			(at 50.8 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Current_nom" "~0.22 mA (1N5283), +/-10%; stability over one scan is what matters, not absolute value."
+			(at 50.8 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "CRD current regulator diode constant current 1N5283 CDLL5283 RTD excitation MELF"
+			(at 50.8 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "D*MELF*"
+			(at 50.8 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "45c6fa78-ab0b-4fd3-bfa1-6294510e93ab"))
+		(pin "2" (uuid "4e363ece-629b-426d-a4a7-88de3cdbe363"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/7f1cb510-1a57-40b5-ab4c-4fc79046c09e" (reference "D3") (unit 1))))
+	)
+	(global_label "CH3_TOP" (shape passive) (at 46.99 63.5 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "499ba22c-17d2-40b8-963b-937e347a507c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 46.99 63.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "+5V" (shape passive) (at 54.61 63.5 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "f838bb3e-e2b9-4785-b50d-d43b61b6436f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 54.61 63.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "rtd-readout:R_ref")
+		(at 76.2 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ff161c68-7d46-4423-a0a2-c22652ae1a25")
+		(property "Reference" "R3"
+			(at 78.74 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "910R"
+			(at 73.66 64.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_1206_3216Metric"
+			(at 76.2 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.susumu.co.jp/common/pdf/n_catalog_partition06_en.pdf"
+			(at 76.2 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Reference resistor for ratiometric current sense. ~910 ohm sets V_ref ~200 mV nominal inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
+			(at 76.2 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RG3216P-911-B-T5"
+			(at 76.2 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Susumu (representative; any <=10 ppm/C thin-film ~910R is acceptable)"
+			(at 76.2 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tempco" "<= 10 ppm/C (binding spec)"
+			(at 76.2 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Stability" "Low long-term drift, low excess noise (thin-film or foil). Absolute tolerance is NOT the spec - cross-cal absorbs the value; do not pay for 0.01%, pay for tempco/stability."
+			(at 76.2 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "reference resistor precision low tempco stable ratiometric R_ref"
+			(at 76.2 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 76.2 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "1131ca41-59c2-4ccf-a60d-fd5ea686e365"))
+		(pin "2" (uuid "93202aa7-2944-4413-a6c4-ea5e279d7e1a"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/7f1cb510-1a57-40b5-ab4c-4fc79046c09e" (reference "R3") (unit 1))))
+	)
+	(global_label "CH3_TOP" (shape passive) (at 76.2 59.69 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "3366bde9-0cfe-4bc5-b495-a593539e0971")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 76.2 59.69 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "CH3_MID" (shape passive) (at 76.2 67.31 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "787903e6-879f-4e6f-8b5d-499ba7d7bbee")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 76.2 67.31 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "rtd-readout:Conn_RTD_4W")
+		(at 114.3 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "493b4f65-aec3-4b50-8f42-3bbcf79b07c2")
+		(property "Reference" "J3"
+			(at 116.84 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_RTD_4W"
+			(at 111.76 64.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal"
+			(at 114.3 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.farnell.com/datasheets/100425.pdf"
+			(at 114.3 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "4-wire RTD input, Phoenix MKDS-1,5-4-5.08 screw terminal. Kelvin: Force+, Sense+, Sense-, Force-. One per RTD channel (3 used)."
+			(at 114.3 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "1729160 (MKDS 1,5/4-5,08)"
+			(at 114.3 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Phoenix Contact (or any 4-pos 5.08 mm screw terminal)"
+			(at 114.3 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector RTD 4-wire kelvin screw terminal"
+			(at 114.3 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TerminalBlock*1x04*5.08*"
+			(at 114.3 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "986be6b0-f69d-40e7-8d9e-81f88a30aba6"))
+		(pin "2" (uuid "38a33771-7420-4e7b-9b70-a4830b0044c5"))
+		(pin "3" (uuid "4790da3b-db04-446f-a821-a6eeb3176984"))
+		(pin "4" (uuid "81e73d55-a514-45af-a555-da0e60a640df"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/7f1cb510-1a57-40b5-ab4c-4fc79046c09e" (reference "J3") (unit 1))))
+	)
+	(global_label "CH3_MID" (shape passive) (at 106.68 58.42 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "43c750d9-9483-4104-9ec4-47e3cd34ac39")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 106.68 58.42 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "CH3_SENSE+" (shape passive) (at 106.68 62.23 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "fa882ed8-7dec-40ed-92a3-69c455e59a8f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 106.68 62.23 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "CH3_SENSE-" (shape passive) (at 106.68 64.77 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "45678035-5708-4b69-857e-bbc30c9d84ee")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 106.68 64.77 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "GND" (shape passive) (at 106.68 68.58 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "310ce1d3-5a58-444c-895a-f4f364bd39fc")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 106.68 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 76.2 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f9d21a9f-ce26-4bcf-8392-210e9ffdd7de")
+		(property "Reference" "TP5"
+			(at 78.74 36.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 73.66 39.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 76.2 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 76.2 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 76.2 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 76.2 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 76.2 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 76.2 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 76.2 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "1c50b559-4896-4634-bef1-eeff289d66b1"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/7f1cb510-1a57-40b5-ab4c-4fc79046c09e" (reference "TP5") (unit 1))))
+	)
+	(global_label "CH3_TOP" (shape passive) (at 76.2 40.64 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "166d0e14-1fef-426c-a699-c06e1fc1aa4a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 76.2 40.64 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 76.2 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2da438d7-a1a5-4973-ade7-73939a60d086")
+		(property "Reference" "TP6"
+			(at 78.74 87.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 73.66 90.17 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 76.2 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 76.2 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 76.2 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 76.2 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 76.2 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 76.2 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 76.2 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "145be25a-c54f-41a8-aabf-ff09cf10f888"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/7f1cb510-1a57-40b5-ab4c-4fc79046c09e" (reference "TP6") (unit 1))))
+	)
+	(global_label "CH3_MID" (shape passive) (at 76.2 91.44 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "63bed6cf-4781-4ad1-8090-913ef81c1931")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 76.2 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(sheet_instances
+		(path "/" (page "4"))
+	)
+	(embedded_fonts no)
+)

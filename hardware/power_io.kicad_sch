@@ -1,0 +1,1543 @@
+(kicad_sch
+	(version 20251024)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "86ab6dbb-b6e0-4e4b-ba47-db9bc88e2786")
+	(paper "A3")
+	(lib_symbols
+(symbol "rtd-readout:Conn_Power"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_Power"
+			(at 0 -5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.farnell.com/datasheets/100425.pdf"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Board power input, Phoenix MKDS-1,5-2-5.08 screw terminal. +VIN (5 V; higher improves CRD regulation) and GND."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "1729128 (MKDS 1,5/2-5,08)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Phoenix Contact (or any 2-pos 5.08 mm screw terminal)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector power input screw terminal rail"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TerminalBlock*1x02*5.08*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_Power_0_1"
+			(rectangle
+				(start -2.54 3.81)
+				(end 2.54 -3.81)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "Conn_Power_1_1"
+			(pin power_in line
+				(at -7.62 2.54 0)
+				(length 5.08)
+				(name "+VIN"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -7.62 -2.54 0)
+				(length 5.08)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:Conn_T7_Analog"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 10.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_T7_Analog"
+			(at 0 -10.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:PinHeader_2x04_P2.54mm_Vertical"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "V_RTD sense-pair output to the T7 analog (CB37). 3 Sense+/- differential pairs (one per RTD channel) + 2 AGND. 2x04 header; route each pair tight and differential."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(2x4 2.54 mm header)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(generic)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector header T7 analog CB37 sense pair V_RTD"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "PinHeader*2x04*2.54*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_T7_Analog_0_1"
+			(rectangle
+				(start -3.81 8.89)
+				(end 3.81 -8.89)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "Conn_T7_Analog_1_1"
+			(pin passive line
+				(at -7.62 6.35 0)
+				(length 3.81)
+				(name "CH1_Sense+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 6.35 180)
+				(length 3.81)
+				(name "CH1_Sense-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 2.54 0)
+				(length 3.81)
+				(name "CH2_Sense+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 2.54 180)
+				(length 3.81)
+				(name "CH2_Sense-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -1.27 0)
+				(length 3.81)
+				(name "CH3_Sense+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -1.27 180)
+				(length 3.81)
+				(name "CH3_Sense-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -5.08 0)
+				(length 3.81)
+				(name "AGND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -5.08 180)
+				(length 3.81)
+				(name "AGND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:C"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(set per value at BOM time)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(generic)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762) (xy 2.032 0.762)
+				)
+				(stroke
+					(width 0.3048)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -2.032 -0.762) (xy 2.032 -0.762)
+				)
+				(stroke
+					(width 0.3048)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:TestPoint"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "TP"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "TestPoint_0_1"
+			(circle
+				(center 0 1.27)
+				(radius 0.762)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "TestPoint_1_1"
+			(pin passive line
+				(at 0 -2.54 90)
+				(length 3.81)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+		(symbol "power:PWR_FLAG"
+			(power global)
+			(pin_numbers (hide yes))
+			(pin_names (offset 0) (hide yes))
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#FLG" (at 0 1.905 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "Value" "PWR_FLAG" (at 0 3.81 0) (show_name no) (do_not_autoplace no) (effects (font (size 1.27 1.27))))
+			(property "Footprint" "" (at 0 0 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "Datasheet" "" (at 0 0 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "Description" "Special symbol for telling ERC where power comes from" (at 0 0 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "ki_keywords" "flag power" (at 0 0 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line (at 0 0 90) (length 0) (name "" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27))))))
+			(symbol "PWR_FLAG_0_1"
+				(polyline (pts (xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)) (stroke (width 0) (type default)) (fill (type none))))
+			(embedded_fonts no)
+		)
+	)
+	(symbol
+		(lib_id "rtd-readout:Conn_Power")
+		(at 50.8 50.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eae8bedb-e49b-449e-b5ac-df037ee4cd68")
+		(property "Reference" "J6"
+			(at 53.34 49.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_Power"
+			(at 48.26 52.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
+			(at 50.8 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.farnell.com/datasheets/100425.pdf"
+			(at 50.8 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Board power input, Phoenix MKDS-1,5-2-5.08 screw terminal. +VIN (5 V; higher improves CRD regulation) and GND."
+			(at 50.8 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "1729128 (MKDS 1,5/2-5,08)"
+			(at 50.8 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Phoenix Contact (or any 2-pos 5.08 mm screw terminal)"
+			(at 50.8 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector power input screw terminal rail"
+			(at 50.8 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TerminalBlock*1x02*5.08*"
+			(at 50.8 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "ccd60e97-8464-4069-86b0-0c395b0fc092"))
+		(pin "2" (uuid "3f210b61-43cf-4221-be7a-b35b62dafab5"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/37ca4614-49a2-4c65-a9e5-6354f42dde22" (reference "J6") (unit 1))))
+	)
+	(global_label "+5V" (shape passive) (at 43.18 48.26 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "3a556337-d950-4796-8302-556270a729d6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 43.18 48.26 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "GND" (shape passive) (at 43.18 53.34 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "f81e7713-8e3d-4e07-91d9-486adea8703e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 43.18 53.34 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "rtd-readout:Conn_T7_Analog")
+		(at 101.6 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e2ac3a42-3bbf-4a29-b3f9-f301b1981d78")
+		(property "Reference" "J4"
+			(at 104.14 74.93 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_T7_Analog"
+			(at 99.06 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:PinHeader_2x04_P2.54mm_Vertical"
+			(at 101.6 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 101.6 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "V_RTD sense-pair output to the T7 analog (CB37). 3 Sense+/- differential pairs (one per RTD channel) + 2 AGND. 2x04 header; route each pair tight and differential."
+			(at 101.6 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(2x4 2.54 mm header)"
+			(at 101.6 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(generic)"
+			(at 101.6 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector header T7 analog CB37 sense pair V_RTD"
+			(at 101.6 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "PinHeader*2x04*2.54*"
+			(at 101.6 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "1bb92390-b90f-4c9d-952c-8cea9c901c82"))
+		(pin "2" (uuid "b7f33822-d50d-4e94-b040-c1dd8fa11b29"))
+		(pin "3" (uuid "57b8da9e-576f-4aaf-a99f-0b96d290a3ae"))
+		(pin "4" (uuid "ae9bca6a-0d7a-43b2-86b9-8688d04ea27e"))
+		(pin "5" (uuid "2bbeda6a-fcb1-4777-b963-66e09603a4f6"))
+		(pin "6" (uuid "c23de21a-18c3-458f-8de4-ae67187b7175"))
+		(pin "7" (uuid "74224e8a-1ec9-455e-a091-062e00ce5ff2"))
+		(pin "8" (uuid "8b791bbc-d7ca-436a-b99c-7c2f9463126b"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/37ca4614-49a2-4c65-a9e5-6354f42dde22" (reference "J4") (unit 1))))
+	)
+	(global_label "CH1_SENSE+" (shape passive) (at 93.98 69.85 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "744956be-cfe3-4d4a-882b-4ba6fe8b7376")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 69.85 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "CH1_SENSE-" (shape passive) (at 109.22 69.85 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "2a87b23a-4cd0-4d06-bc48-b1d83c6ea3aa")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 109.22 69.85 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "CH2_SENSE+" (shape passive) (at 93.98 73.66 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "9905c1f0-a6c0-4a91-a606-c750c13e9cd7")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "CH2_SENSE-" (shape passive) (at 109.22 73.66 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "1918c555-5cb1-42ab-a098-d4931074fe3b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 109.22 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "CH3_SENSE+" (shape passive) (at 93.98 77.47 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "3509339f-8209-47bd-b5aa-730e3368d34a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 77.47 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "CH3_SENSE-" (shape passive) (at 109.22 77.47 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "38943c29-4222-46d3-9652-dc92e23b8816")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 109.22 77.47 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "GND" (shape passive) (at 93.98 81.28 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "6cf22a31-2016-4f8a-a1af-6065fe59a82c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "GND" (shape passive) (at 109.22 81.28 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "5b3d8fc4-3cd0-4ec5-8edd-85b1b5881e5c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 109.22 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "rtd-readout:C")
+		(at 50.8 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1f12c2c3-11b5-40e3-8fc7-b0602c6d701e")
+		(property "Reference" "C3"
+			(at 53.34 74.93 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF"
+			(at 48.26 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 50.8 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 50.8 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 50.8 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(set per value at BOM time)"
+			(at 50.8 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(generic)"
+			(at 50.8 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 50.8 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 50.8 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "d2a11b1e-993f-44c7-be6c-e063fe22c224"))
+		(pin "2" (uuid "36dc3362-4dce-4502-97d2-dbd3bc173ad9"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/37ca4614-49a2-4c65-a9e5-6354f42dde22" (reference "C3") (unit 1))))
+	)
+	(global_label "+5V" (shape passive) (at 50.8 72.39 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "21ae4372-ade1-440b-9192-0726225d1459")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 50.8 72.39 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "GND" (shape passive) (at 50.8 80.01 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "d4c46ad3-d115-4011-90f8-9171f28215ea")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 50.8 80.01 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "rtd-readout:C")
+		(at 63.5 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0d312496-7f92-44b7-b863-4ab7f545309d")
+		(property "Reference" "C4"
+			(at 66.04 74.93 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF"
+			(at 60.96 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 63.5 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 63.5 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(set per value at BOM time)"
+			(at 63.5 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(generic)"
+			(at 63.5 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 63.5 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 63.5 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "598e7a99-496e-4dd7-9b45-acb8a2fb54ed"))
+		(pin "2" (uuid "bf15e655-713a-4cda-9fb8-ff853e7f612e"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/37ca4614-49a2-4c65-a9e5-6354f42dde22" (reference "C4") (unit 1))))
+	)
+	(global_label "VS" (shape passive) (at 63.5 72.39 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "1d679a30-54ea-411c-94c7-efba1b4e8939")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 63.5 72.39 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(global_label "GND" (shape passive) (at 63.5 80.01 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "6fcdb06b-1364-4a08-a0b0-5c73dc2ef7a2")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 63.5 80.01 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 152.4 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cdba0a32-49fa-4f62-a877-e6b522d01983")
+		(property "Reference" "TP9"
+			(at 154.94 36.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 149.86 39.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 152.4 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 152.4 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 152.4 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 152.4 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 152.4 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 152.4 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 152.4 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "e2b2faa1-45d2-4227-82a8-aa34c94e8477"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/37ca4614-49a2-4c65-a9e5-6354f42dde22" (reference "TP9") (unit 1))))
+	)
+	(global_label "+5V" (shape passive) (at 152.4 40.64 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "9c6e6f7b-823e-4260-8ad0-d038ad3d8313")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 152.4 40.64 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 165.1 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c4e221e1-2784-47d3-916e-1b4b3997a60a")
+		(property "Reference" "TP10"
+			(at 167.64 36.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 162.56 39.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 165.1 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 165.1 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 165.1 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 165.1 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 165.1 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 165.1 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 165.1 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "241a57f5-eba0-4a3e-97ac-f67124cc2858"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/37ca4614-49a2-4c65-a9e5-6354f42dde22" (reference "TP10") (unit 1))))
+	)
+	(global_label "GND" (shape passive) (at 165.1 40.64 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "e35061c2-6dc0-4ab9-a269-704fae923090")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 165.1 40.64 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 152.4 50.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0a01badb-53e9-4848-8b60-8f0574423f56")
+		(property "Reference" "#FLG01" (at 152.4 46.99 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "PWR_FLAG" (at 152.4 54.61 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "d90126c5-f98f-41d6-9459-a2bfbfed54dd"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/37ca4614-49a2-4c65-a9e5-6354f42dde22" (reference "#FLG01") (unit 1))))
+	)
+	(global_label "+5V" (shape passive) (at 152.4 50.8 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "f169e815-4eff-4775-8bd8-fa66f15ba84f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 152.4 50.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 165.1 50.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1a4a09f2-008e-453d-b817-4215d2853a3a")
+		(property "Reference" "#FLG02" (at 165.1 46.99 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "PWR_FLAG" (at 165.1 54.61 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "4b34ec20-57ef-4a67-9318-09f19bd16155"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/37ca4614-49a2-4c65-a9e5-6354f42dde22" (reference "#FLG02") (unit 1))))
+	)
+	(global_label "GND" (shape passive) (at 165.1 50.8 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "0906ffbf-255b-439b-85cb-4f85b543edab")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 165.1 50.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 177.8 50.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a616b98a-2cdb-4556-b73b-31859ef6e76a")
+		(property "Reference" "#FLG03" (at 177.8 46.99 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "PWR_FLAG" (at 177.8 54.61 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "7ac2a400-92d3-4139-8f0e-5ddd44401905"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/37ca4614-49a2-4c65-a9e5-6354f42dde22" (reference "#FLG03") (unit 1))))
+	)
+	(global_label "VS" (shape passive) (at 177.8 50.8 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "cc773975-d9d2-4fa0-a405-eabe5124ea18")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 177.8 50.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(sheet_instances
+		(path "/" (page "6"))
+	)
+	(embedded_fonts no)
+)
