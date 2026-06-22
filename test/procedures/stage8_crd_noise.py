@@ -44,6 +44,7 @@ def main(argv=None) -> int:
     # Single-conversion V_ref reads (navg=1) so we see the per-sample current
     # noise rather than averaging it away.
     v_series = {ch: [] for ch in config.channels}
+    errors = {}
     with transport, Recorder("stage8_crd_noise", config, out_dir=args.out_dir,
                              device_info=board.device_info(),
                              conditions=f"CRD noise: {args.samples} single V_ref conversions/ch") as rec:
@@ -51,13 +52,24 @@ def main(argv=None) -> int:
         common.confirm("all channels powered and steady (CRD regulating)", args)
         for _ in range(args.samples):
             for ch in config.channels:
-                vref = board.ads.read_vref(ch, n_avg=1)
+                if ch in errors:
+                    continue  # chip already failed; don't keep hammering it
+                try:
+                    vref = board.ads.read_vref(ch, n_avg=1)
+                except IOError as exc:
+                    errors[ch] = str(exc)  # an unresponsive ADS fails the gate, not the stage
+                    continue
                 v_series[ch].append(vref)
                 rec.log(ch, ads_addr=config.ads_map[ch].addr_hex, v_ref=vref, note="CRD noise sample")
 
     rows = []
     floor = args.floor_ppm * 1e-6
     for ch in config.channels:
+        if ch in errors or not v_series[ch]:
+            gate.record(f"ch{ch} CRD noise below floor", False,
+                        errors.get(ch, "no V_ref samples"))
+            rows.append([ch, "—", "—", "ERR"])
+            continue
         st = noise_stats(np.array(v_series[ch]))
         frac = (st.std / st.mean) if st.mean else float("inf")
         ok = frac <= floor

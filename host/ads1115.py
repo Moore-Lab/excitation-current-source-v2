@@ -17,7 +17,7 @@ full-scale at nominal current with headroom for the CRD's +10 % spread.
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from host.config import ADS_ADDRESSES, BoardConfig
 from host.transport import (
@@ -97,16 +97,20 @@ class ADS1115Array:
         if not ack:
             raise IOError(f"ADS1115 0x{address:02X} did not ACK config write "
                           "(check I²C wiring / address strap)")
-        # Poll the OS bit until the conversion is ready.
+        # Poll the OS bit until the conversion is ready; never read stale data
+        # from a stuck/NACKing chip.
         for _ in range(self.poll_max):
             rx, _ack = self.transport.i2c_xfer(address, bytes([ADS_REG_CONFIG]), 2)
             if rx and (((rx[0] << 8) | rx[1]) & _OS_SINGLE):
                 break
+        else:
+            raise IOError(f"ADS1115 0x{address:02X} conversion timeout "
+                          f"(OS never set in {self.poll_max} polls)")
         rx, _ack = self.transport.i2c_xfer(address, bytes([ADS_REG_CONVERSION]), 2)
         raw = int.from_bytes(rx[:2], byteorder="big", signed=True)
         return raw * self._lsb
 
-    def read_vref(self, ch: int, n_avg: int = None) -> float:
+    def read_vref(self, ch: int, n_avg: Optional[int] = None) -> float:
         """V_ref for one channel (volts), averaged over ``n_avg`` conversions."""
         n = self.config.ads_navg if n_avg is None else n_avg
         inp = self.config.ads_map[ch]
@@ -115,7 +119,7 @@ class ADS1115Array:
             acc += self._read_once(inp.address, inp.mux)
         return acc / max(1, n)
 
-    def read_vref_all(self, n_avg: int = None) -> Dict[int, float]:
+    def read_vref_all(self, n_avg: Optional[int] = None) -> Dict[int, float]:
         return {ch: self.read_vref(ch, n_avg=n_avg) for ch in self.config.channels}
 
     @property

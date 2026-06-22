@@ -7,6 +7,16 @@ Per-track development record (parallel mode). **Newest entry on top.** Same sche
 
 ## Track C / Session 001 — 2026-06-22 — Acquisition library (`host/`) + staged bench procedures (`test/`)
 
+**Review follow-up (post-commit):** Track C passed review (ADS1115 register config, cross-cal +
+ratiometric math, time-alignment, 0x48/0x49 addressing all verified; 11/11 dry-run). Applied the
+three minor robustness items: (1) `ads1115._read_once` now raises `IOError` on conversion
+timeout instead of reading stale data after the OS-poll falls through; (2) `stage8_crd_noise`
+guards each V_ref read so an unresponsive ADS fails its gate rather than crashing the stage;
+(3) `None`-defaulted `n_avg`/`ads_navg` retyped `Optional[int]` in `ads1115`/`acquire`. Added
+`test_ads_conversion_timeout_raises`; dry-run self-test now **12/12** (pytest 12 passed),
+pyflakes/flake8 still clean.
+
+
 **Tooling:** Python 3.12.4 (anaconda3), numpy 1.26.4, pyflakes 3.2.0, flake8 7.0.0, pytest 7.4.4.
 KiCad/ngspice — n/a for this track.
 **Branch / commit at start:** `trackC` @ d54eb69 (clean, off `integration`/`main`).

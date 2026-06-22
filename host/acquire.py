@@ -12,7 +12,7 @@ keeps any slow current drift common-mode and cancelled in V_RTD/V_ref.
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import numpy as np
 
@@ -40,20 +40,20 @@ class BoardSession:
         return self.ads.scan()
 
     # ---- reads -----------------------------------------------------------
-    def read_channel(self, ch: int, t7_navg: int = 1, ads_navg: int = None) -> Dict[str, float]:
+    def read_channel(self, ch: int, t7_navg: int = 1, ads_navg: Optional[int] = None) -> Dict[str, float]:
         """Time-aligned {V_RTD, V_ref} for one channel."""
         v_rtd = self.t7.read_vrtd(ch, n_avg=t7_navg)
         v_ref = self.ads.read_vref(ch, n_avg=ads_navg)
         return {Q_VRTD: v_rtd, Q_VREF: v_ref}
 
-    def read_channels(self, t7_navg: int = 1, ads_navg: int = None) -> Dict[int, Dict[str, float]]:
+    def read_channels(self, t7_navg: int = 1, ads_navg: Optional[int] = None) -> Dict[int, Dict[str, float]]:
         """Time-aligned {V_RTD, V_ref} for every channel, in scan order."""
         return {ch: self.read_channel(ch, t7_navg=t7_navg, ads_navg=ads_navg)
                 for ch in self.config.channels}
 
     def sample_channel(
         self, ch: int, quantity: str, n_samples: int,
-        t7_navg: int = 1, ads_navg: int = None,
+        t7_navg: int = 1, ads_navg: Optional[int] = None,
     ) -> np.ndarray:
         """Time series of one channel/quantity for noise + drift analysis."""
         data = np.empty(n_samples)

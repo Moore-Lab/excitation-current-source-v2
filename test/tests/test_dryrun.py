@@ -98,6 +98,39 @@ def test_current_value_cancels_in_ratio():
     assert abs(r - 120.0) / 120.0 < 2e-3, r
 
 
+def test_ads_conversion_timeout_raises():
+    """A chip that never finishes a conversion raises, not returns stale data."""
+    from host.ads1115 import ADS1115Array
+    from host.transport import Transport
+
+    class StuckADS(Transport):
+        # ACKs everything but the config read-back never sets the OS (ready) bit.
+        def read_analog(self, names):
+            return [0.0] * len(names)
+
+        def write_register(self, names, values):
+            pass
+
+        def i2c_config(self, sda_dion, scl_dion):
+            pass
+
+        def i2c_xfer(self, address, tx, num_rx):
+            return b"\x00" * num_rx, True
+
+        def info(self):
+            return {"backend": "stuck"}
+
+        def close(self):
+            pass
+
+    ads = ADS1115Array(StuckADS(), make_config("Pt100", 1), poll_max=4)
+    try:
+        ads.read_vref(0, n_avg=1)
+    except IOError:
+        return
+    assert False, "expected IOError on conversion timeout"
+
+
 def test_position_independence_flags_growth():
     """The position-independence verdict catches noise growing up the chain."""
     good = position_independence({0: 1.0e-3, 1: 1.05e-3, 2: 0.98e-3})
@@ -159,6 +192,7 @@ _TESTS = [
     test_i2c_scan_finds_expected_chips,
     test_cross_cal_recovers_known_r,
     test_current_value_cancels_in_ratio,
+    test_ads_conversion_timeout_raises,
     test_position_independence_flags_growth,
     test_full_sequence_pt100,
     test_full_sequence_pt1000,
