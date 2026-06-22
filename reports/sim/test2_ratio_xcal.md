@@ -1,4 +1,4 @@
-# Test 2 - Ratiometric + cross-cal correctness — 2026-06-22 — sim
+# Test 2 - Ratiometric + cross-cal correctness â€” 2026-06-22 â€” sim
 
 ## Objective
 Acceptance (b): R_calc = C*V_RTD/V_ref recovers the swept RTD and is invariant to +/-10% CRD and R_ref perturbation.

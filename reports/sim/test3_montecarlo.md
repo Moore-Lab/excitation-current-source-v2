@@ -1,4 +1,4 @@
-# Test 3 - Monte-Carlo accuracy -> degC error — 2026-06-22 — sim
+# Test 3 - Monte-Carlo accuracy -> degC error â€” 2026-06-22 â€” sim
 
 ## Objective
 Acceptance (c): over board dT the accuracy is dominated by R_ref tempco + relative ADC gain tempco, within target.

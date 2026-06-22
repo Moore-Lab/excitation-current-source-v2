@@ -1,4 +1,4 @@
-# Test 4 - R_ref sizing / no-clip vs ADS1115 range — 2026-06-22 — sim
+# Test 4 - R_ref sizing / no-clip vs ADS1115 range â€” 2026-06-22 â€” sim
 
 ## Objective
 Acceptance: worst-case V_ref stays under the ADS1115 +/-0.256 V range with margin and good effective bits.

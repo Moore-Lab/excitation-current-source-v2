@@ -54,8 +54,8 @@ standalone batch binary is required.
 | test3 | MC accuracy → °C, dominated by R_ref + relative gain tempco | σ ≈ 0.038 °C @ 10 ppm/°C, ΔT 10 °C |
 | test4 | worst-case V_ref under ADS1115 range | 221 mV = 86 % FS, 14.8 bits |
 | test5 | sense RC settles < ½ LSB within mux dwell | 1.0 ms < 5 ms |
-| test6 | ratio noise below target; CRD-noise risk bounded | 13 m°C; CRD bound 2.9 nA/√Hz worst case |
-| test7 | shared-ground crosstalk below floor | ~0 at 0.1 Ω star-ground |
+| test6 | ratio noise below target **iff** ADC noise small enough; CRD risk bounded | 13 m°C @ assumed 1 µV T7 — **needs T7 ≤ 1.64 µV RMS**; CRD bound 2.9 nA/√Hz |
+| test7 | shared-return crosstalk via finite ADC CMRR (∝ R_gnd) | 1.6 µ°C at 0.1 Ω, max R_gnd ≈ 1.3 kΩ |
 
 Bench-measurable assumptions (T7/ADS noise, mux dwell, targets) are named
 constants at the top of `run_all.py`; drop in real datasheet/bench numbers there.
@@ -72,6 +72,11 @@ constants at the top of `run_all.py`; drop in real datasheet/bench numbers there
 - **CRD noise cancels** in the ratio under simultaneous sampling (same current in
   V_ref and V_RTD). test6 bounds the i_n that would matter if sampling were *not*
   simultaneous — the one architectural risk to watch on the bench (Stage 8).
+- **Crosstalk needs a common-mode path.** Because the victim metric V_RTD/V_ref
+  cancels the channel current, shared-return coupling can only appear through the
+  ADCs' **finite CMRR** (`cmrr` param in `meas.inc`, default infinite). test7 drives
+  it with the aggressor's current spread and reports coupling ∝ R_gnd — small, but
+  measured, not zero.
 
 ## Wave-3 hook — re-point at the exported KiCad netlist
 
@@ -90,3 +95,9 @@ names in the export (or add a thin alias `.include`):
 Concretely: replace the `.include sim/models/channel.inc` line in each deck with
 `.include sim/netlists/rtd-readout.net` once it presents the same nodes, re-run
 `run_all.py`, and the same pass/fail criteria apply unchanged.
+
+> **Coordination (Track D).** The export must be a **SPICE** netlist, not the KiCad
+> s-expression netlist. Track D's `export_netlist` currently emits the s-expr form;
+> Wave-3 integration needs `kicad-cli sch export netlist --format spice` (a separate
+> `.net`) for the decks to `.include` it. Flagged so D/integration produce the SPICE
+> flavor — Track B does not own that export step.

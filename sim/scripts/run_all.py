@@ -292,9 +292,18 @@ def t6_noise():
     v_ref, v_rtd = 0.201, 0.0221
     f_johnson_adc = np.hypot(sig_vrtd / v_rtd, sig_vref / v_ref)
     c_johnson_adc = f_johnson_adc * io.PT100_SENS_C
-    passed = c_johnson_adc < RES_TARGET_C
-    # CRD current-noise BOUND (worst case: non-simultaneous sampling -> no cancel)
     f_target = RES_TARGET_C / io.PT100_SENS_C
+    # The PASS is dominated by the *assumed* T7 noise, so make the criterion
+    # explicit: back-solve the MAX-ALLOWABLE T7 RMS noise (given the assumed ADS
+    # noise + Johnson) that still meets the target. The bench (Track C) must beat it.
+    vrtd_budget_frac2 = f_target**2 - (sig_vref / v_ref) ** 2
+    if vrtd_budget_frac2 > 0:
+        sig_vrtd_max = v_rtd * np.sqrt(vrtd_budget_frac2)
+        t7_max_v = np.sqrt(max(sig_vrtd_max**2 - (dens_rtd * sb) ** 2, 0.0))
+    else:
+        t7_max_v = 0.0     # ADS noise alone already blows the budget
+    passed = (c_johnson_adc < RES_TARGET_C) and (T7_NOISE_RMS_V <= t7_max_v)
+    # CRD current-noise BOUND (worst case: non-simultaneous sampling -> no cancel)
     rem = f_target**2 - f_johnson_adc**2
     if rem > 0:
         coef = sb * np.hypot(io.R_REF / v_ref, 100.0 / v_rtd)   # frac per A/rtHz
@@ -316,73 +325,107 @@ def t6_noise():
     ax.legend(); ax.grid(alpha=.3)
     fig.tight_layout(); fig.savefig(io.PLOT_DIR / "test6_noise.png", dpi=110)
     plt.close(fig)
-    results = (f"| source | contribution [degC RMS] |\n|---|---|\n"
-               + "".join(f"| {k} | {v*1e3:.4f} m |\n" for k, v in contribs.items())
-               + f"| **total (Johnson+ADC)** | **{c_johnson_adc*1e3:.3f} m** |\n"
-               + f"| CRD current-noise bound (worst case) | {in_bound*1e9:.2f} nA/rtHz |")
+    results = (f"| source | contribution [degC RMS] | note |\n|---|---|---|\n"
+               + f"| Johnson R_ref (ngspice) | {contribs['Johnson R_ref']*1e3:.4f} m | physical |\n"
+               + f"| Johnson RTD (ngspice) | {contribs['Johnson RTD']*1e3:.4f} m | physical |\n"
+               + f"| ADS1115 V_ref | {contribs['ADS1115 V_ref']*1e3:.4f} m | **assumed {ADS_NOISE_RMS_V*1e6:g} uV** |\n"
+               + f"| T7 V_RTD | {contribs['T7 V_RTD']*1e3:.4f} m | **assumed {T7_NOISE_RMS_V*1e6:g} uV** |\n"
+               + f"| **total** | **{c_johnson_adc*1e3:.3f} m** | vs {RES_TARGET_C*1e3:.0f} m target |\n"
+               + f"| **max-allowable T7 noise** | | **{t7_max_v*1e6:.2f} uV RMS** (back-solved) |\n"
+               + f"| CRD current-noise bound (worst case) | | {in_bound*1e9:.2f} nA/rtHz |")
     io.write_report(
         "test6_noise", "Test 6 - Noise of the ratio",
         {"Objective": "Acceptance (d): ratio noise below the per-channel resolution "
                       "target, with the CRD current-noise risk explicitly bounded.",
          "Setup": f"ngspice .noise -> Johnson PSD (V_ref {dens_ref*1e9:.2f}, "
-                  f"V_RTD {dens_rtd*1e9:.2f} nV/rtHz); BW={MEAS_BW_HZ:g} Hz; "
-                  f"T7 {T7_NOISE_RMS_V*1e6:g} uV, ADS {ADS_NOISE_RMS_V*1e6:g} uV RMS (assumed).",
+                  f"V_RTD {dens_rtd*1e9:.2f} nV/rtHz); BW={MEAS_BW_HZ:g} Hz. "
+                  f"T7={T7_NOISE_RMS_V*1e6:g} uV and ADS={ADS_NOISE_RMS_V*1e6:g} uV RMS "
+                  f"are ASSUMPTIONS (named in run_all.py) - the bench must confirm them.",
          "Method": "RSS-combine each path's noise, divide by its signal (V_ref=201 mV, "
-                   "V_RTD=22.1 mV), RSS the two fractions, x255.9 -> degC. CRD noise is "
-                   "common to both reads: it CANCELS in the ratio under simultaneous "
-                   "sampling; the bound is the i_n that would reach target if it did NOT.",
+                   "V_RTD=22.1 mV), RSS the two fractions, x255.9 -> degC. Only the Johnson "
+                   "terms are physically derived (and negligible); the ADCs dominate, so the "
+                   "PASS is CONDITIONAL on the assumed ADC noise. We therefore back-solve the "
+                   "max-allowable T7 noise. CRD noise is common to both reads -> CANCELS in "
+                   "the ratio under simultaneous sampling; its bound is the i_n that would "
+                   "reach target if sampling were NOT simultaneous.",
          "Results": results + "\n\n![noise](plots/test6_noise.png)",
-         "Pass / Fail": f"Criterion total < {RES_TARGET_C} C. "
-                        f"**{'PASS' if passed else 'FAIL'}** "
-                        f"({c_johnson_adc*1e3:.2f} mC). CRD bound {in_bound*1e9:.1f} nA/rtHz "
-                        f"worst-case; ~0 if T7/ADS sample simultaneously.",
-         "Anomalies & notes": "T7/ADS noise are assumptions - replace with datasheet/"
-                              "bench. Johnson is negligible; the ADCs dominate.",
-         "Next": "Bench Stage 5 (noise/position) and Stage 8 (CRD noise) confirm."})
-    return passed, (f"{c_johnson_adc*1e3:.2f} mC (<{RES_TARGET_C*1e3:.0f} mC); "
-                    f"CRD bound {in_bound*1e9:.1f} nA/rtHz")
+         "Pass / Fail": f"Conditional criterion: total < {RES_TARGET_C*1e3:.0f} m"
+                        f"degC **iff** T7 <= {t7_max_v*1e6:.2f} uV and ADS <= "
+                        f"{ADS_NOISE_RMS_V*1e6:g} uV RMS. At the assumed "
+                        f"{T7_NOISE_RMS_V*1e6:g}/{ADS_NOISE_RMS_V*1e6:g} uV: "
+                        f"**{'PASS' if passed else 'FAIL'}** ({c_johnson_adc*1e3:.1f} m"
+                        f"degC, {RES_TARGET_C*1e3/c_johnson_adc/1e3:.1f}x margin). "
+                        f"CRD bound {in_bound*1e9:.1f} nA/rtHz worst-case (~0 if simultaneous).",
+         "Anomalies & notes": "PASS rides on assumed ADC noise; the physically-derived "
+                              "(Johnson) terms are ~0.05 mdegC. The number the bench (Track C, "
+                              f"Wave 3 Stage 5) must beat: **T7 <= {t7_max_v*1e6:.2f} uV RMS** "
+                              f"(at ADS {ADS_NOISE_RMS_V*1e6:g} uV, BW {MEAS_BW_HZ:g} Hz). The "
+                              "small V_RTD (~22 mV) is why the T7 path dominates.",
+         "Next": "Bench Stage 5 (noise/position) measures real T7/ADS noise; Stage 8 the CRD."})
+    return passed, (f"{c_johnson_adc*1e3:.1f} m/{RES_TARGET_C*1e3:.0f} mC (T7={T7_NOISE_RMS_V*1e6:g}uV); "
+                    f"needs T7<={t7_max_v*1e6:.2f}uV; CRD bound {in_bound*1e9:.1f} nA/rtHz")
 
 
 def t7_crosstalk():
+    # Aggressor perturbation = the +/-10% CRD spec spread on a ~220 uA channel.
     rgs = [("0p01", 0.01), ("0p1", 0.1), ("1", 1.0), ("10", 10.0)]
     coupling_c = {}
     for tag, rg in rgs:
-        d = io.load_wrdata(io.DATA_DIR / f"test7_rg_{tag}.dat")   # rrtdA, ratioB
-        ratioB = d[:, 1]
-        frac = (ratioB.max() - ratioB.min()) / np.mean(ratioB)
-        coupling_c[rg] = frac * io.PT100_SENS_C
-    at_budget = coupling_c[min(coupling_c, key=lambda r: abs(r - STAR_GND_BUDGET_OHM))]
-    passed = at_budget < RES_TARGET_C
+        d = io.load_wrdata(io.DATA_DIR / f"test7_rg_{tag}.dat")   # kca, ratioB
+        kca, ratioB = d[:, 0], d[:, 1]
+        C_B = 100.0 / ratioB[int(np.argmin(np.abs(kca - 1.0)))]   # victim cross-cal
+        rcalc = C_B * ratioB                                      # recovered R_RTD_B
+        # victim recovered-R swing over the aggressor's full +/-10% current spread
+        coupling_c[rg] = (rcalc.max() - rcalc.min()) / 100.0 * io.PT100_SENS_C
+    rg_arr = np.array([r for _, r in rgs])
+    cc = np.array([coupling_c[r] for r in rg_arr])
+    # coupling is linear in RG (leakage ~ dI_A*RG/CMRR); fit through the origin
+    k = float(np.sum(cc * rg_arr) / np.sum(rg_arr**2))           # degC per Ohm
+    c_at_budget = k * STAR_GND_BUDGET_OHM
+    rg_max = (RES_TARGET_C / k) if k > 0 else float("inf")       # max RG meeting target
+    passed = c_at_budget < RES_TARGET_C
     fig, ax = plt.subplots(figsize=(6, 4))
-    rg_v = list(coupling_c.keys()); cc = [coupling_c[r] for r in rg_v]
-    ax.loglog(rg_v, np.maximum(cc, 1e-18), "o-")
+    ax.loglog(rg_arr, cc, "o", label="sim")
+    rg_line = np.array([rg_arr.min(), rg_arr.max()])
+    ax.loglog(rg_line, k * rg_line, "-", alpha=.6, label="linear fit")
     ax.axhline(RES_TARGET_C, color="r", ls="--", label=f"target {RES_TARGET_C} C")
-    ax.axvline(STAR_GND_BUDGET_OHM, color="g", ls=":", label="star-gnd budget")
+    ax.axvline(STAR_GND_BUDGET_OHM, color="g", ls=":", label="star-gnd budget 0.1 Ohm")
     ax.set(xlabel="star-ground R [Ohm]", ylabel="victim coupling [degC]",
-           title="Test 7 - shared-ground crosstalk")
+           title="Test 7 - shared-ground crosstalk (aggressor +/-10% I)")
     ax.legend(fontsize=8); ax.grid(alpha=.3, which="both")
     fig.tight_layout(); fig.savefig(io.PLOT_DIR / "test7_crosstalk.png", dpi=110)
     plt.close(fig)
     results = ("| star-ground R [Ohm] | victim coupling [degC] |\n|---|---|\n"
-               + "".join(f"| {r:g} | {c:.2e} |\n" for r, c in coupling_c.items()))
+               + "".join(f"| {r:g} | {c:.2e} |\n" for r, c in coupling_c.items())
+               + f"| **at 0.1 Ohm budget** | **{c_at_budget:.2e}** |\n"
+               + f"| max RG meeting {RES_TARGET_C} C target | {rg_max:.1f} Ohm |")
     io.write_report(
         "test7_crosstalk", "Test 7 - Shared-ground crosstalk",
         {"Objective": "Acceptance: coupling between channels sharing a finite star-"
                       "ground return stays below the noise floor; sets max ground R.",
-         "Setup": "Deck test7_crosstalk.cir; two unit cells share RG (sg->gnd); sweep "
-                  "aggressor RTD 80-158 Ohm at RG = 0.01/0.1/1/10 Ohm; victim at 100 Ohm.",
-         "Method": "Kelvin sensing rejects the common ground bounce; residual coupling "
-                   "enters only via the CRD's finite Z. Take the victim ratio swing over "
-                   "the aggressor's full range -> degC.",
+         "Setup": "Deck test7_crosstalk.cir; two unit cells share RG (sg->gnd) at RG = "
+                  "0.01/0.1/1/10 Ohm. ADC CMRR: T7 90 dB, ADS1115 105 dB. Aggressor CRD "
+                  "swept over its +/-10% spread (kca 0.9-1.1, dI_A ~ 44 uA); victim at 100 Ohm.",
+         "Method": "The aggressor current sets the shared-return common mode "
+                   "v(sg)=(I_A+I_B)*RG at the victim's inputs; the differential readout "
+                   "rejects it to first order, the residual leaks via finite ADC CMRR. "
+                   "Cross-cal the victim, then take its recovered-R swing as the aggressor "
+                   "current spans +/-10% -> degC. (Note: the *ratio* metric cancels the "
+                   "channel current, so this coupling is genuinely the CMRR/shared-return "
+                   "path, not a metric artifact.)",
          "Results": results + "\n\n![crosstalk](plots/test7_crosstalk.png)",
          "Pass / Fail": f"Criterion coupling < {RES_TARGET_C} C at the "
                         f"{STAR_GND_BUDGET_OHM} Ohm budget. "
-                        f"**{'PASS' if passed else 'FAIL'}** ({at_budget:.1e} C).",
-         "Anomalies & notes": "Coupling is at/near the solver's numerical floor - "
-                              "Kelvin + current-source isolation makes it negligible for "
-                              "any realistic star-ground resistance.",
-         "Next": "Bench Stage 6 perturbs one channel and checks the others."})
-    return passed, f"coupling at {STAR_GND_BUDGET_OHM} Ohm = {at_budget:.1e} C"
+                        f"**{'PASS' if passed else 'FAIL'}** ({c_at_budget:.1e} C; "
+                        f"linear at {k:.1e} C/Ohm -> max RG {rg_max:.0f} Ohm).",
+         "Anomalies & notes": "Coupling scales linearly with star-ground R, as expected "
+                              "for dI_A*RG/(CMRR*V_RTD). It is small because current-source "
+                              "isolation keeps dI_A modest and Kelvin + good CMRR reject the "
+                              "rest - so crosstalk is NOT the binding constraint on RG (noise/"
+                              "layout are), but it is now actually measured, not zero.",
+         "Next": "Bench Stage 6 perturbs one channel (warm an RTD / toggle current) and "
+                 "checks the others against this RG-dependent bound."})
+    return passed, (f"{c_at_budget:.1e} C at 0.1 Ohm ({k:.1e} C/Ohm); max RG {rg_max:.0f} Ohm")
 
 
 TESTS = [

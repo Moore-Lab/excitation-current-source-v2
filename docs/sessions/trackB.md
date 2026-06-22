@@ -5,6 +5,69 @@ kickoff/closeout record; the global `SESSION_LOG.md` is touched only at integrat
 
 ---
 
+## TrackB-002 — 2026-06-22 — Integration-review fixes (test7 re-scope, test6 conditional)
+
+**Branch / commit at start:** trackB @ bed8256.
+
+**State before:** TrackB-001 harness, all 7 PASS. Integration review accepted the
+harness, test2 (cancellation) and test3 (°C budget), but flagged 2 MAJOR + 2 nit items.
+
+**Objective:** Resolve the review without overclaiming; stay in `sim/**`, `reports/sim/**`.
+
+**Actions (by review item):**
+1. **[MAJOR] test7 measured nothing.** The victim metric `v(nrtdB)/v(nrefB)` cancels
+   the channel current algebraically, so every `test7_rg_*.dat` was bit-identical — the
+   "zero" was cancellation by construction, not a numerical floor. Re-scoped (reviewer's
+   option a): added a **finite-CMRR** term to `meas.inc` (`cmrr` subckt param, default
+   1e12 = effectively infinite, so tests 1–6 are untouched). test7 now sets ADC CMRR
+   (T7 90 dB, ADS 105 dB) and sweeps the **aggressor current** over its ±10 % CRD spread
+   (the quantity that actually moves the shared-return common mode `v(sg)=(I_A+I_B)·RG`);
+   the victim couples only through finite CMRR. Files now differ monotonically with RG.
+2. **[MAJOR] test6 PASS rode on assumed T7 noise.** Restated as a **conditional** PASS
+   and back-solved the **max-allowable T7 noise** the bench must beat:
+   **T7 ≤ 1.64 µV RMS** (at ADS 5 µV, BW 10 Hz, 20 m°C target). Report + README updated;
+   the only physically-derived (Johnson) terms are ~0.05 m°C, stated plainly.
+3. **[NIT] encoding.** `spice_io.write_report` now writes `encoding="utf-8"` (the em-dash
+   was emitting cp1252 0x97). Verified no lone 0x97 byte remains.
+4. **[NIT] STAR_GND no-op.** With real coupling, `t7` now fits coupling = k·RG, reports
+   coupling at the 0.1 Ω budget and the max RG meeting target — the budget constant is used.
+
+**Files touched:** `sim/models/meas.inc`, `sim/netlists/test7_crosstalk.cir`,
+`sim/scripts/{run_all,spice_io}.py`, `reports/sim/{test6_noise,test7_crosstalk}.md`,
+`reports/sim/plots/{test6_noise,test7_crosstalk}.png`, `sim/README.md`, this log.
+
+**Validation (re-ran full harness; all 7 still PASS):**
+- tests 1–5 **numerically unchanged** (e.g. test2 err 7.5e-9 / 6.6e-9, test3 σ 0.0376 °C) —
+  confirms the CMRR=1e12 default does not perturb the accepted results.
+- test6: **conditional PASS** — 13.2 m°C at assumed T7 1 µV / ADS 5 µV (1.5× margin);
+  **max-allowable T7 = 1.64 µV RMS** surfaced for the bench; CRD bound 2.9 nA/√Hz worst case.
+- test7: **PASS, now non-zero** — coupling 1.6 µ°C at 0.1 Ω, linear at 1.6e-5 °C/Ω,
+  max R_gnd ≈ 1.3 kΩ for the 20 m°C target (so crosstalk is not the binding constraint,
+  but it is measured, not zero).
+
+**Decisions (rationale + spec ref):**
+- **CMRR as the crosstalk path** — with a ratiometric differential metric, shared-return
+  coupling can *only* enter via finite common-mode rejection; modeling CMRR is the honest
+  mechanism. `board_spec.md` §Layout-critical (star ground = shared-return crosstalk path).
+- **test6 stays conditional, not "PASS"** — the physically-derived noise is negligible, so
+  the result is only as good as the ADC-noise assumptions; the back-solved T7 limit is the
+  actionable deliverable for Track C.
+
+**Open issues / risks (carried + new):**
+- T7/ADS noise, BW, mux dwell, settle target remain **assumptions** (named in `run_all.py`).
+  test6's headline is explicitly gated on them; bench must confirm **T7 ≤ 1.64 µV**.
+- **Track D coordination:** the Wave-3 re-point needs a **SPICE** netlist; D's
+  `export_netlist` currently emits KiCad s-expr. Integration must run
+  `kicad-cli sch export netlist --format spice`. Flagged in `sim/README.md` (Wave-3 hook);
+  not Track B's owned step.
+
+**Next action:** Hand back for integration. At Wave 3, produce the SPICE-format
+`sim/netlists/rtd-readout.net` and re-point per `sim/README.md`.
+
+**Commit:** <recorded in the follow-up, as in TrackB-001>
+
+---
+
 ## TrackB-001 — 2026-06-22 — Build the full ngspice harness + accuracy/noise budget
 
 **Tooling:** ngspice-41 (conda-forge `ngspice_con.exe`, env `spice`); Python 3.12.4

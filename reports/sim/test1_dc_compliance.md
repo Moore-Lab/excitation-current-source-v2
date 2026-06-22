@@ -1,4 +1,4 @@
-# Test 1 - DC operating point & CRD compliance — 2026-06-22 — sim
+# Test 1 - DC operating point & CRD compliance â€” 2026-06-22 â€” sim
 
 ## Objective
 Acceptance (a): the CRD keeps regulating (V across it > V_L) across the full Pt100 sweep at the worst-case low rail.

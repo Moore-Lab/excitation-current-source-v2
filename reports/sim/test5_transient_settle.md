@@ -1,4 +1,4 @@
-# Test 5 - Sense-line RC settling vs mux dwell — 2026-06-22 — sim
+# Test 5 - Sense-line RC settling vs mux dwell â€” 2026-06-22 â€” sim
 
 ## Objective
 Acceptance: the 1 kOhm/0.1 uF sense filter settles to < 1/2 T7 LSB within the per-channel mux dwell.

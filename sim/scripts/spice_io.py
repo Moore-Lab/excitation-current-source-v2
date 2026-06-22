@@ -109,5 +109,5 @@ def write_report(stem: str, title: str, sections: dict[str, str]) -> Path:
             lines.append(sections[key].rstrip())
             lines.append("")
     out = REPORT_DIR / f"{stem}.md"
-    out.write_text("\n".join(lines))
+    out.write_text("\n".join(lines), encoding="utf-8")   # em-dash etc. on GitHub
     return out
