@@ -30,6 +30,68 @@ one-entry summary per merged track.
 
 ---
 
+## Session 003 — 2026-06-22 — Integrate Tracks A–E
+
+**Tooling:** KiCad 10.0.3 (kicad-cli); ngspice/Python not on integrator PATH (Track B/C
+re-run deferred to their owners' envs).
+**Branch / commit at start:** integration @ a69b330 (Track A already merged).
+**State before:** A merged. B (SPICE), C (host/bench), D (automation), E (schematic) complete
+on their branches, reviewed, unmerged. Track sessions had landed review-feedback fixes (D:
+`export_netlist --format spice`; E: recorded accepted 3-sheet deviation + cleaned loose
+report artifacts).
+
+**Objective:** Merge B→C→D→E into `integration` and re-gate the combined tree.
+
+**Actions:**
+- Merged in a dedicated `../rtd-integration` worktree, `--no-ff`, order B, C, D, E. **All four
+  clean — zero conflicts** (paths disjoint; no track touched the global log).
+- Re-ran gates on the merged tree via Track D's `scripts/run_gates --tag s003`.
+
+**Merged (one summary per track):**
+- **A** a69b330 — project-local symbol+footprint libs (10 parts); CRD polarity + ADS1115
+  pinout verified vs datasheet.
+- **B** 97f4f0c — SPICE harness (7 tests, models, accuracy/noise budget). Cross-cal
+  cancellation + °C budget sound; test6/test7 claims to be softened (see open issues).
+- **C** 1475f25 — `host/` acquisition lib + `test/` staged bench; ADS1115 register config and
+  cross-cal math verified; 11/11 dry-run.
+- **D** 35a3b05 — gate scripts, pre-commit hook, repo meta; kicad-cli flags valid for 10.0.3.
+- **E** f2cc51b — hierarchical schematic (3 ch); ERC 0/0; netlist exported.
+
+**Files touched:** merge of `sim/**`, `host/**`, `test/**`, `scripts/**`, `hardware/*.kicad_*`,
+`docs/sessions/track{B..E}.md`, root `README.md`/`.gitignore`; `reports/erc/erc_s003.json`;
+this log.
+
+**Validation:**
+- ERC: **0 errors / 0 warnings** on merged `hardware/rtd-readout.kicad_sch` (reports/erc/erc_s003.json);
+  cross-checked with a direct `kicad-cli sch erc` run (exit 0).
+- DRC: n/a — no PCB yet (run_gates SKIP, exit 0).
+- SPICE / pytest: not re-run by integrator (toolchain not on PATH); accepted on track-owner
+  evidence pending the test6/test7 wording fix.
+- BOM cross-check (earlier): 3× CRD, 3× R_ref 910R, 2× ADS1115 (0x48/0x49), 2× 4.7k pull-ups,
+  decoupling, 3 RTD + power + T7 connectors, 10 TPs — matches `board_spec.md` Resolved inputs.
+
+**Decisions (rationale + spec ref):**
+- **3 separate `unit_cell_chN` sheets** accepted (vs one reusable sheet ×3) for the frozen
+  3-channel build — Lucas approved; recorded in `docs/sessions/trackE.md`. Trade-off: a future
+  unit-cell edit must be applied 3×.
+
+**Open issues / risks:**
+- **Track B test7 (crosstalk)** does not actually exercise shared-return crosstalk (metric
+  cancels algebraically) and **test6 (noise)** PASS is dominated by an *assumed* T7 noise
+  (~1 µV, ~1.5× margin). Documentation-level, not a fab blocker; B to re-scope/soften wording.
+  Shared-return crosstalk is validated for real on the bench (Track C, Wave 3).
+- `lib.sh` severity-count display is cosmetic-buggy (`errors~00`); authoritative exit code is
+  correct.
+- `main` not advanced; `integration` holds A–E. Track branches/worktrees retained.
+
+**Next action:** Start **Track F (layout)** off `integration` @ this commit — the serial spine.
+Pt100 / 3-channel / star-ground + mixed-signal partition are the layout drivers
+(`board_spec.md` §Layout-critical). Optionally fast-forward `main` to `integration` first.
+
+**Commit:** a23589c
+
+---
+
 ## Session 002 — 2026-06-22 — Resolve open inputs + stand up Wave-0 parallelism
 
 **Branch / commit at start:** main @ 82efa90.
