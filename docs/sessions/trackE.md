@@ -36,7 +36,7 @@ hand-pretty — components sit top-left on each A3 sheet; cosmetic spacing is GU
 
 **Next action:** unchanged — integrator merges `trackE` after A; then Track F (layout).
 
-**Commit:** `<this commit>`
+**Commit:** `d19d202` (wire-up pass); hash recorded in a follow-up.
 
 ---
 
