@@ -88,7 +88,7 @@ this log.
 Pt100 / 3-channel / star-ground + mixed-signal partition are the layout drivers
 (`board_spec.md` §Layout-critical). Optionally fast-forward `main` to `integration` first.
 
-**Commit:** a23589c
+**Commit:** 767a500 (Wave-0 closeout; this entry's hash backfilled by the immediate follow-up doc commit)
 
 ---
 
