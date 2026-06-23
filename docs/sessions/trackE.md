@@ -4,6 +4,42 @@ Per-track log, newest entry on top. Schema mirrors `docs/SESSION_LOG.md`.
 
 ---
 
+## Track E — 2026-06-22 — Wire-up pass (drawn wires + power symbols)
+
+**Branch / commit at start:** `trackE` @ `72c9946` (label-based schematic, ERC 0/0).
+**Objective (Lucas request):** turn the label-connected capture into a conventionally
+**drawn** schematic — real wires, junctions, and power-port symbols — without changing the
+circuit.
+
+**Actions:**
+- Extended the generator (`C:\tmp\gen2.ps1`, out-of-tree) to emit `(wire …)`, `(junction …)`,
+  and stock `power:+5V` / `power:GND` symbols (verbatim from KiCad's `power.kicad_sym`, so no
+  lib-mismatch). **Unit cells** are now a drawn series current-loop: `+5V` symbol → CRD → R_ref
+  → RTD → `GND` symbol, with the TOP/MID nodes tapped (junctions) out to test points and the
+  `CHn_TOP/MID` labels. **Acquisition / power_io** use short pin stubs to power symbols / labels
+  (standard dense-IC + connector style). Cross-sheet signals (`CHn_*`, Sense pairs, `VS`,
+  `SDA`, `SCL`) remain labels — conventional practice, not drawn between sheets.
+- Fixed a rotation bug found via the netlist oracle: KiCad's y-down frame inverts the visual
+  rotation sense, so the 270°-rotated CRD came out anode/cathode-swapped; rotating it **90°**
+  puts anode→`+5V` (top), cathode→`CHn_TOP` (bottom) correctly.
+
+**Validation (with numbers):**
+- **ERC: 0 errors / 0 warnings** (`kicad-cli sch erc`, exit 0).
+- **Netlist diff vs the pre-wiring (verified) netlist: IDENTICAL** — all 21 nets, node-for-node
+  (`diff` empty). The drawn schematic is provably the same circuit; `sim/netlists/rtd-readout.net`
+  refreshed (identical connectivity). PDF render of all 6 pages confirms wires/symbols draw.
+
+**Decisions:** wiring style = drawn series loops in the unit cells + stub-to-symbol/label on the
+IC/connector sheets; cross-sheet nets stay labelled. `+5V`/`GND` use stock power-port symbols;
+`VS` stays a label (no stock `VS` symbol; avoids a lib-mismatch). Layout is functional, not
+hand-pretty — components sit top-left on each A3 sheet; cosmetic spacing is GUI polish if wanted.
+
+**Next action:** unchanged — integrator merges `trackE` after A; then Track F (layout).
+
+**Commit:** `<this commit>`
+
+---
+
 ## Track E — 2026-06-22 — Capture full hierarchical schematic, ERC-clean
 
 **Tooling:** KiCad **10.0.3** (`kicad-cli` at `C:\Program Files\KiCad\10.0\bin\kicad-cli.exe`).

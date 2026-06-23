@@ -14,9 +14,9 @@
 	)
 	(text "NOTE: CH1/CH2/CH3 are THREE SEPARATE unit_cell sheets (accepted deviation, frozen 3-ch board).\nA change to the unit cell must be applied to all three sheets by hand. See docs/sessions/trackE.md."
 		(exclude_from_sim no)
-		(at 25.4 80 0)
+		(at 25.4 95 0)
 		(effects (font (size 1.27 1.27)) (justify left top))
-		(uuid "ac2b217f-037c-446c-9d3c-cfd8fa84d6e2")
+		(uuid "31b4be70-4081-4920-ba36-717e8cf71a8f")
 	)
 	(sheet
 		(at 25.4 25.4)
