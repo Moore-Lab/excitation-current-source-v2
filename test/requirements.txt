@@ -1,0 +1,9 @@
+# Track C tooling dependencies (host/ acquisition library + test/ bench procedures).
+#
+# numpy is the only hard dependency for the hardware-free dry run (mock transport).
+# labjack-ljm is required ONLY on the bench (real T7): the same LJM device reads
+# V_RTD on its analog pairs AND drives the ADS1115 I²C bus on its digital lines.
+# It also needs the LabJack LJM runtime installed separately:
+#   https://support.labjack.com/docs/ljm-software
+numpy>=1.24
+labjack-ljm>=1.23   # bench only; not needed for --mock runs

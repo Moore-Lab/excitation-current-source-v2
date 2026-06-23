@@ -1,0 +1,34 @@
+{
+  "schema": "rtd-bench/1",
+  "stage": "baseline_series_chain",
+  "run_id": "example",
+  "started_utc": "2026-06-22T17:56:22+00:00",
+  "config": "Pt100 R0=100ohm  3ch  I~220uA  R_ref~910ohm  T7=\u00b10.1V/res12/set0us  ADS=\u00b10.256V/128SPS/navg16  2chip@0x48,0x49",
+  "rtd_type": "Pt100",
+  "n_channels": 3,
+  "ads_addresses": [
+    "0x48",
+    "0x49"
+  ],
+  "device": {
+    "backend": "mock",
+    "note": "SYNTHETIC series-chain placeholder"
+  },
+  "conditions": "synthetic old-board data; noise grows up the channel index",
+  "csv": "baseline_series_chain_example.csv",
+  "columns": [
+    "iso_time",
+    "t_rel_s",
+    "stage",
+    "channel",
+    "ads_addr",
+    "v_ref",
+    "v_rtd",
+    "ratio",
+    "c_const",
+    "r_calc",
+    "t_calc",
+    "r_known",
+    "note"
+  ]
+}
