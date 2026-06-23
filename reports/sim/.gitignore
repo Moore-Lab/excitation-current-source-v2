@@ -1,0 +1,4 @@
+# Regenerable ngspice intermediates (run_all.py recreates them).
+# The committed evidence is the *.md reports and plots/.
+data/
+logs/

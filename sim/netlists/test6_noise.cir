@@ -1,0 +1,42 @@
+* Test 6 - Noise of the ratio (Johnson part via ngspice; full budget in python)
+* ----------------------------------------------------------------------------
+* Proves TESTING_PLAN Part 1 #6. ngspice .noise gives the rigorous Johnson-noise
+* spectral density that R_ref and the RTD push into each measurement (V_ref on
+* the ADS path, V_RTD on the T7 path). python then RSS-combines these with the
+* T7 and ADS1115 datasheet input noise and the CRD current-noise BOUND, band-
+* limits, forms the ratio noise, and converts to degC. (Custom current-noise
+* PSDs are not natural in ngspice .noise, hence the analytic combine; the part
+* it does best - source-impedance-correct Johnson noise - is taken from here.)
+*
+* Plain (noisy) resistors are used so thermal noise is modeled. RTD at RTD_0.
+* Output: two files, each (freq, V/sqrtHz) for the V_ref and V_RTD measurements.
+* ----------------------------------------------------------------------------
+.include sim/models/params.inc
+.include sim/models/crd.inc
+.include sim/models/meas.inc
+
+Vrail rail 0 DC {VRAIL_NOM} AC 1   $ AC value required as the .noise input ref
+Vdt   dt   0 DC 0
+Vtcgr tcgr 0 DC 0
+Voff  off  0 DC 0
+Vkc   kc   0 DC 1
+
+Xcrd rail top kc crd
+Rref top mid {R_REF0}      $ plain noisy resistor (Johnson source)
+Rrtd mid 0   {RTD_0}       $ plain noisy resistor (Johnson source)
+Xref top mid nref               adc_vref
+Xrtd mid 0   nrtd dt tcgr off   adc_vrtd
+
+.control
+* noise creates two plots (spectral density, then integrated=current); the
+* names auto-increment, so step back one plot to reach the spectral density.
+* V_ref measurement noise (ADS1115 path)
+noise v(nref) Vrail dec 50 0.1 1k
+setplot previous
+wrdata reports/sim/data/test6_nref_noise.dat onoise_spectrum
+* V_RTD measurement noise (T7 path)
+noise v(nrtd) Vrail dec 50 0.1 1k
+setplot previous
+wrdata reports/sim/data/test6_nrtd_noise.dat onoise_spectrum
+.endc
+.end

@@ -1,0 +1,77 @@
+* Test 3 - Monte-Carlo accuracy budget -> equivalent degC error  (KEY DELIVERABLE)
+* ----------------------------------------------------------------------------
+* Proves TESTING_PLAN Part 1 #3. Cross-cal is performed at dt=0 (C = R_known *
+* V_ref/V_RTD). Then at the hot operating point (dt = DT_HOT) we draw Gaussian
+* samples of the three drift terms that survive cross-cal and propagate to a
+* Pt100 degC error:
+*   - R_ref tempco             (tcref, ppm/degC)
+*   - relative ADC gain tempco (tcgr,  ppm/degC)   <- the new term vs old design
+*   - residual offset drift on V_RTD (off, V)
+* CRD value/tempco are NOT sampled: they cancel in the ratio (shown in Test 2).
+*
+* NOTE on mechanics: every `op` creates its own plot, so `let`-vectors do not
+* survive the loop. We therefore append the fractional error of each sample to a
+* file with `set appendwrite` (run_all wipes the data dir first). At dt=0 the
+* cross-cal constant C is exactly R_REF0; we verify that with a cal `op` (printed
+* to the log) and use the csparam RREF0 inside the loop.
+* Output: reports/sim/data/test3_mc.dat  rows of (1, errF[frac]); python -> degC.
+* ----------------------------------------------------------------------------
+.include sim/models/params.inc
+.include sim/models/crd.inc
+.include sim/models/meas.inc
+.include sim/models/knobs.inc
+
+Vrail rail 0 DC {VRAIL_NOM}
+.include sim/models/channel.inc
+
+* ---- Monte-Carlo settings (1-sigma); edit here to inject real part specs -----
+.param N_MC      = 2000
+.param DT_HOT    = 10       $ board delta-T between recals [degC]
+.param SIG_TCREF = 10       $ R_ref tempco 1-sigma [ppm/degC]
+.param SIG_TCGR  = 10       $ relative ADC gain tempco 1-sigma [ppm/degC]
+.param SIG_OFF   = 1u       $ V_RTD offset-drift 1-sigma over DT_HOT [V]
+.param RKNOWN    = 100      $ cross-cal known resistor [Ohm] (= RTD_0)
+
+* expose params to the .control interpreter (const plot -> always visible)
+.csparam N_MC={N_MC}
+.csparam DT_HOT={DT_HOT}
+.csparam SIG_TCREF={SIG_TCREF}
+.csparam SIG_TCGR={SIG_TCGR}
+.csparam SIG_OFF={SIG_OFF}
+.csparam RKNOWN={RKNOWN}
+.csparam RREF0={R_REF0}
+
+.control
+set rndseed=20260622
+let N = N_MC
+
+* --- cross-calibration at dt = 0, all drift terms zero ---
+alter Vrrtd  = RKNOWN
+alter Vdt    = 0
+alter Vtcref = 0
+alter Vtcgr  = 0
+alter Voff   = 0
+op
+let Ccal = RKNOWN * v(nref)/v(nrtd)
+echo "cross-cal C (should equal R_REF0):"
+print Ccal
+
+* --- hot operating point, sample the surviving drift terms ---
+alter Vdt = DT_HOT
+set appendwrite
+let i = 0
+dowhile i < N
+  let s1 = sgauss(0)*SIG_TCREF
+  let s2 = sgauss(0)*SIG_TCGR
+  let s3 = sgauss(0)*SIG_OFF
+  alter Vtcref = $&s1
+  alter Vtcgr  = $&s2
+  alter Voff   = $&s3
+  op
+  let ef = (RREF0 * v(nrtd)/v(nref) - RKNOWN) / RKNOWN
+  wrdata reports/sim/data/test3_mc.dat ef
+  let i = i + 1
+end
+unset appendwrite
+.endc
+.end

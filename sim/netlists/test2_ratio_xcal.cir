@@ -1,0 +1,41 @@
+* Test 2 - Ratiometric + cross-cal correctness & invariance
+* ----------------------------------------------------------------------------
+* Proves TESTING_PLAN Part 1 #2: with C found from a modeled known resistor,
+* R_calc = C * V_RTD/V_ref recovers the swept RTD, and is INVARIANT when the CRD
+* current (kc) and R_ref absolute value (kref) are perturbed +/-10 %.
+* Cross-cal point R_known = RTD_0 (100 Ohm); python forms C and R_calc.
+* Output columns per file: rrtd(scale)  V_RTD_meas  V_ref_meas
+* ----------------------------------------------------------------------------
+.include sim/models/params.inc
+.include sim/models/crd.inc
+.include sim/models/meas.inc
+.include sim/models/knobs.inc
+
+Vrail rail 0 DC {VRAIL_NOM}
+.include sim/models/channel.inc
+
+.control
+set wr_singlescale
+set wr_vecnames
+* --- nominal ---
+alter Vkc = 1
+alter Vkref = 1
+dc Vrrtd 80 158 1
+wrdata reports/sim/data/test2_nom.dat     v(nrtd) v(nref)
+* --- CRD +10 % / -10 % (must not move R_calc) ---
+alter Vkc = 1.1
+dc Vrrtd 80 158 1
+wrdata reports/sim/data/test2_crd_hi.dat  v(nrtd) v(nref)
+alter Vkc = 0.9
+dc Vrrtd 80 158 1
+wrdata reports/sim/data/test2_crd_lo.dat  v(nrtd) v(nref)
+* --- R_ref +10 % / -10 % (absolute value must not move R_calc) ---
+alter Vkc = 1
+alter Vkref = 1.1
+dc Vrrtd 80 158 1
+wrdata reports/sim/data/test2_ref_hi.dat  v(nrtd) v(nref)
+alter Vkref = 0.9
+dc Vrrtd 80 158 1
+wrdata reports/sim/data/test2_ref_lo.dat  v(nrtd) v(nref)
+.endc
+.end

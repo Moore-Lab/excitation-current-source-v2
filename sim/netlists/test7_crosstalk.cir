@@ -1,0 +1,70 @@
+* Test 7 - Shared-ground crosstalk between two channels
+* ----------------------------------------------------------------------------
+* Proves TESTING_PLAN Part 1 #7. Two unit cells share a finite star-ground return
+* impedance RG (sg -> true ground). The shared return turns each channel's current
+* into a common-mode voltage v(sg) = (I_A + I_B)*RG at the OTHER channel's sense
+* inputs. The differential ratiometric readout rejects that common mode to first
+* order; the residual coupling enters through the ADCs' FINITE CMRR.
+*
+* IMPORTANT (review fix): perturbing the aggressor RTD does NOT work as a test -
+* the victim metric V_RTD/V_ref cancels the channel current algebraically, AND a
+* current source holds I_A ~constant when its RTD changes, so v(sg) barely moves.
+* The physical aggressor is a change in aggressor CURRENT. We sweep the aggressor
+* CRD over its +/-10 % spec spread (kca 0.9..1.1 = dI_A ~ 44 uA), which directly
+* moves v(sg), and watch the victim's recovered R via CMRR leakage. Sweeping RG
+* sets the max acceptable star-ground resistance.
+*
+* CMRR: T7 90 dB, ADS1115 105 dB (datasheet-class, linear ratios below).
+* Self-contained (two channels), reuses crd/meas. Victim B held at RTD_B = 100.
+* Output (per RG): kca(scale)  ratioB = v(nrtdB)/v(nrefB)
+* ----------------------------------------------------------------------------
+.include sim/models/params.inc
+.include sim/models/crd.inc
+.include sim/models/meas.inc
+
+.param RTD_B    = 100          $ victim channel RTD, fixed [Ohm]
+.param CMRR_T7  = 31623        $ T7 CMRR, 90 dB  -> 10^(90/20)
+.param CMRR_ADS = 177828       $ ADS1115 CMRR, 105 dB -> 10^(105/20)
+
+Vrail rail 0 DC {VRAIL_NOM}
+* shared knob nodes (no tempco/offset for this test)
+Vdt   dt   0 DC 0
+Vtcgr tcgr 0 DC 0
+Voff  off  0 DC 0
+Vkca  kca  0 DC 1              $ aggressor current scale (swept 0.9..1.1)
+Vkcb  kcb  0 DC 1              $ victim current scale (nominal)
+* shared star-ground return impedance (alter to sweep)
+RG sg 0 1
+
+* ---- Channel A (aggressor) ----
+Xcrda rail topA kca crd
+RrefA topA midA {R_REF0}
+RrtdA midA sg {RTD_0}
+XrefA topA midA nrefA              adc_vref  cmrr={CMRR_ADS}
+XrtdA midA sg   nrtdA dt tcgr off  adc_vrtd  cmrr={CMRR_T7}
+
+* ---- Channel B (victim) ----
+Xcrdb rail topB kcb crd
+RrefB topB midB {R_REF0}
+RrtdB midB sg {RTD_B}
+XrefB topB midB nrefB              adc_vref  cmrr={CMRR_ADS}
+XrtdB midB sg   nrtdB dt tcgr off  adc_vrtd  cmrr={CMRR_T7}
+
+.control
+set wr_singlescale
+set wr_vecnames
+* victim ratio vs aggressor current, at several star-ground resistances
+alter RG = 0.01
+dc Vkca 0.9 1.1 0.005
+wrdata reports/sim/data/test7_rg_0p01.dat (v(nrtdB)/v(nrefB))
+alter RG = 0.1
+dc Vkca 0.9 1.1 0.005
+wrdata reports/sim/data/test7_rg_0p1.dat  (v(nrtdB)/v(nrefB))
+alter RG = 1
+dc Vkca 0.9 1.1 0.005
+wrdata reports/sim/data/test7_rg_1.dat    (v(nrtdB)/v(nrefB))
+alter RG = 10
+dc Vkca 0.9 1.1 0.005
+wrdata reports/sim/data/test7_rg_10.dat   (v(nrtdB)/v(nrefB))
+.endc
+.end

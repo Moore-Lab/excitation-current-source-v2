@@ -1,0 +1,42 @@
+* Test 5 - Transient: sense-line RC settling vs mux dwell
+* ----------------------------------------------------------------------------
+* Proves TESTING_PLAN Part 1 #5: the ~1 kOhm / 0.1 uF anti-alias filter at the
+* T7 sense input settles to < 1/2 T7 LSB within the per-channel mux dwell. We
+* model a mux "connect" by switching the CRD current on at t = 100 us (kc steps
+* 0 -> 1) and watch the filtered sense node v(t7p) settle to its final value.
+* Self-contained (custom transient sources), reuses crd/meas models.
+* Output: time  V_RTD_raw(mid)  V_filtered(t7p)
+* ----------------------------------------------------------------------------
+.include sim/models/params.inc
+.include sim/models/crd.inc
+.include sim/models/meas.inc
+
+.param RF = 1k          $ sense series filter resistor
+.param CF = 0.1u        $ sense filter capacitor  (tau ~ RF*CF = 100 us)
+.param RTD_T5 = 100     $ RTD under test [Ohm]
+
+Vrail rail 0 DC {VRAIL_NOM}
+* knob nodes required by the models
+Vdt   dt   0 DC 0
+Vtcgr tcgr 0 DC 0
+Voff  off  0 DC 0
+Vkref kref 0 DC 1
+* mux connect: current source turns on at t=100us
+Vkc   kc   0 PULSE(0 1 100u 10n 10n 1 2)
+
+Xcrd rail top kc crd
+Rref top mid R = 'R_REF0'
+Rrtd mid 0   R = '{RTD_T5}'
+
+* sense-line RC low-pass into the T7 (sense- tied to ground in this model)
+RF mid t7p {RF}
+CF t7p 0   {CF}
+Xrtd t7p 0 nrtd dt tcgr off adc_vrtd
+
+.control
+set wr_singlescale
+set wr_vecnames
+tran 1u 1.2m 0 1u uic
+wrdata reports/sim/data/test5_settle.dat v(mid) v(t7p)
+.endc
+.end
