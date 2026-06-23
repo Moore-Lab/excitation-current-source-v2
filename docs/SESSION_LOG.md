@@ -76,10 +76,12 @@ this log.
   unit-cell edit must be applied 3×.
 
 **Open issues / risks:**
-- **Track B test7 (crosstalk)** does not actually exercise shared-return crosstalk (metric
-  cancels algebraically) and **test6 (noise)** PASS is dominated by an *assumed* T7 noise
-  (~1 µV, ~1.5× margin). Documentation-level, not a fab blocker; B to re-scope/soften wording.
-  Shared-return crosstalk is validated for real on the bench (Track C, Wave 3).
+- **Track B test6/test7 — RESOLVED in the merge** (trackB da2c103, verified in merged tree):
+  test7 re-scoped to genuinely model the CMRR/shared-return path (not a metric artifact);
+  test6 made conditional with the bench target back-solved — **max-allowable T7 noise =
+  1.64 µV RMS** (at ADS 5 µV, BW 10 Hz). Track C Stage 5 must beat that on the real board.
+  Residual caveat: test7 now rests on an *assumed* finite ADC CMRR — honestly stated, bench
+  to confirm. No fab blocker remains from Track B.
 - `lib.sh` severity-count display is cosmetic-buggy (`errors~00`); authoritative exit code is
   correct.
 - `main` not advanced; `integration` holds A–E. Track branches/worktrees retained.
