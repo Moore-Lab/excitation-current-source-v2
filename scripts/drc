@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+# scripts/drc — DRC gate wrapper (canonical command, docs/BOARD_DEV_CHECKLIST.md).
+# Refills zones before checking so the result is meaningful (Phase 3 gate) but does
+# NOT --save-board (the .kicad_pcb is Track F's source; we never mutate it here).
+# Assumes the PCB exists; run_gates handles the "not present yet" case.
+# Writes reports/drc/drc_<tag>.json. Exit: 0 clean, 1 violations, 2 cannot run.
+set -u
+SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+. "$SCRIPT_DIR/lib.sh"
+
+kicad_ok    || { err "kicad-cli not found (set \$KICAD_CLI or install KiCad $KICAD_PINNED)"; exit 2; }
+[ -f "$PCB_FILE" ] || { err "PCB not found: $PCB_FILE"; exit 2; }
+
+mkdir -p "$DRC_DIR"
+out="$DRC_DIR/drc_$(gate_tag).json"
+check_kicad_version
+log "DRC: $PCB_FILE"
+"$KICAD" pcb drc \
+  --exit-code-violations --severity-error --refill-zones \
+  --format json --output "$out" "$PCB_FILE"
+rc=$?
+info "DRC report: $out  (errors~$(count_severity "$out" error), warnings~$(count_severity "$out" warning), exit=$rc)"
+printf '%s\n' "$out"
+exit $rc

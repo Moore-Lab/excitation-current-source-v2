@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+# scripts/install_hooks — opt-in: install the ERC/DRC pre-commit hook into this
+# repo (or worktree). Not run automatically, so it never surprises a sibling
+# parallel-track session. Resolves the correct hooks dir for worktrees.
+set -eu
+SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" && pwd)
+HOOK_SRC="$SCRIPT_DIR/hooks/pre-commit"
+HOOK_DIR="$(git -C "$SCRIPT_DIR" rev-parse --git-path hooks)"
+mkdir -p "$HOOK_DIR"
+cp "$HOOK_SRC" "$HOOK_DIR/pre-commit"
+chmod +x "$HOOK_DIR/pre-commit"
+printf 'Installed pre-commit hook -> %s/pre-commit\n' "$HOOK_DIR"
+printf 'Remove with: rm %s/pre-commit\n' "$HOOK_DIR"

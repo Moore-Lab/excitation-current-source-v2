@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+# scripts/export_netlist — export the schematic netlist in SPICE format for
+# Track B's ngspice harness. Track B's decks `.include` this file (sim/README.md
+# §Wave-3 hook), so the format is `spice` (flat deck), NOT KiCad's kicadsexpr
+# default. The export must present Track B's node/knob contract (rail/top/mid/
+# nref/nrtd + knob sources) — that's Track E/Wave-3's job; align with Track B
+# before re-pointing the decks. Output lands in sim/netlists/ (Track B's tree);
+# this script only *writes* that file at run time (integration), never touches
+# Track B's sources here.
+# Exit: 0 ok, 2 cannot run.
+set -u
+SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+. "$SCRIPT_DIR/lib.sh"
+
+kicad_ok    || { err "kicad-cli not found (set \$KICAD_CLI or install KiCad $KICAD_PINNED)"; exit 2; }
+[ -f "$SCH_FILE" ] || { err "schematic not found: $SCH_FILE"; exit 2; }
+
+mkdir -p "$NETLIST_DIR"
+out="$NETLIST_DIR/${BOARD_BASENAME}.net"
+check_kicad_version
+log "Netlist (SPICE): $SCH_FILE"
+"$KICAD" sch export netlist --format spice --output "$out" "$SCH_FILE" || { err "netlist export failed"; exit 2; }
+info "Netlist: $out"
+printf '%s\n' "$out"
