@@ -110,5 +110,4 @@ rewrites `net_settings` to a single default class, so the build script re-patche
 0/0 from E, DRC 0/0 here). Then **Track G** (fab: gerbers/drill/pos/STEP from the `rev-A` tag;
 `fab/` is gitignored). Recommend resolving the RC-filter ECO decision before the fab drop.
 
-**Commit:** `__PENDING__` (board + project netclasses + this log); tag **`rev-A`**. Hash recorded
-in a follow-up.
+**Commit:** `b630b5a` (board + project netclasses + this log); tag **`rev-A`** points at it.
