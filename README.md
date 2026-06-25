@@ -18,6 +18,8 @@ reads, 1 spare), 3 RTD 4-wire connectors. The result is **ratiometric across two
 (sense + V_ref) and keeping the I²C/digital side off it.
 
 ## Where to start
+- **Read this first:** `docs/USER_MANUAL.md` — one place to understand the board, see what was
+  built, and check the verification evidence (ERC/DRC/SPICE) before fab.
 - **Design:** `docs/board_spec.md` (electrical source of truth).
 - **Working with Claude Code:** `CLAUDE.md` → `docs/SESSION_KICKOFF.md`.
 - **Running multiple sessions in parallel:** `docs/PARALLEL_PLAN.md` + `docs/tasks/`.
