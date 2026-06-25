@@ -30,6 +30,60 @@ one-entry summary per merged track.
 
 ---
 
+## Session 004 — 2026-06-25 — Integrate Track E wire-up + Track F (layout)
+
+**Tooling:** KiCad 10.0.3 (`kicad-cli`).
+**Branch / commit at start:** integration @ 8211249 (Tracks A–E merged; E at label-based version).
+**State before:** Repo had been **moved** from `ivmux-python/excitation-current-source-v2` to
+`Desktop/excitation-current-source-v2`, which broke all worktree git-links (stale gitdir
+back-pointers). `trackE` was 2 commits ahead of integration (wire-up pass: drawn wires + power
+symbols, `d19d202`); `trackF` (4-layer PCB, routed, `b630b5a`) was branched off integration but
+unmerged. No `.kicad_pcb` in integration.
+
+**Objective:** Merge the trackE wire-up pass, then merge trackF (layout), re-running ERC + DRC.
+
+**Actions:**
+1. `git worktree repair` on all six worktrees (rtd-integration, trackA–F) — fixed the stale
+   gitdir links left by the repo move; all worktrees responsive again.
+2. Verified ERC 0/0 on `trackE` tip before merging.
+3. Merged `trackE` → integration (`--no-ff`, `e80ed2b`). Confirmed the netlist **connectivity
+   is structurally identical** to pre-wire-up (net-name + node ref/pin extraction `diff` empty);
+   the 62-line `.net` churn is export-date + regenerated tstamps/UUIDs + the deviation comment
+   field only. So trackF's layout (built on the old netlist) is unaffected.
+4. Merged `trackF` → integration (`--no-ff`, `2a5517b`). `.kicad_pro` merged with no conflict.
+
+**Files touched:** merge commits only — `hardware/*.kicad_sch` (E), `hardware/rtd-readout.kicad_pcb`
+(new, F), `hardware/rtd-readout.kicad_pro`, `sim/netlists/rtd-readout.net`, per-track logs;
+this log entry.
+
+**Validation:**
+- ERC (merged): **0 errors / 0 warnings** (`kicad-cli sch erc --exit-code-violations`, exit 0).
+- DRC (merged): **0 violations / 0 unconnected** (`kicad-cli pcb drc --schematic-parity`, exit 0).
+- Schematic parity: **47 issues — pre-existing in trackF** (identical count + breakdown on the
+  trackF tip before merge; the merge introduced none). Breakdown: 30 "missing MPN field in
+  footprint" + 10 "Exclude-from-BOM differs" (footprint field/attribute metadata not
+  back-synced from symbols — cosmetic), 4 extra + 3 duplicate footprints, **all with no
+  reference designator** = mounting holes / fiducials placed without a schematic symbol
+  (expected for mechanical footprints). None are net/connectivity errors.
+
+**Decisions (rationale + spec ref):**
+- trackE merged ahead of trackF — drawn-wire schematic is the canonical capture; netlist proven
+  identical so it cannot disturb the existing layout.
+- 47 parity issues accepted as non-blocking: DRC electrical is clean; issues are mechanical-
+  footprint (no-symbol, expected) + un-synced metadata fields. — board_spec §Layout-critical.
+
+**Open issues / risks:**
+- Parity metadata (MPN field, BOM-exclude flags) is not synced PCB↔schematic. Harmless for
+  routing/fab but should be tidied before a production BOM pull if MPNs are read off the board.
+- trackF still owns the layout branch; integration now contains the board but `trackF` is not
+  deleted. Track G (fab) runs off this post-F integration.
+
+**Next action:** Track G — fab outputs (Gerbers/drill/BOM/pick-place) off this integration tip;
+tag `rev-A` before any fab drop (per TRACK_F "Done when").
+**Commit:** merges `e80ed2b` (E), `2a5517b` (F); this log entry committed as a follow-up.
+
+---
+
 ## Session 003 — 2026-06-22 — Integrate Tracks A–E
 
 **Tooling:** KiCad 10.0.3 (kicad-cli); ngspice/Python not on integrator PATH (Track B/C
