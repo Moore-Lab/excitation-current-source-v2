@@ -75,15 +75,23 @@ Shared docs (`board_spec.md`, process docs) are **read-only** for Wave-0 session
 ## Coordination mechanics
 
 ### One worktree per session
+> **Worktrees MUST live outside any other git repo.** Put them in a dedicated sibling folder,
+> never a bare `../rtd-trackX`. (A past run created them inside the unrelated `ivmux-python`
+> repo because this repo then sat at `ivmux-python/excitation-current-source-v2`, so `../`
+> resolved *into* that repo — they polluted its status and risked being committed there.)
 ```bash
+# run from this repo's root
 git switch -c integration
-git worktree add ../rtd-trackA -b trackA integration
-git worktree add ../rtd-trackB -b trackB integration
-git worktree add ../rtd-trackC -b trackC integration
-git worktree add ../rtd-trackD -b trackD integration
+mkdir -p ../excitation-worktrees
+git worktree add ../excitation-worktrees/trackA -b trackA integration
+git worktree add ../excitation-worktrees/trackB -b trackB integration
+git worktree add ../excitation-worktrees/trackC -b trackC integration
+git worktree add ../excitation-worktrees/trackD -b trackD integration
 ```
-Open each Claude Code session in its own `../rtd-trackX` directory — shared object store,
-independent working trees and branches, no collisions. (Fallback: separate clones.)
+Open each Claude Code session in its own `../excitation-worktrees/trackX` directory — shared
+object store, independent working trees and branches, no collisions. Confirm the target is
+**not** inside another repo (`git -C <target>/.. rev-parse --show-toplevel` should be empty or
+this repo). (Fallback: separate clones.)
 
 ### Per-track logs
 Each track logs to `docs/sessions/trackX.md` (same schema as `SESSION_LOG.md`). The global
