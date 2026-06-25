@@ -30,6 +30,37 @@ one-entry summary per merged track.
 
 ---
 
+## Session 005 — 2026-06-25 — Track G: rev-A fab package + closeout
+
+**Tooling:** KiCad 10.0.3; ngspice 44 (conda env `spice`); Python 3.12.4.
+**Branch / commit at start:** `trackG` @ `c789a13` (off post-F integration; hardware frozen
+at tag `rev-A` = `b630b5a`).
+**State before:** A–F merged; ERC 0/0, DRC 0/0; no fab package; SPICE not yet re-pointed.
+**Objective:** Generate the rev-A manufacturing package, final review artifacts, re-run SPICE
+vs the real netlist, close out the design.
+**Actions:**
+- `scripts/run_gates --tag rev-A`, `scripts/fab_drop` (gerbers/drill/pos/STEP/BOM → `fab/`).
+- Review artifacts → `reports/review/` (schematic PDF, 3D render, BOM_REVIEW, FAB_READINESS).
+- Provisioned ngspice (conda) and re-ran `sim/scripts/run_all.py` vs `sim/netlists/rtd-readout.net`.
+**Files touched:** `reports/{erc,drc,review}/**`, `docs/sessions/trackG.md`, this log; `fab/**`
+(gitignored, captured by tag `fab-rev-A`). `hardware/**` untouched.
+**Validation:**
+- ERC 0/0; DRC 0 violations / 0 unconnected (rev-A).
+- BOM vs board_spec: D=3, R=5 (3 R_ref + 2 pull-up), U=2, C=4, J=6, TP=10 — all pass; 30 parts.
+- Stackup 4-layer / 1.6 mm; standard-fab DRC rules; Edge.Cuts present.
+- SPICE: **all 7 tests PASS** vs the real netlist; reproduced Track B's `reports/sim/*.md`
+  byte-identical (connectivity unchanged).
+**Decisions:** fab cut from the rev-A-equivalent tree (cosmetic drawn-wire schematic only;
+netlist identical); ngspice provisioned locally so the SPICE re-point ran here, not deferred.
+**Open issues / risks:** 47 non-blocking parity items (mechanical/metadata); generic-passive
+MPNs are placeholders; no panelization; **bench verification (TESTING_PLAN Part 2) needs the
+physical board** — Lucas runs on assembly.
+**Next action:** Lucas — order rev-A from `fab/` (`fab-rev-A`); run Part-2 bench on the
+assembled board. **Design + fab package complete.**
+**Commit:** trackG closeout; tag `fab-rev-A`. Integration merge of G is the final wave.
+
+---
+
 ## Session 004 — 2026-06-25 — Integrate Track E wire-up + Track F (layout)
 
 **Tooling:** KiCad 10.0.3 (`kicad-cli`).
