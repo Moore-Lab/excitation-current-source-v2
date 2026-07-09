@@ -1693,7 +1693,7 @@
 				)
 			)
 		)
-		(property "MPN" "(set per value at BOM time)"
+		(property "MPN" "GRM188R71H104KA93D"
 			(at 101.6 101.6 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1704,7 +1704,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "(generic)"
+		(property "Manufacturer" "Murata"
 			(at 101.6 101.6 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1823,7 +1823,7 @@
 				)
 			)
 		)
-		(property "MPN" "(set per value at BOM time)"
+		(property "MPN" "GRM188R71H104KA93D"
 			(at 127 101.6 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1834,7 +1834,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "(generic)"
+		(property "Manufacturer" "Murata"
 			(at 127 101.6 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1953,7 +1953,7 @@
 				)
 			)
 		)
-		(property "MPN" "(set per value at BOM time)"
+		(property "MPN" "RC0805FR-074K7L"
 			(at 190.5 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1964,7 +1964,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "(generic)"
+		(property "Manufacturer" "Yageo"
 			(at 190.5 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2073,7 +2073,7 @@
 				)
 			)
 		)
-		(property "MPN" "(set per value at BOM time)"
+		(property "MPN" "RC0805FR-074K7L"
 			(at 203.2 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2084,7 +2084,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "(generic)"
+		(property "Manufacturer" "Yageo"
 			(at 203.2 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2193,7 +2193,7 @@
 				)
 			)
 		)
-		(property "MPN" "(1x4 2.54 mm header)"
+		(property "MPN" "PREC004SAAN-RC"
 			(at 215.9 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2204,7 +2204,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "(generic)"
+		(property "Manufacturer" "Sullins"
 			(at 215.9 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
