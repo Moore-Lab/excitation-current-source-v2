@@ -1304,7 +1304,7 @@
 				)
 			)
 		)
-		(property "MPN" "(2x4 2.54 mm header)"
+		(property "MPN" "PREC004DAAN-RC (2x4; confirm)"
 			(at 101.6 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1315,7 +1315,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "(generic)"
+		(property "Manufacturer" "Sullins"
 			(at 101.6 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1480,7 +1480,7 @@
 				)
 			)
 		)
-		(property "MPN" "(set per value at BOM time)"
+		(property "MPN" "GRM188R61E106KA73D"
 			(at 50.8 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1491,7 +1491,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "(generic)"
+		(property "Manufacturer" "Murata"
 			(at 50.8 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1620,7 +1620,7 @@
 				)
 			)
 		)
-		(property "MPN" "(set per value at BOM time)"
+		(property "MPN" "GRM188R61E106KA73D"
 			(at 165.1 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1631,7 +1631,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "(generic)"
+		(property "Manufacturer" "Murata"
 			(at 165.1 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)

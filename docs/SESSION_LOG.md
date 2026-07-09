@@ -30,6 +30,38 @@ one-entry summary per merged track.
 
 ---
 
+## Session 006 — 2026-07-09 — rev-B: layout review + adversarial verify + real Digi-Key parts
+
+**Tooling:** KiCad 10.0.3; Python 3.12.4; web research.
+**Branch / commit at start:** `rev-b-parts` off `main` (rev-A).
+**Objective:** Pre-order review — independently review the layout, adversarially verify it, put
+real Digi-Key parts on the whole BOM, update schematic/BOM/fab, and package for Lucas's review.
+**Actions:**
+- **Layout review** (design + a background adversarial subagent told to refute): both converged.
+  Verified against the copper: 4-layer split planes; GND split analog/digital with a genuine
+  **single-point tie** (one 1.5 mm In1.Cu neck (80,50)→(83,50), the only bridge); no sensitive
+  net crosses the split; +5V/VS power plane split; ADS beside R_ref; Kelvin intact; M3 corner
+  holes DRC-clean. Verdict: **fabricable (yes-with-fixes).**
+- **Parts:** researched real Digi-Key parts for every line. Two corrections: RTD conn
+  **1729160 (6-pos) → 1729144 (4-pos)**; R_ref **Susumu 25 ppm → Vishay TNPU1206 ≤10 ppm**
+  (board_spec binding). Updated MPN/Manufacturer per instance across all 5 sheets.
+- Re-ran gates, re-exported BOM, regenerated fab, re-rendered 3D. Rewrote `reports/review/
+  BOM_REVIEW.md` as the Digi-Key ordering list; updated `USER_MANUAL.md` (§8.4 review, §8.5
+  open decision).
+**Files touched:** `hardware/*.kicad_sch` (MPN fields only — nets/footprints/copper unchanged),
+`reports/review/*`, `docs/USER_MANUAL.md`, this log.
+**Validation:** ERC **0/0**; DRC **0 violations / 0 unconnected** (tag rev-B); BOM counts pass
+(30 parts). SPICE unchanged. Parity still 47 (cosmetic; footprint MPN metadata not pushed).
+**Open decision (Lucas):** **sense-line RC filter** (~1 kΩ+0.1 µF) is spec-required but absent
+from schematic+board, and SPICE test5 models it — add (rev-C schematic+layout) or waive +
+re-scope test5. Only item gating the order. Also: pick exact R_ref order code; confirm the
+"◑ confirm at cart" Digi-Key P/Ns.
+**Next action:** Lucas reviews `USER_MANUAL.md` §8.4/§8.5 + `BOM_REVIEW.md`; decide the filter;
+then order from `fab/` (`fab-rev-B`).
+**Commit:** rev-B parts + review; tags `rev-B`, `fab-rev-B`.
+
+---
+
 ## Session 005 — 2026-06-25 — Track G: rev-A fab package + closeout
 
 **Tooling:** KiCad 10.0.3; ngspice 44 (conda env `spice`); Python 3.12.4.

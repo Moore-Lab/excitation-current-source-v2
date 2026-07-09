@@ -1,4 +1,4 @@
-# RTD Readout Board — User Manual (rev-A)
+# RTD Readout Board — User Manual (rev-B)
 
 **One document to understand the board, see exactly what was built, and judge whether it
 makes sense.** It covers the design rationale, the as-built configuration, the verification
@@ -7,8 +7,14 @@ operate, and bench-test it.
 
 - **Design source of truth:** [`board_spec.md`](board_spec.md) (electrical). This manual
   explains and summarizes it; if the two ever disagree, `board_spec.md` wins.
-- **Hardware revision:** `rev-A` (git tag). Manufacturing drop: tag `fab-rev-A`.
-- **Status:** Design complete and verified in simulation; **not yet fabricated or bench-tested.**
+- **Hardware revision:** `rev-B` (git tag) — real Digi-Key parts + corrected MPNs vs rev-A;
+  copper unchanged. Manufacturing drop tag `fab-rev-B`.
+- **Status:** Design complete; **layout independently reviewed + adversarially verified** (§8.4);
+  verified in simulation; **not yet fabricated or bench-tested.**
+
+> ⚠ **One open decision before you order — read §8.5:** the spec's *sense-line RC filter* is not
+> on the board, and SPICE `test5` models it anyway. Add it or waive it — your call. Everything
+> else is review-ready.
 
 ---
 
@@ -146,11 +152,13 @@ Exported from the schematic; counts cross-checked against the spec's rules.
 | TP1–TP10 | 10 | test pads | TOP/MID/rail/GND/SDA/SCL taps |
 
 **Total: 30 components.** Count rules all pass: CRD = channels (3), R_ref = channels (3),
-ADS1115 = ceil(3/2) (2), pull-ups + decoupling + bulk present. Detail:
-[`reports/review/BOM_REVIEW.md`](../reports/review/BOM_REVIEW.md).
+ADS1115 = ceil(3/2) (2), pull-ups + decoupling + bulk present. **Full Digi-Key ordering list
+with real MPNs + part numbers:** [`reports/review/BOM_REVIEW.md`](../reports/review/BOM_REVIEW.md).
 
-> Note: generic passives (C1–C4, R4/R5, headers) carry placeholder MPNs — assign at order
-> time. Precision parts (CRD, R_ref, ADS1115, terminals) are fully specified.
+> rev-B replaced the rev-A placeholder MPNs with real Digi-Key parts and fixed two errors: the
+> **RTD connector** P/N was the wrong pin count (6-pos → **1729144**, 4-pos), and **R_ref** was
+> ±25 ppm/°C where the spec binds ≤10 ppm/°C (→ Vishay TNPU1206 family). A few generic Digi-Key
+> P/Ns are marked "confirm at cart." See `BOM_REVIEW.md` for the details and the reasoning.
 
 ---
 
@@ -202,7 +210,7 @@ host/            acquisition code: T7 driver, ADS1115 I²C driver, time-aligned 
 test/            staged bench procedures (import host/) + measured data/                            [SOURCE]
 scripts/         kicad-cli gate wrappers: run_gates, fab_drop, erc, drc, export_bom                 [SOURCE]
 reports/         ERC/DRC/SPICE/BOM/review artifacts (generated, committed)
-fab/             gerbers/drill/pos/STEP/BOM (generated, gitignored, captured by tag fab-rev-A)
+fab/             gerbers/drill/pos/STEP/BOM (generated, gitignored, captured by tag fab-rev-B)
 docs/            this manual, board_spec.md, testing/dev/parallel plans, per-track logs
 ```
 
@@ -241,7 +249,7 @@ Reproduce: set `NGSPICE_BIN` to your ngspice console binary, then
 | 2 | Ratiometric + cross-cal | recovered-R error ~7×10⁻⁹ (tol 10⁻⁶) | the math works and is invariant to ±10 % CRD / R_ref perturbation |
 | 3 | Monte-Carlo accuracy | σ ≈ 0.038 °C, tempco-dominated | accuracy is limited by R_ref + relative ADC gain tempco, as designed |
 | 4 | R_ref sizing / no-clip | V_ref = 86 % FS, 14.8 effective bits | worst-case V_ref never clips the ADS1115 range |
-| 5 | Sense-line settling | 1.02 ms < 5 ms mux dwell | the RC filter settles within the T7's dwell |
+| 5 | Sense-line settling | 1.02 ms < 5 ms mux dwell | ⚠ models a 1 kΩ/0.1 µF filter **not on the board** — see §8.5 |
 | 6 | Noise of the ratio | within target; **CRD noise bound 2.9 nA/√Hz** | the one architectural risk (CRD noise) is quantified and tolerable |
 | 7 | Crosstalk vs star-ground R | 1.6×10⁻⁵ °C/Ω | sets the acceptable shared-ground resistance |
 
@@ -255,12 +263,59 @@ Reproduce: set `NGSPICE_BIN` to your ngspice console binary, then
 3. Skim `reports/sim/*.md` → each test's objective, method, numbers, and pass margin.
 4. Cross-read this manual's §2 (rationale) against `board_spec.md`.
 
+### 8.4 Independent layout review (design + adversarial) — *the analog-integrity check DRC can't do*
+
+DRC/ERC/SPICE prove connectivity and circuit math but **cannot** judge the analog-integrity
+layout strategy (star ground, mixed-signal partition, sense/V_ref separation). Two independent
+passes did — a design review and a skeptical adversarial review told to *refute* it. They
+**converged**. Verified against the actual copper (`hardware/rtd-readout.kicad_pcb`):
+
+| Analog-integrity requirement (board_spec §Layout-critical) | Verdict | Evidence |
+|---|---|---|
+| 4-layer split-plane stackup | ✅ | signals on F.Cu/B.Cu; planes on In1/In2.Cu |
+| GND split analog/digital with **single-point tie** | ✅ | one 1.5 mm In1.Cu neck at (80,50)→(83,50) is the *only* bridge — verified no other GND copper crosses the gap |
+| No sensitive net crosses the plane split | ✅ | every CHn_TOP/MID/SENSE net stays in the analog region; only GND-tie/SDA/SCL cross |
+| Power plane split +5V (analog) / VS (digital) | ✅ | separate nets, fully gapped (correct) |
+| Each ADS1115 beside its R_ref pairs; V_ref taps short | ✅ | U1/U2 at x60 next to R1–R3; taps run straight into ADS pads |
+| 4-wire Kelvin to each RTD | ✅ | Force/Sense are distinct nets on distinct connector pins; join only at the RTD |
+| Corner mounting holes clear the pours | ✅ | 4× M3 NPTH (3.2 mm); DRC-clean |
+
+**Overall verdict: fabricable as-is (yes-with-fixes).** Minor coupling notes (I²C passes within
+1–2 mm of the ADS analog-input pins — forced by the chip pinout, short and partially mitigated;
+I²C return detours around the ground slot but is referenced to the continuous VS plane) are
+flagged as cosmetic, not blockers. Full write-ups: the adversarial review corroborated every
+strength above by exact s-expression geometry, not by trusting the layout log.
+
+**The one real gap both reviews found → §8.5.**
+
+### 8.5 Open design decision — the sense-line RC filter (resolve before ordering)
+
+`board_spec.md` §Layout and `TRACK_F_layout.md` item 6 both require a **"~1 kΩ + 0.1 µF
+differential" anti-alias/settling filter** at the T7 sense input. It is **absent from both the
+schematic and the board** — the `CHn_SENSE±` nets run straight from each RTD connector to J4
+with nothing in between. Compounding it, SPICE `test5` **models** a 1 kΩ/0.1 µF filter, so
+"test5 pass" currently validates a network that isn't populated (a docs/SPICE-vs-board mismatch).
+
+This is a **design decision, not a defect I should silently make** — and it can't be added
+cleanly without a schematic change (new parts + routing near J4), which would need re-verification.
+Your two options:
+
+- **Add it** (recommended if the T7 mux settling / anti-alias margin matters to you): add per
+  channel `1 kΩ` series in Sense+ and Sense− plus a `0.1 µF` differential cap at J4 — this makes
+  test5 truthful and matches the spec. It's a rev-C schematic+layout task; I can do it on request.
+- **Waive it** (defensible — the ADS averaging + high-Z T7 inputs tolerate its absence): record
+  the waiver in the log and **re-scope test5** so SPICE stops asserting a nonexistent part.
+
+Either way, the board is otherwise ready. Impact if shipped as-is: no anti-alias/settling network
+at the T7 mux input — a mux-settling/noise-margin risk to confirm on the bench, **not** a
+functional showstopper.
+
 ---
 
 ## 9. Ordering & assembly
 
 1. The manufacturing package is generated to `fab/` (gitignored) and captured by tag
-   **`fab-rev-A`**. Regenerate any time with `sh scripts/fab_drop` (deterministic from the
+   **`fab-rev-B`**. Regenerate any time with `sh scripts/fab_drop` (deterministic from the
    board): gerbers, drill, pick-and-place CSV, STEP, fab BOM.
 2. Upload `fab/gerbers` + `fab/drill` to your fab; 4-layer, 1.6 mm, standard rules. Add
    panelization at the fab portal if required (the design is a single-board outline).
@@ -313,11 +368,17 @@ Staged go/no-go gates (from [`TESTING_PLAN.md`](TESTING_PLAN.md)); bench data �
 
 ## 12. Limitations & open items
 
-- **Not yet fabricated or bench-tested.** Sections 8.1–8.2 are simulation + rule checks; the
-  board is proven correct in design, not yet in hardware.
+- **⚠ Sense-line RC filter decision is open (§8.5)** — spec-required, not on the board, and
+  SPICE test5 models it. Add or waive before ordering. *This is the only item gating the order.*
+- **Not yet fabricated or bench-tested.** Sections 8.1–8.4 are simulation + rule checks + a
+  static layout review; the board is proven correct in design, not yet in hardware.
 - **Bench Part 2 (§11) is pending** and requires the physical board — it includes the headline
   position-independence test the redesign exists to pass.
-- **Generic-passive MPNs are placeholders** — assign before a production BOM pull.
+- **R_ref part** must be a ≤10 ppm/°C 910 Ω 1206 (rev-B recommends Vishay TNPU1206; select the
+  exact 910 Ω order code on Digi-Key). A few generic Digi-Key P/Ns are "confirm at cart."
+- **Footprint MPN metadata** isn't pushed to the PCB (schematic carries the real MPNs; the 47
+  schematic-parity items are unchanged/cosmetic). A one-click GUI "update PCB from schematic"
+  clears them; it doesn't affect fab or function.
 - **No panelization** in the package (single-board outline).
 - **CRD noise is the one architectural risk** (Stage 8). If hardware shows it's too high, the
   fix is a reference+op-amp current source; the ratiometric readout stays either way.
@@ -329,4 +390,5 @@ Staged go/no-go gates (from [`TESTING_PLAN.md`](TESTING_PLAN.md)); bench data �
 
 Built across parallel tracks A–G (libraries, SPICE, host/bench, automation, schematic, layout,
 fab) and merged to `main`. Per-track detail in `docs/sessions/track*.md`; integration history in
-[`SESSION_LOG.md`](SESSION_LOG.md). Hardware frozen at tag `rev-A`; fab drop at `fab-rev-A`.
+[`SESSION_LOG.md`](SESSION_LOG.md). rev-A = the design freeze; **rev-B** adds real Digi-Key parts
++ corrected MPNs (copper unchanged) and the independent layout review; fab drop at `fab-rev-B`.

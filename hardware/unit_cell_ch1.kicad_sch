@@ -1177,7 +1177,7 @@
 				)
 			)
 		)
-		(property "MPN" "RG3216P-911-B-T5"
+		(property "MPN" "TNPU1206 910R 0.1% 10ppm (confirm code)"
 			(at 50.8 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1188,7 +1188,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Susumu (representative; any <=10 ppm/C thin-film ~910R is acceptable)"
+		(property "Manufacturer" "Vishay (>=10ppm/C thin-film; see BOM_REVIEW)"
 			(at 50.8 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1309,7 +1309,7 @@
 				)
 			)
 		)
-		(property "MPN" "1729160 (MKDS 1,5/4-5,08)"
+		(property "MPN" "1729144 (MKDS 1,5/4-5,08)"
 			(at 76.2 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
