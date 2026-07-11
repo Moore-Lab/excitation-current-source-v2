@@ -16,13 +16,13 @@ Per sample: cross-cal at dt=0, then op at dt with sampled tempco/offset; fractio
 | relative ADC gain tempco | 10 ppm/C | 0.0256 |
 | V_RTD offset drift | 1 uV | 0.0116 |
 | **analytic RSS** | | **0.0380** |
-| **MC sigma (sim)** | | **0.0376** |
-| MC 95th pct \|err\| | | 0.0731 |
+| **MC sigma (sim)** | | **0.0373** |
+| MC 95th pct \|err\| | | 0.0730 |
 
 ![hist](plots/test3_mc_hist.png)
 
 ## Pass / Fail
-Criterion sigma <= 0.05 C AND tempco terms dominate. **PASS** (sigma=0.0376 C; each tempco term 0.0256 C > offset 0.0116 C).
+Criterion sigma <= 0.05 C AND tempco terms dominate. **PASS** (sigma=0.0373 C; each tempco term 0.0256 C > offset 0.0116 C).
 
 ## Anomalies & notes
 Offset term scales as 1/V_RTD (~22 mV), so it is the term most sensitive to the small Pt100 signal - tighten T7/ADS offset drift or recal more often if it grows.

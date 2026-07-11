@@ -6,7 +6,7 @@ assignment that reads **V_ref** over I²C. Everything traces back to
 ``docs/board_spec.md``; the defaults reproduce the resolved design point
 (board_spec.md "Resolved inputs", Session 002):
 
-    Pt100, 3 channels, ~220 µA CRD, R_ref ≈ 910 Ω,
+    Pt100, 3 channels, ~240 µA CRD, R_ref ≈ 820 Ω,
     T7 range ±0.1 V, ADS1115 PGA range ±0.256 V,
     2 ADS1115 at 0x48 / 0x49 (1 chip per 2 channels), 3 V_ref reads (1 spare).
 
@@ -192,7 +192,7 @@ def make_config(
 ) -> BoardConfig:
     """Build a BoardConfig, filling spec-derived defaults for the RTD type.
 
-    Pt100 defaults follow the resolved configuration (≈220 µA, R_ref ≈910 Ω,
+    Pt100 defaults follow the resolved configuration (≈240 µA, R_ref ≈820 Ω,
     T7 ±0.1 V). Pt1000 follows board_spec.md (T7 ±1 V; R_ref keys off the ADS
     range, not the RTD, so it is unchanged). Any field may be overridden.
     """
@@ -208,10 +208,10 @@ def make_config(
 
     # CRD current and R_ref are spec defaults; both are absorbed by cross-cal,
     # so these set ranges/sanity, not precision (board_spec.md "The measurement").
-    cur = excitation_current_a if excitation_current_a is not None else 220e-6
-    # R_ref sized to the ADS range, not the RTD: V_ref ≈ 0.78 * full-scale at
-    # nominal current, with headroom for the CRD's +10 % spread.
-    rref = r_ref_ohms if r_ref_ohms is not None else 910.0
+    cur = excitation_current_a if excitation_current_a is not None else 240e-6
+    # R_ref sized to the ADS range, not the RTD: V_ref ≈ 0.77 * full-scale at
+    # nominal current, with headroom for the CRD's +20 % band (J500, rev-E).
+    rref = r_ref_ohms if r_ref_ohms is not None else 820.0
 
     return BoardConfig(
         rtd_type=rtd_type,

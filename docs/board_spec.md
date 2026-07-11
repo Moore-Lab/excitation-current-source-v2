@@ -20,7 +20,7 @@ digitized on the board by I²C ADC(s) on the T7's digital lines, not on an analo
 ```
    +V rail (5 V; higher improves CRD regulation if available)
       │
-   [ CRD ]            current-regulator diode, ~220 µA (1N5283 / CDLL5283), two-terminal
+   [ CRD ]            current-regulator diode, ~240 µA (LIS J500, TO-92), two-terminal
       │  I (same current through everything below)
   TOP ●───────────────► ADS1115 IN+   ┐ V_ref read differentially on-board, over I²C
    [R_ref]                            │
@@ -67,9 +67,13 @@ ratio shows up as ≈ `260 · (error)` °C. So ~100 ppm of combined drift ≈ 0.
 ## Components
 
 ### Current source — CRD (current-regulator diode)
-- **1N5283 / CDLL5283**, ~0.22 mA nominal, ±10 %, two-terminal, JEDEC-registered, in
-  production (Microchip/Microsemi, Central, Digitron). Use the **CDLL5283** MELF for a
-  permanent SMD board. Anode → rail, cathode → R_ref.
+- **LIS J500, TO-92 2-lead** (Linear Integrated Systems; replaces the Siliconix J500),
+  ~0.24 mA nominal, ±20 % band (0.192–0.288 mA guaranteed), 50 V, two-terminal.
+  *rev-E (2026-07-11):* the original 1N5283/CDLL5283 (~0.22 mA ±10 %) became unbuyable
+  (zero stock everywhere at Digi-Key, MOQ-only 25–40-week factory leads) and the MELF
+  package is hand-assembly-hostile; the J500 is the verified in-stock equivalent —
+  through-hole TO-92, an accepted deviation from the all-SMD preference.
+  Anode → rail, cathode → R_ref.
 - Exact current is unimportant (measured live). It must only be **stable over one scan**
   and quiet. Compliance: needs a few volts across it to regulate; on a 5 V rail with
   ~0.25 V of load drop it sees ~4.7 V — verify against the chosen CRD's limiting voltage
@@ -81,9 +85,10 @@ ratio shows up as ≈ `260 · (error)` °C. So ~100 ppm of combined drift ≈ 0.
   (cross-cal absorbs it) — do not pay for 0.01 % here; pay for tempco and stability.
 - **Size R_ref to the ADS1115 input range, not to the RTD.** Target V_ref near full-scale
   of the chosen PGA range, with margin for the CRD's +10 % spread so it never clips.
-  Default: **R_ref ≈ 910 Ω** → V_ref ≈ 200 mV nominal (≈ 220 mV at +10 % CRD), comfortably
-  inside the ADS1115 **±0.256 V** range (7.8125 µV/LSB). If you prefer headroom, R_ref =
-  1 kΩ on the ±0.512 V range.
+  Default (rev-E, re-sized for the J500's ±20 % band): **R_ref = 820 Ω** → V_ref ≈ 197 mV
+  nominal, ≤ 236 mV at the guaranteed band max — never clips the ADS1115 **±0.256 V** range
+  (7.8125 µV/LSB), ~8 % worst-case headroom. If you prefer more headroom, use the ±0.512 V
+  range (halves resolution).
 
 ### Current-sense ADC — ADS1115 (I²C)
 - 16-bit, programmable-gain, I²C, four selectable addresses (0x48–0x4B via the ADDR pin).
@@ -97,7 +102,7 @@ ratio shows up as ≈ `260 · (error)` °C. So ~100 ppm of combined drift ≈ 0.
 
 ### RTD voltage — existing T7 Pro pairs
 - V_RTD on each RTD's existing differential pair, Kelvin-sensed at the RTD. Range: **±0.1 V**
-  for Pt100 (≈18–35 mV at ~220 µA), **±1 V** for Pt1000 (≈180–345 mV). Set the resolution
+  for Pt100 (≈19–38 mV at ~240 µA), **±1 V** for Pt1000 (≈193–378 mV). Set the resolution
   index high and give each channel adequate mux settling.
 
 ## Board as the hub / interfaces
@@ -124,13 +129,13 @@ and R_ref, digitizes V_ref locally on the ADS1115s, and routes outward:
 
 ## Resolved inputs (locked 2026-06-22, Session 002 — Lucas; channel count revised
 ## 2026-07-09, Session 008 — Lucas: use the spare ADS1115 pair → 4 channels)
-1. **RTD type = Pt100.** → T7 range **±0.1 V** (≈18–35 mV at ~220 µA). Set a high resolution
+1. **RTD type = Pt100.** → T7 range **±0.1 V** (≈19–38 mV at ~240 µA). Set a high resolution
    index and adequate mux settling per channel. (Does not affect R_ref sizing, which keys off
    the ADS range, or the CRD.)
 2. **Channel count = 4** of the 7 T7 differential pairs are RTDs (was 3; the second ADS1115's
    AIN2/AIN3 differential pair was spare, so CH4 costs no new ADC). This fixes the repeated
    hardware:
-   - **4 CRD/R_ref unit cells** (4× CRD 1N5283/CDLL5283, 4× R_ref ≈910 Ω on the ADS ±0.256 V
+   - **4 CRD/R_ref unit cells** (4× CRD LIS J500, 4× R_ref 820 Ω on the ADS ±0.256 V
      range).
    - **2 ADS1115** (1 chip per 2 channels → ceil(4/2) = 2): 4 differential V_ref reads, **4
      used, 0 spare**. Strap ADDR for **0x48 and 0x49**. U1 reads CH1/CH2; U2 reads CH3/CH4.

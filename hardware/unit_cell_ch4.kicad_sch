@@ -25,7 +25,7 @@
 				)
 			)
 		)
-		(property "Value" "CRD ~220uA"
+		(property "Value" "CRD ~240uA"
 			(at 0 -2.54 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -35,7 +35,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:D_MELF"
+		(property "Footprint" "rtd-readout:TO-92-2_CRD-J500"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46,7 +46,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.microchip.com/en-us/product/cdll5283-current-regulator-diode"
+		(property "Datasheet" "https://www.linearsystems.com/currentregulatingdiodes/j500-series"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -57,7 +57,7 @@
 				)
 			)
 		)
-		(property "Description" "Current-regulator diode (constant-current diode), ~0.22 mA, two-terminal, DO-213AB MELF. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
+		(property "Description" "Current-regulator diode (constant-current diode), ~0.24 mA (LIS J500, 0.192-0.288 mA band), two-terminal, TO-92 2-lead THT. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -68,7 +68,7 @@
 				)
 			)
 		)
-		(property "MPN" "CDLL5283"
+		(property "MPN" "J500 TO-92 2L"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -79,7 +79,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Microchip (Microsemi / ex-Central Semiconductor)"
+		(property "Manufacturer" "Linear Integrated Systems"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -90,7 +90,7 @@
 				)
 			)
 		)
-		(property "Polarity" "Pin 1 = K (cathode, banded end). Pin 2 = A (anode). Matches D_MELF pad 1 = cathode."
+		(property "Polarity" "Pin 1 = K (cathode). Pin 2 = A (anode). J500 TO-92 physical: facing the flat/marked face, left lead = A, right lead = K; the TO-92-2_CRD-J500 footprint silk is mirrored so matching the flat face to the silk outline puts K in pad 1."
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -101,7 +101,7 @@
 				)
 			)
 		)
-		(property "Current_nom" "~0.22 mA (1N5283), +/-10%; stability over one scan is what matters, not absolute value."
+		(property "Current_nom" "~0.24 mA (J500), +/-20% band (0.192-0.288 mA); stability over one scan is what matters, not absolute value."
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -112,7 +112,7 @@
 				)
 			)
 		)
-		(property "ki_keywords" "CRD current regulator diode constant current 1N5283 CDLL5283 RTD excitation MELF"
+		(property "ki_keywords" "CRD current regulator diode constant current J500 RTD excitation TO-92"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -123,7 +123,7 @@
 				)
 			)
 		)
-		(property "ki_fp_filters" "D*MELF*"
+		(property "ki_fp_filters" "TO?92*"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -240,7 +240,7 @@
 				)
 			)
 		)
-		(property "Value" "910R"
+		(property "Value" "820R"
 			(at -2.032 0 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -261,7 +261,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.susumu.co.jp/common/pdf/n_catalog_partition06_en.pdf"
+		(property "Datasheet" "https://www.koaspeer.com/pdfs/RN73H.pdf"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -272,7 +272,7 @@
 				)
 			)
 		)
-		(property "Description" "Reference resistor for ratiometric current sense. ~910 ohm sets V_ref ~200 mV nominal inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
+		(property "Description" "Reference resistor for ratiometric current sense. 820 ohm sets V_ref ~197 mV nominal, <=236 mV at the J500 guaranteed-max 0.288 mA, inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -294,7 +294,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Susumu (representative; any <=10 ppm/C thin-film ~910R is acceptable)"
+		(property "Manufacturer" "KOA Speer"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1006,7 +1006,7 @@
 				)
 			)
 		)
-		(property "Value" "CRD ~220uA"
+		(property "Value" "CRD ~240uA"
 			(at 55.88 35.56 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1016,7 +1016,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:D_MELF"
+		(property "Footprint" "rtd-readout:TO-92-2_CRD-J500"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1027,7 +1027,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.microchip.com/en-us/product/cdll5283-current-regulator-diode"
+		(property "Datasheet" "https://www.linearsystems.com/currentregulatingdiodes/j500-series"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1038,7 +1038,7 @@
 				)
 			)
 		)
-		(property "Description" "Current-regulator diode (constant-current diode), ~0.22 mA, two-terminal, DO-213AB MELF. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
+		(property "Description" "Current-regulator diode (constant-current diode), ~0.24 mA (LIS J500, 0.192-0.288 mA band), two-terminal, TO-92 2-lead THT. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1049,7 +1049,7 @@
 				)
 			)
 		)
-		(property "MPN" "CDLL5283"
+		(property "MPN" "J500 TO-92 2L"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1060,7 +1060,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Microchip (Microsemi / ex-Central Semiconductor)"
+		(property "Manufacturer" "Linear Integrated Systems"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1071,7 +1071,7 @@
 				)
 			)
 		)
-		(property "Polarity" "Pin 1 = K (cathode, banded end). Pin 2 = A (anode). Matches D_MELF pad 1 = cathode."
+		(property "Polarity" "Pin 1 = K (cathode). Pin 2 = A (anode). J500 TO-92 physical: facing the flat/marked face, left lead = A, right lead = K; the TO-92-2_CRD-J500 footprint silk is mirrored so matching the flat face to the silk outline puts K in pad 1."
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1082,7 +1082,7 @@
 				)
 			)
 		)
-		(property "Current_nom" "~0.22 mA (1N5283), +/-10%; stability over one scan is what matters, not absolute value."
+		(property "Current_nom" "~0.24 mA (J500), +/-20% band (0.192-0.288 mA); stability over one scan is what matters, not absolute value."
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1093,7 +1093,7 @@
 				)
 			)
 		)
-		(property "ki_keywords" "CRD current regulator diode constant current 1N5283 CDLL5283 RTD excitation MELF"
+		(property "ki_keywords" "CRD current regulator diode constant current J500 RTD excitation TO-92"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1104,7 +1104,7 @@
 				)
 			)
 		)
-		(property "ki_fp_filters" "D*MELF*"
+		(property "ki_fp_filters" "TO?92*"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1138,7 +1138,7 @@
 				)
 			)
 		)
-		(property "Value" "910R"
+		(property "Value" "820R"
 			(at 55.88 48.26 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1159,7 +1159,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.susumu.co.jp/common/pdf/n_catalog_partition06_en.pdf"
+		(property "Datasheet" "https://www.koaspeer.com/pdfs/RN73H.pdf"
 			(at 50.8 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1170,7 +1170,7 @@
 				)
 			)
 		)
-		(property "Description" "Reference resistor for ratiometric current sense. ~910 ohm sets V_ref ~200 mV nominal inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
+		(property "Description" "Reference resistor for ratiometric current sense. 820 ohm sets V_ref ~197 mV nominal, <=236 mV at the J500 guaranteed-max 0.288 mA, inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
 			(at 50.8 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1181,7 +1181,7 @@
 				)
 			)
 		)
-		(property "MPN" "TNPU1206 910R 0.1% 10ppm (confirm code)"
+		(property "MPN" "RN73H2BTTD8200B10"
 			(at 50.8 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)

@@ -9,7 +9,7 @@ linted, and dry-run-verified ahead of fab.
 Maps to `docs/TESTING_PLAN.md` Part 2 (Stages 0–8) and uses the shared report
 skeleton. Parameterized for **Pt100 and Pt1000** and **up to 7 channels** so the
 RTD-type / channel-count decisions never require a rewrite. Default config = the
-resolved design point (Pt100, 3 ch, ~220 µA, R_ref ≈ 910 Ω, T7 ±0.1 V, ADS1115
+resolved design point (Pt100, 3 ch, ~240 µA, R_ref ≈ 820 Ω, T7 ±0.1 V, ADS1115
 ±0.256 V, 2 chips at 0x48/0x49).
 
 ## The measurement (board_spec.md "The measurement")
@@ -97,7 +97,7 @@ All electrical parameters live in `host/config.py`. Override per run:
 | `--rtd {Pt100,Pt1000}` | RTD type (sets R0, default T7 range) | Pt100 |
 | `--channels N` | channel count (1–7; ceil(N/2) ADS1115 chips) | 3 |
 | `--current-ua` | nominal CRD current (µA) | 220 |
-| `--rref` | reference resistor (Ω) | 910 |
+| `--rref` | reference resistor (Ω) | 820 |
 | `--t7-range` | T7 AIN ± range (V) | 0.1 (Pt100) / 1.0 (Pt1000) |
 | `--resolution-index`, `--settling-us` | T7 acquisition (guards mux settling) | 12, 0 |
 | `--navg` | T7 scans averaged per V_RTD read | 8 |

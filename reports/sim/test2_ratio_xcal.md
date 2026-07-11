@@ -12,13 +12,13 @@ CRD spread checked with the NOMINAL C (proves live current cancellation); R_ref 
 ## Results
 | case | applied C | max |R_calc-RTD|/RTD |
 |---|---|---|
-| CRD +/-10% | nominal (no recal) | 7.51e-09 |
-| R_ref +/-10% | per-corner recal | 6.56e-09 |
+| CRD +/-10% | nominal (no recal) | 6.92e-09 |
+| R_ref +/-10% | per-corner recal | 5.92e-09 |
 
 ![xcal](plots/test2_xcal.png)
 
 ## Pass / Fail
-Criterion max error < 1e-06. **PASS** (CRD 7.5e-09, R_ref 6.6e-09 -> numerical floor).
+Criterion max error < 1e-06. **PASS** (CRD 6.9e-09, R_ref 5.9e-09 -> numerical floor).
 
 ## Next
 Bench Stage 2/3 repeats this with real parts.

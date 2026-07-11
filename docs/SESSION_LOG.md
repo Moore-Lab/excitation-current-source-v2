@@ -30,6 +30,75 @@ one-entry summary per merged track.
 
 ---
 
+## Session 011 — 2026-07-11 — rev-E: DFM/availability respin (CRD→TO-92, 0603→0805, R_ref 820 Ω)
+
+**Tooling:** KiCad 10.0.3 (kicad-cli; s-expression text surgery — pcbnew Python footprint swap
+corrupted SWIG wrappers after Remove/Add, confirming the Session-010 warning); ngspice 44
+(conda `spice`); live Digi-Key verification via 21 web agents with adversarial fact-check passes.
+**Branch / commit at start:** `rev-e-dfm` off `main` @ `e03b61d`.
+**State before:** rev-D complete (ERC 0/0, DRC 0/0, SPICE 7/7); kickoff gates reproduced on
+this machine before editing.
+**Objective:** Lucas is hand-assembling in a university lab and ordering domestically (Digi-Key
+DKRed): flag hand-assembly-hostile parts and eliminate 0603s ("stick to 0805 and bigger").
+Live stock checks then forced a wider change — see decisions.
+**Actions:**
+- CRD: CDLL5283 (MELF) → **LIS J500 TO-92 2L** (`4004-J500TO-922L-ND`). MELF is DFM-hostile
+  AND unbuyable (0 stock, MOQ 145–280, 40-wk); no flat-SMD 180–270 µA CRD exists in DK stock
+  (exhaustive, adversarially verified). New local footprint `TO-92-2_CRD-J500`: KiCad TO-92-2
+  with body/silk **mirrored** so flat-face-to-silk insertion puts K in pad 1 (J500 pin 1 = A),
+  drill 0.8 mm (worst-case lead diagonal 0.755 mm), "K" silk marker. Board: 4 rebuilt blocks,
+  pads at old-center ±1.27 mm, 8 F.Cu stubs bridge the old MELF trace ends to the THT pads.
+- Caps: all 8 → **0805**. 0.1 µF = Samsung CL21B104KBCNNNC (old Murata obsolete; old DK P/N
+  490-3283-1-ND was a different part!); 10 µF = Samsung CL21A106KACLRNC (old Murata 0 stock).
+  Board: in-place geometry rescale of the 8 blocks; C5–C8 keep the rev-D courtyard/silk-less
+  back-side across-J4 scheme, now 0805.
+- **R_ref 910 Ω → 820 Ω** (KOA RN73H2BTTD8200B10, ±0.1 %, ±10 ppm/°C): the J500 band is ±20 %,
+  and 0.288 mA × 910 Ω = 262 mV would clip the ±0.256 V range. 820 Ω → ≤236 mV (92 % FS) at
+  guaranteed band max. Every qualifying 750 Ω part is 0-stock; 820 Ω was the only in-stock
+  ≤0.1 %/≤10 ppm part in the 715–820 Ω window (adversarially verified).
+- Schematic (root + 3 unit cells, all 4 D's edited by hand per the accepted CH2–CH4-copies
+  deviation): footprint/Value/MPN/Manufacturer/Datasheet/Polarity/Current_nom fields updated.
+- SPICE harness re-pointed: I_CRD0 240 µA, R_REF0 820, VL_CRD 1.2, Z_CRD 4 MΩ (J500 min);
+  test2 kc ±20 %, test4 sweep ±30 % + acceptance now **<95 % FS at kc=1.20** (was <90 % at
+  1.10 — impossible to meet with any purchasable part; 7.7 % real headroom remains), test7
+  aggressor ±20 %.
+- Docs: board_spec §CRD/§R_ref (spec updated, deviations noted in place), USER_MANUAL,
+  components.md (new CRD polarity note — silent-fatal), BOARD_DEV_CHECKLIST, TESTING_PLAN,
+  DIRECTORY_MANAGEMENT, test/README, host/config.py defaults (240e-6, 820.0), BOM_REVIEW.md
+  fully rewritten (rev-E order list, 8 findings, live-verified DK P/Ns + stock).
+**Files touched:** `hardware/*.kicad_sch` (×4), `hardware/rtd-readout.kicad_pcb`,
+`libraries/footprints/rtd-readout.pretty/{TO-92-2_CRD-J500,C_0805_2012Metric}.kicad_mod` (new),
+`sim/models/{params,crd}.inc`, `sim/netlists/test{2,4,7}*.cir`, `sim/scripts/run_all.py`,
+`docs/{board_spec,USER_MANUAL,TESTING_PLAN,BOARD_DEV_CHECKLIST,DIRECTORY_MANAGEMENT}.md`,
+`docs/datasheets/components.md`, `test/README.md`, `host/config.py`, `host/t7_rtd.py`,
+`reports/review/BOM_REVIEW.md`.
+**Validation:**
+- ERC: **0 errors / 0 warnings** (reports/erc/erc_rev_e.json)
+- DRC: **0 violations / 0 unconnected** (reports/drc/drc_rev_e.json; zones refilled + saved
+  via separate-pass headless fill)
+- SPICE: **7/7 PASS** — t1 Vcrd margin 3.06 V above VL=1.2; t2 CRD-invariance err 6.9e-9 at
+  ±20 %; t3 σ=0.0373 °C; **t4 V_ref(+20 %)=237 mV = 93 % FS, 14.9 bits**; t5 settle 1.03 ms;
+  t6 unchanged; t7 3.1e-6 °C at 0.1 Ω with ±20 % aggressor.
+**Decisions (rationale + spec ref):**
+- J500 swap + THT deviation from the all-SMD preference — availability forced it; spec
+  §Current source updated in place. Polarity mapping absorbed in the mirrored footprint
+  (components.md documents it as silent-fatal; verify on arrival).
+- R_ref 820 Ω per spec §R_ref's own sizing rule applied to the ±20 % band; test4 criterion
+  95 %/kc=1.2 replaces 90 %/kc=1.1 — **Lucas should confirm he accepts ~8 % clip headroom**
+  (alternatives: ±0.512 V range at half resolution, or wait for 750 Ω restock).
+- Z_CRD 4 MΩ = J500 datasheet min @25 V; knee impedance near 5 V is lower (~2.5 MΩ typ) but
+  decks sweep Z_CRD, and t6/t7 margins are orders of magnitude.
+**Open issues / risks:**
+- J500 polarity must be bench-verified on arrival (constant ~0.24 mA A→K above ~1.2 V).
+- TO-92 3D model transform (rotate 180 + offset 2.54 mm) is cosmetic-unverified in a viewer.
+- Schematic symbol still named `CRD_1N5283` (legacy; noted in components.md).
+- Digi-Key stock is a 2026-07-11 snapshot; 4-pos Phoenix block had only 131 pcs.
+**Next action:** Lucas final review → merge `rev-e-dfm` to `main`, tag `rev-E` + `fab-rev-E`,
+run `sh scripts/fab_drop` at the tag, order per BOM_REVIEW.md (rev-E).
+**Commit:** this commit on `rev-e-dfm`.
+
+---
+
 ## Session 010 — 2026-07-09 — HANDOFF: continuing development on another machine
 
 **Purpose of this entry:** a fresh session (possibly on a different machine) should be able to

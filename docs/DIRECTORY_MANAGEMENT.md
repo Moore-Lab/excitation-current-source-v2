@@ -15,7 +15,7 @@ rtd-readout-board/
 │   ├── DIRECTORY_MANAGEMENT.md  BOARD_DEV_CHECKLIST.md  TESTING_PLAN.md
 │   ├── PARALLEL_PLAN.md
 │   ├── board_spec.md          # electrical source of truth
-│   ├── datasheets/            # CRD (1N5283/CDLL5283), ADS1115, R_ref, LDO, connectors, T7
+│   ├── datasheets/            # CRD (LIS J500), ADS1115, R_ref, LDO, connectors, T7
 │   ├── sessions/              # per-track logs in parallel mode (trackA.md, ...)
 │   └── tasks/                 # TRACK_A..G briefs
 ├── hardware/                  # KiCad project (SOURCE)

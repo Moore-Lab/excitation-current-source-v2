@@ -1,10 +1,10 @@
 * ============================================================================
-* crd.inc - current-regulator-diode model (1N5283 / CDLL5283)
+* crd.inc - current-regulator-diode model (LIS J500, TO-92 2-lead)
 *
 * Modeled as an ideal current source in parallel with the part's finite dynamic
-* impedance Z_CRD (the low-current 1N528x parts sit high, MOhm-range). The
-* current value is scaled by knob node v(kc) so a deck can perturb it +/-10 %
-* (kc=1.1) to prove the result is invariant. Uses globals I_CRD0, Z_CRD.
+* impedance Z_CRD (the low-current J500 sits MOhm-range, >=4 MOhm at 25 V). The
+* current value is scaled by knob node v(kc) so a deck can perturb it +/-20 %
+* (kc=1.2) to prove the result is invariant. Uses globals I_CRD0, Z_CRD.
 *
 * Pinout / polarity (matches board_spec signal chain): anode -> +rail,
 * cathode -> R_ref top. Node np = anode side (rail), nm = cathode side (top).

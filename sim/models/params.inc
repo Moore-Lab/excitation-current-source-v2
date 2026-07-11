@@ -8,20 +8,21 @@
 * source (see knobs in each deck), not by editing this file.
 * ============================================================================
 
-* ---- CRD (current-regulator diode, 1N5283 / CDLL5283) ----------------------
-* Nominal ~0.22 mA, +/-10 %. Exact value is irrelevant (measured live), but it
+* ---- CRD (current-regulator diode, LIS J500, TO-92 2-lead) -----------------
+* Nominal ~0.24 mA, +/-20 % band (0.192-0.288 mA guaranteed). Exact value is
+* irrelevant (measured live), but it
 * must be stable & quiet over one scan. Z_CRD is the finite dynamic impedance
 * of the low-current part (MOhm-range) - the realism that makes compliance and
 * crosstalk non-ideal. Both are intentionally sweepable.
-.param I_CRD0 = 220u      $ CRD nominal current [A]
-.param Z_CRD  = 5Meg      $ CRD dynamic (slope) impedance [Ohm], assumption - swept
-.param VL_CRD = 1.05      $ CRD limiting voltage for regulation [V] (1N5283-class)
+.param I_CRD0 = 240u      $ CRD nominal current [A] (J500 nom)
+.param Z_CRD  = 4Meg      $ CRD dynamic (slope) impedance [Ohm], J500 datasheet min @25V - swept
+.param VL_CRD = 1.2       $ CRD limiting voltage for regulation [V] (J500 datasheet max)
 
 * ---- Reference resistor R_ref ----------------------------------------------
-* Sized to the ADS1115 range, NOT the RTD. 910 Ohm -> V_ref ~200 mV nominal,
-* ~220 mV at +10 % CRD, inside ADS1115 +/-0.256 V. Absolute value absorbed by
+* Sized to the ADS1115 range, NOT the RTD. 820 Ohm -> V_ref ~197 mV nominal,
+* ~236 mV at the +20 % J500 band max, inside ADS1115 +/-0.256 V. Absolute value absorbed by
 * cross-cal; only tempco/stability matter (<=10 ppm/degC).
-.param R_REF0  = 910      $ R_ref nominal [Ohm]
+.param R_REF0  = 820      $ R_ref nominal [Ohm] (rev-E: KOA RN73H2BTTD8200B10)
 .param TC_RREF = 10       $ R_ref tempco budget [ppm/degC] (datasheet target)
 
 * ---- The two ADCs (gain terms) ---------------------------------------------
@@ -36,7 +37,7 @@
 .param VRAIL_NOM = 5.0    $ nominal rail [V]
 .param VRAIL_MIN = 4.5    $ worst-case low rail [V] (10 % sag) for compliance
 
-* ---- Pt100 RTD sweep window (board_spec: ~18-35 mV at ~220 uA) -------------
+* ---- Pt100 RTD sweep window (board_spec: ~19-38 mV at ~240 uA) -------------
 * Pt100, IEC 60751: R(T) = 100*(1 + 3.9083e-3 T - 5.775e-7 T^2)  (T in degC)
 *   -50 degC -> 80.31 Ohm , 0 degC -> 100 Ohm , +150 degC -> 157.33 Ohm
 .param RTD_MIN = 80.31     $ Ohm  (~ -50 degC)
