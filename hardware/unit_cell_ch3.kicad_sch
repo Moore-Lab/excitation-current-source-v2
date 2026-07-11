@@ -4,6 +4,10 @@
 	(generator_version "10.0")
 	(uuid "91a16046-4274-4b56-9ae7-e85849d88ae2")
 	(paper "A3")
+	(title_block
+		(title "RTD Readout - unit cell CH3")
+		(rev "B")
+	)
 	(lib_symbols
 (symbol "rtd-readout:CRD_1N5283"
 		(exclude_from_sim no)
@@ -993,7 +997,7 @@
 		(dnp no)
 		(uuid "058af9bf-d41c-43ae-bf3a-4fa6729fb45e")
 		(property "Reference" "D3"
-			(at 55.88 33.02 0)
+			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1267,7 +1271,7 @@
 			)
 		)
 		(property "Value" "Conn_RTD_4W"
-			(at 81.28 63.5 0)
+			(at 76.2 72.39 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1588,7 +1592,7 @@
 		(dnp no)
 		(uuid "1b286d6e-2cde-4197-b5bc-634caf1be7e7")
 		(property "Reference" "#PWR005" (at 50.8 19.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "Value" "+5V" (at 50.8 21.59 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "+5V" (at 50.8 20.32 0) (effects (font (size 1.27 1.27))))
 		(pin "1" (uuid "6482d72b-b1ae-4736-b499-bfe6a5f12e3f"))
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/7f1cb510-1a57-40b5-ab4c-4fc79046c09e" (reference "#PWR005") (unit 1))))
 	)
@@ -1632,7 +1636,7 @@
 		(dnp no)
 		(uuid "f94d9241-8938-46a5-abc0-6177713b8848")
 		(property "Reference" "#PWR006" (at 66.04 59.69 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "Value" "GND" (at 66.04 62.23 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 66.04 71.12 0) (effects (font (size 1.27 1.27))))
 		(pin "1" (uuid "88e66f6d-3610-47c4-95ab-742a9f931124"))
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/7f1cb510-1a57-40b5-ab4c-4fc79046c09e" (reference "#PWR006") (unit 1))))
 	)

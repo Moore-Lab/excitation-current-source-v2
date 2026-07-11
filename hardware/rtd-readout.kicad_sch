@@ -5,37 +5,5235 @@
 	(uuid "6ce05a31-b5af-4e3a-a08f-83802c091454")
 	(paper "A3")
 	(title_block
-		(title "RTD Readout Board - 4-wire RTD x3, ratiometric (T7 + ADS1115)")
-		(rev "A")
-		(comment 1 "Track E schematic; parts from project-local rtd-readout lib (Track A)")
-		(comment 2 "ACCEPTED DEVIATION: three separate unit_cell_chN sheets (not one reused sheet) -- edit each by hand")
+		(title "RTD Readout - 3ch 4-wire RTD, ratiometric")
+		(rev "B")
+		(comment 1 "Page 1: CH1 unit cell + acquisition + power/IO, drawn wires (audit view)")
+		(comment 2 "Pages 2-3: CH2/CH3 unit cells (separate copies - edit all three by hand)")
 	)
 	(lib_symbols
-	)
-	(text "NOTE: CH1/CH2/CH3 are THREE SEPARATE unit_cell sheets (accepted deviation, frozen 3-ch board).\nA change to the unit cell must be applied to all three sheets by hand. See docs/sessions/trackE.md."
+(symbol "rtd-readout:CRD_1N5283"
 		(exclude_from_sim no)
-		(at 25.4 95 0)
-		(effects (font (size 1.27 1.27)) (justify left top))
-		(uuid "31b4be70-4081-4920-ba36-717e8cf71a8f")
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "CRD ~220uA"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:D_MELF"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.microchip.com/en-us/product/cdll5283-current-regulator-diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Current-regulator diode (constant-current diode), ~0.22 mA, two-terminal, DO-213AB MELF. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CDLL5283"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Microchip (Microsemi / ex-Central Semiconductor)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Polarity" "Pin 1 = K (cathode, banded end). Pin 2 = A (anode). Matches D_MELF pad 1 = cathode."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Current_nom" "~0.22 mA (1N5283), +/-10%; stability over one scan is what matters, not absolute value."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "CRD current regulator diode constant current 1N5283 CDLL5283 RTD excitation MELF"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "D*MELF*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "CRD_1N5283_0_1"
+			(polyline
+				(pts
+					(xy -1.27 1.27) (xy -1.27 -1.27)
+				)
+				(stroke
+					(width 0.2032)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.27 1.27) (xy -0.635 1.27) (xy -0.635 0.635)
+				)
+				(stroke
+					(width 0.2032)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.27 -1.27) (xy -1.905 -1.27) (xy -1.905 -0.635)
+				)
+				(stroke
+					(width 0.2032)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+				)
+				(stroke
+					(width 0.2032)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "CRD_1N5283_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
 	)
-	(sheet
-		(at 25.4 25.4)
-		(size 33.02 12.7)
+(symbol "rtd-readout:R_ref"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "910R"
+			(at -2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_1206_3216Metric"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.susumu.co.jp/common/pdf/n_catalog_partition06_en.pdf"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Reference resistor for ratiometric current sense. ~910 ohm sets V_ref ~200 mV nominal inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RG3216P-911-B-T5"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Susumu (representative; any <=10 ppm/C thin-film ~910R is acceptable)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tempco" "<= 10 ppm/C (binding spec)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Stability" "Low long-term drift, low excess noise (thin-film or foil). Absolute tolerance is NOT the spec - cross-cal absorbs the value; do not pay for 0.01%, pay for tempco/stability."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "reference resistor precision low tempco stable ratiometric R_ref"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "R_ref_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "R_ref_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:Conn_RTD_4W"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_RTD_4W"
+			(at 0 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.farnell.com/datasheets/100425.pdf"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "4-wire RTD input, Phoenix MKDS-1,5-4-5.08 screw terminal. Kelvin: Force+, Sense+, Sense-, Force-. One per RTD channel (3 used)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "1729160 (MKDS 1,5/4-5,08)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Phoenix Contact (or any 4-pos 5.08 mm screw terminal)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector RTD 4-wire kelvin screw terminal"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TerminalBlock*1x04*5.08*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_RTD_4W_0_1"
+			(rectangle
+				(start -2.54 6.35)
+				(end 2.54 -6.35)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "Conn_RTD_4W_1_1"
+			(pin passive line
+				(at -7.62 5.08 0)
+				(length 5.08)
+				(name "Force+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 1.27 0)
+				(length 5.08)
+				(name "Sense+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -1.27 0)
+				(length 5.08)
+				(name "Sense-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -5.08 0)
+				(length 5.08)
+				(name "Force-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:TestPoint"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "TP"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "TestPoint_0_1"
+			(circle
+				(center 0 1.27)
+				(radius 0.762)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "TestPoint_1_1"
+			(pin passive line
+				(at 0 -2.54 90)
+				(length 3.81)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "power:+5V"
+		(power global)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#PWR"
+			(at 0 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 0 3.556 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "+5V_0_1"
+			(polyline
+				(pts
+					(xy -0.762 1.27) (xy 0 2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 2.54) (xy 0.762 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "+5V_1_1"
+			(pin power_in line
+				(at 0 0 90)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "power:GND"
+		(power global)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#PWR"
+			(at 0 -6.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 0 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "GND_0_1"
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "GND_1_1"
+			(pin power_in line
+				(at 0 0 270)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:ADS1115"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at 0 12.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "ADS1115IDGS"
+			(at 0 -10.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:MSOP-10_3x3mm_P0.5mm"
+			(at 0 -12.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/ads1115.pdf"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "16-bit I2C ADC, 2 differential inputs (AIN0-1, AIN2-3), PGA, internal ref/oscillator. VSSOP-10 (TI DGS). Reads V_ref differentially at the R_ref pads. board_spec.md s.Current-sense ADC."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "ADS1115IDGSR"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Texas Instruments"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "I2C_Address" "ADDR strap -> address: GND=0x48, VDD=0x49, SDA=0x4A, SCL=0x4B. THIS BOARD (3 ch, 2 chips): U_A ADDR->GND = 0x48, U_B ADDR->VDD = 0x49 (board_spec.md Resolved inputs #2)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Package" "VSSOP-10 / DGS (JEDEC MO-187 var BA, 3x3 mm, 0.5 mm pitch)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "16 bit I2C ADC ADS1115 differential PGA current sense V_ref"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "MSOP*3x3mm*P0.5mm* VSSOP*10*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "ADS1115_0_1"
+			(rectangle
+				(start -7.62 10.16)
+				(end 7.62 -7.62)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "ADS1115_1_1"
+			(pin input line
+				(at 10.16 -5.08 180)
+				(length 2.54)
+				(name "ADDR"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin output line
+				(at 10.16 5.08 180)
+				(length 2.54)
+				(name "ALERT/RDY"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 -10.16 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 2.54 0)
+				(length 2.54)
+				(name "AIN0"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 0 0)
+				(length 2.54)
+				(name "AIN1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 -2.54 0)
+				(length 2.54)
+				(name "AIN2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 -5.08 0)
+				(length 2.54)
+				(name "AIN3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 12.7 270)
+				(length 2.54)
+				(name "VDD"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at 10.16 2.54 180)
+				(length 2.54)
+				(name "SDA"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "9"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 10.16 0 180)
+				(length 2.54)
+				(name "SCL"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "10"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:C"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(set per value at BOM time)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(generic)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762) (xy 2.032 0.762)
+				)
+				(stroke
+					(width 0.3048)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -2.032 -0.762) (xy 2.032 -0.762)
+				)
+				(stroke
+					(width 0.3048)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:R"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "R"
+			(at -2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(set per value at BOM time)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(generic)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:Conn_T7_I2C"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_T7_I2C"
+			(at 0 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:PinHeader_1x04_P2.54mm_Vertical"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Digital/I2C link to the T7. VS (3.3-5 V supply in from T7), GND, SDA, SCL. Keep this side away from the precision-analog path (board_spec.md s.Mixed-signal discipline)."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(1x4 2.54 mm header)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(generic)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector header I2C SDA SCL VS T7 digital"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "PinHeader*1x04*2.54*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_T7_I2C_0_1"
+			(rectangle
+				(start -2.54 6.35)
+				(end 2.54 -6.35)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "Conn_T7_I2C_1_1"
+			(pin power_in line
+				(at -7.62 5.08 0)
+				(length 5.08)
+				(name "VS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -7.62 1.27 0)
+				(length 5.08)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -7.62 -1.27 0)
+				(length 5.08)
+				(name "SDA"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -7.62 -5.08 0)
+				(length 5.08)
+				(name "SCL"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:Conn_Power"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_Power"
+			(at 0 -5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.farnell.com/datasheets/100425.pdf"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Board power input, Phoenix MKDS-1,5-2-5.08 screw terminal. +VIN (5 V; higher improves CRD regulation) and GND."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "1729128 (MKDS 1,5/2-5,08)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Phoenix Contact (or any 2-pos 5.08 mm screw terminal)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector power input screw terminal rail"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TerminalBlock*1x02*5.08*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_Power_0_1"
+			(rectangle
+				(start -2.54 3.81)
+				(end 2.54 -3.81)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "Conn_Power_1_1"
+			(pin power_in line
+				(at -7.62 2.54 0)
+				(length 5.08)
+				(name "+VIN"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -7.62 -2.54 0)
+				(length 5.08)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "rtd-readout:Conn_T7_Analog"
+		(pin_names hide)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 10.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_T7_Analog"
+			(at 0 -10.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:PinHeader_2x04_P2.54mm_Vertical"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "V_RTD sense-pair output to the T7 analog (CB37). 3 Sense+/- differential pairs (one per RTD channel) + 2 AGND. 2x04 header; route each pair tight and differential."
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(2x4 2.54 mm header)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(generic)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector header T7 analog CB37 sense pair V_RTD"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "PinHeader*2x04*2.54*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_T7_Analog_0_1"
+			(rectangle
+				(start -3.81 8.89)
+				(end 3.81 -8.89)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "Conn_T7_Analog_1_1"
+			(pin passive line
+				(at -7.62 6.35 0)
+				(length 3.81)
+				(name "CH1_Sense+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 6.35 180)
+				(length 3.81)
+				(name "CH1_Sense-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 2.54 0)
+				(length 3.81)
+				(name "CH2_Sense+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 2.54 180)
+				(length 3.81)
+				(name "CH2_Sense-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -1.27 0)
+				(length 3.81)
+				(name "CH3_Sense+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -1.27 180)
+				(length 3.81)
+				(name "CH3_Sense-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -5.08 0)
+				(length 3.81)
+				(name "AGND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -5.08 180)
+				(length 3.81)
+				(name "AGND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+(symbol "power:PWR_FLAG"
+		(power global)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#FLG"
+			(at 0 1.905 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "flag power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "PWR_FLAG_0_0"
+			(pin power_out line
+				(at 0 0 90)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(symbol "PWR_FLAG_0_1"
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	)
+	(text "AUDIT PAGE: full CH1 signal chain on this page - +5V > CRD D1 > R_ref R1 (V_ref taps CH1_TOP/CH1_MID > U1 ADS1115 AIN0/AIN1) > RTD J1 (Kelvin: Force via loop, Sense pair > J4 > T7) > GND.\nCH2 (page 2) and CH3 (page 3) are identical unit cells; their TOP/MID taps land on U1 AIN2/3 and U2 AIN0/1 by the CHn_* labels; their Sense pairs land on J4 by the CHn_SENSE labels.\nACCEPTED DEVIATION: CH2/CH3 are separate copies - a unit-cell change must be applied to CH1 (this page) AND pages 2-3 by hand. See docs/sessions/trackE.md."
+		(exclude_from_sim no)
+		(at 30.48 220.98 0)
+		(effects (font (size 2 2)) (justify left top))
+		(uuid "db01977f-b3b6-4a43-bb36-e49aabe4d66e")
+	)
+(symbol
+		(lib_id "rtd-readout:CRD_1N5283")
+		(at 38.1 45.72 90)
+		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(stroke (width 0.1524) (type solid))
-		(fill (color 0 0 0 0.0000))
-		(uuid "dc9b94ff-0c52-438b-80b1-cd57c843d16a")
-		(property "Sheetname" "unit_cell_ch1" (at 25.4 24.6884 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
-		(property "Sheetfile" "unit_cell_ch1.kicad_sch" (at 25.4 38.8 0) (effects (font (size 1.27 1.27)) (justify left top)))
-		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "2"))))
+		(uuid "4325a34f-5836-4add-86e0-43b820ba0729")
+		(property "Reference" "D1"
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "CRD ~220uA"
+			(at 43.18 48.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:D_MELF"
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.microchip.com/en-us/product/cdll5283-current-regulator-diode"
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Current-regulator diode (constant-current diode), ~0.22 mA, two-terminal, DO-213AB MELF. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CDLL5283"
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Microchip (Microsemi / ex-Central Semiconductor)"
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Polarity" "Pin 1 = K (cathode, banded end). Pin 2 = A (anode). Matches D_MELF pad 1 = cathode."
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Current_nom" "~0.22 mA (1N5283), +/-10%; stability over one scan is what matters, not absolute value."
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "CRD current regulator diode constant current 1N5283 CDLL5283 RTD excitation MELF"
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "D*MELF*"
+			(at 38.1 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "513031ec-4e73-4d8a-bbf3-dc3ce6b915ce"))
+		(pin "2" (uuid "e88e30e5-814f-4ea3-b444-949616b7204e"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "D1") (unit 1))))
 	)
+(symbol
+		(lib_id "rtd-readout:R_ref")
+		(at 38.1 58.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8872ec27-ab45-4007-9dac-b800ddd97d30")
+		(property "Reference" "R1"
+			(at 43.18 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "910R"
+			(at 43.18 60.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_1206_3216Metric"
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.susumu.co.jp/common/pdf/n_catalog_partition06_en.pdf"
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Reference resistor for ratiometric current sense. ~910 ohm sets V_ref ~200 mV nominal inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "TNPU1206 910R 0.1% 10ppm (confirm code)"
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay (>=10ppm/C thin-film; see BOM_REVIEW)"
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Tempco" "<= 10 ppm/C (binding spec)"
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Stability" "Low long-term drift, low excess noise (thin-film or foil). Absolute tolerance is NOT the spec - cross-cal absorbs the value; do not pay for 0.01%, pay for tempco/stability."
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "reference resistor precision low tempco stable ratiometric R_ref"
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 38.1 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "f4bea5e4-3f27-432b-893a-1829cdf1c49e"))
+		(pin "2" (uuid "2c5bca54-a757-4dcc-9c20-796ca8c54a73"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R1") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:Conn_RTD_4W")
+		(at 63.5 73.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "27472b41-99ee-438a-a8e9-1586f24193aa")
+		(property "Reference" "J1"
+			(at 68.58 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_RTD_4W"
+			(at 63.5 85.09 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal"
+			(at 63.5 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.farnell.com/datasheets/100425.pdf"
+			(at 63.5 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "4-wire RTD input, Phoenix MKDS-1,5-4-5.08 screw terminal. Kelvin: Force+, Sense+, Sense-, Force-. One per RTD channel (3 used)."
+			(at 63.5 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "1729144 (MKDS 1,5/4-5,08)"
+			(at 63.5 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Phoenix Contact (or any 4-pos 5.08 mm screw terminal)"
+			(at 63.5 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector RTD 4-wire kelvin screw terminal"
+			(at 63.5 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TerminalBlock*1x04*5.08*"
+			(at 63.5 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "036a1bf5-8cc2-4aab-8adb-e1bca4affe97"))
+		(pin "2" (uuid "dee50d7f-d187-4170-8433-62c216d8509d"))
+		(pin "3" (uuid "e65b5fa0-9a7d-470b-989d-66d56a183008"))
+		(pin "4" (uuid "b6fd4b16-2e73-4952-85d0-43f93632a522"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "J1") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 45.72 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "58cf2236-5cf8-49f0-8c65-b0cffdd99d6e")
+		(property "Reference" "TP1"
+			(at 50.8 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 50.8 48.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 45.72 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 45.72 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 45.72 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 45.72 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 45.72 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 45.72 45.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "46e78134-7f66-4356-afb8-d1952113180b"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "TP1") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 45.72 59.69 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eb75073b-854b-44d5-a74a-97636c0e7594")
+		(property "Reference" "TP2"
+			(at 50.8 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 50.8 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 45.72 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 45.72 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 45.72 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 45.72 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 45.72 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 45.72 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "9b8859ed-a7c6-4886-b6e3-b82c572ba8b2"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "TP2") (unit 1))))
+	)
+(wire (pts (xy 38.1 41.91) (xy 38.1 38.1)) (stroke (width 0) (type default)) (uuid "e024ce93-cfb0-44ab-a0e3-8be70f668986"))
+(symbol
+		(lib_id "power:+5V")
+		(at 38.1 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "740adc94-4fdf-4c51-9edf-2d0bee297a3c")
+		(property "Reference" "#PWR001" (at 38.1 31.75 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+5V" (at 38.1 33.02 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "62f7095c-2797-4531-b2cf-75aad9c7609e"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR001") (unit 1))))
+	)
+(wire (pts (xy 38.1 49.53) (xy 38.1 54.61)) (stroke (width 0) (type default)) (uuid "b3ce5f9c-a435-4b64-a591-6fd05d856c07"))
+(wire (pts (xy 38.1 50.8) (xy 58.42 50.8)) (stroke (width 0) (type default)) (uuid "78ce2400-cd75-49f5-802e-11e302fc93d8"))
+(junction (at 38.1 50.8) (diameter 0) (color 0 0 0 0) (uuid "fd33ef69-d6fa-4020-b3f3-20d994f74526"))
+(wire (pts (xy 45.72 48.26) (xy 45.72 50.8)) (stroke (width 0) (type default)) (uuid "32d55e41-b2fe-405a-b893-4b0196b85cb7"))
+(junction (at 45.72 50.8) (diameter 0) (color 0 0 0 0) (uuid "03c81987-8a1d-4987-81da-0c2fd37da6da"))
+(global_label "CH1_TOP" (shape passive) (at 58.42 50.8 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "f4e47e68-cd3c-455e-a6ce-84852ba15f81")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 58.42 50.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 38.1 62.23) (xy 38.1 68.58)) (stroke (width 0) (type default)) (uuid "d71f3536-0d58-4980-a69b-49d09011bb8b"))
+(wire (pts (xy 38.1 68.58) (xy 55.88 68.58)) (stroke (width 0) (type default)) (uuid "02b52425-ea1e-4cfa-90a7-335dab129215"))
+(wire (pts (xy 38.1 64.77) (xy 58.42 64.77)) (stroke (width 0) (type default)) (uuid "d613e673-c911-4647-b1df-4a89288457b9"))
+(junction (at 38.1 64.77) (diameter 0) (color 0 0 0 0) (uuid "feb7a9e1-96ba-4b07-a0ac-745c90e871f8"))
+(wire (pts (xy 45.72 62.23) (xy 45.72 64.77)) (stroke (width 0) (type default)) (uuid "c3c6d907-df30-4ae8-b150-87f5e90fb245"))
+(junction (at 45.72 64.77) (diameter 0) (color 0 0 0 0) (uuid "fcf9a22c-8d66-4df6-bcb7-c132e2e749e6"))
+(global_label "CH1_MID" (shape passive) (at 58.42 64.77 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "b864c746-8790-4267-9589-9f2cc4fcd05b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 58.42 64.77 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 55.88 72.39) (xy 53.34 72.39)) (stroke (width 0) (type default)) (uuid "cb4e4eaa-35b0-44da-bf08-15e26745ef45"))
+(global_label "CH1_SENSE+" (shape passive) (at 46.99 101.6 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "42ca62f5-cb92-4def-8398-9c17ef08aac9")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 72.39 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 55.88 74.93) (xy 53.34 74.93)) (stroke (width 0) (type default)) (uuid "c2bb06df-9a55-4cce-98b5-012b93797ce3"))
+(global_label "CH1_SENSE-" (shape passive) (at 44.45 104.14 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "ea13c901-1cc7-498b-829a-5cf4928f6534")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 74.93 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 55.88 78.74) (xy 53.34 78.74)) (stroke (width 0) (type default)) (uuid "35fa8ef2-b656-48da-bdd3-c9a649ce6069"))
+(symbol
+		(lib_id "power:GND")
+		(at 53.34 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "067d64d9-42fa-463f-a6a5-eda04e292491")
+		(property "Reference" "#PWR002" (at 53.34 72.39 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 53.34 83.82 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "ec52a122-aa2a-41e5-8883-a8833d275a54"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR002") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:ADS1115")
+		(at 158.75 53.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "71db9d0c-4a5a-4d83-b827-c35aef7010da")
+		(property "Reference" "U1"
+			(at 163.83 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "ADS1115IDGS (0x48)"
+			(at 163.83 74.93 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:MSOP-10_3x3mm_P0.5mm"
+			(at 158.75 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/ads1115.pdf"
+			(at 158.75 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "16-bit I2C ADC, 2 differential inputs (AIN0-1, AIN2-3), PGA, internal ref/oscillator. VSSOP-10 (TI DGS). Reads V_ref differentially at the R_ref pads. board_spec.md s.Current-sense ADC."
+			(at 158.75 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "ADS1115IDGSR"
+			(at 158.75 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Texas Instruments"
+			(at 158.75 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "I2C_Address" "ADDR strap -> address: GND=0x48, VDD=0x49, SDA=0x4A, SCL=0x4B. THIS BOARD (3 ch, 2 chips): U_A ADDR->GND = 0x48, U_B ADDR->VDD = 0x49 (board_spec.md Resolved inputs #2)."
+			(at 158.75 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Package" "VSSOP-10 / DGS (JEDEC MO-187 var BA, 3x3 mm, 0.5 mm pitch)"
+			(at 158.75 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "16 bit I2C ADC ADS1115 differential PGA current sense V_ref"
+			(at 158.75 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "MSOP*3x3mm*P0.5mm* VSSOP*10*"
+			(at 158.75 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "ba767b1a-1eee-404f-a037-f0de09452391"))
+		(pin "2" (uuid "d0bc57e8-ae6f-45c2-b3de-209067b1be3a"))
+		(pin "3" (uuid "63612489-9ecc-4215-926c-20e2a16f63fa"))
+		(pin "4" (uuid "439e98dc-7451-4842-aafd-faf99e28fb2c"))
+		(pin "5" (uuid "30990b91-6928-4259-8e76-e43879a900e4"))
+		(pin "6" (uuid "dbf2c634-acde-4fc3-8823-d78888670393"))
+		(pin "7" (uuid "c7de235b-cc41-44ea-8f5b-c9d32fde7932"))
+		(pin "8" (uuid "d7ba1c2c-a149-4562-af4b-e2b52c94126b"))
+		(pin "9" (uuid "49bfa55f-3b33-4a85-bb77-87d6f126baa0"))
+		(pin "10" (uuid "97591b81-5eaa-4573-a6f8-c27b343a7f7b"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "U1") (unit 1))))
+	)
+(wire (pts (xy 168.91 58.42) (xy 171.45 58.42)) (stroke (width 0) (type default)) (uuid "522199e6-98f7-4267-aff7-132ffe9c21ed"))
+(symbol
+		(lib_id "power:GND")
+		(at 171.45 58.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8b2fa34e-12cd-4525-8fb2-1d562295b1b0")
+		(property "Reference" "#PWR007" (at 171.45 52.07 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 171.45 63.5 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "14f57eb1-309b-410c-ab3f-ca8d69269999"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR007") (unit 1))))
+	)
+(no_connect (at 168.91 48.26) (uuid "53654b58-9a4f-4b9d-8aa9-4c9d30631d04"))
+(wire (pts (xy 158.75 63.5) (xy 158.75 66.04)) (stroke (width 0) (type default)) (uuid "4fb311c8-dbd2-4e85-b0b3-8f3e2ae14640"))
+(symbol
+		(lib_id "power:GND")
+		(at 158.75 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a4f0cb6c-a21f-48a6-9970-2fc31c9cdc82")
+		(property "Reference" "#PWR008" (at 158.75 59.69 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 158.75 71.12 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "b9b069af-1f90-4813-bc0d-49b354b20658"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR008") (unit 1))))
+	)
+(wire (pts (xy 148.59 50.8) (xy 146.05 50.8)) (stroke (width 0) (type default)) (uuid "98c41611-095e-446d-af47-60dd6769e335"))
+(global_label "CH1_TOP" (shape passive) (at 146.05 50.8 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "7e985f3f-26ee-4e96-95bb-d8c1ab22e06e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 146.05 50.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 148.59 53.34) (xy 146.05 53.34)) (stroke (width 0) (type default)) (uuid "fcb8b815-52c9-4e25-91bd-b67376498969"))
+(global_label "CH1_MID" (shape passive) (at 146.05 53.34 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "2d497617-8d65-475f-9d13-3671c6b1345e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 146.05 53.34 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 148.59 55.88) (xy 146.05 55.88)) (stroke (width 0) (type default)) (uuid "cbc78176-078f-4e4b-9a83-64cc61c98a6d"))
+(global_label "CH2_TOP" (shape passive) (at 146.05 55.88 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "b7371f59-133d-4435-b5a1-7c783771abbf")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 146.05 55.88 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 148.59 58.42) (xy 146.05 58.42)) (stroke (width 0) (type default)) (uuid "12105502-7b24-41c8-8c88-40f2a10ed446"))
+(global_label "CH2_MID" (shape passive) (at 146.05 58.42 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "7f9e7e82-276a-49e1-bd59-683b8020a08f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 146.05 58.42 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 158.75 40.64) (xy 158.75 38.1)) (stroke (width 0) (type default)) (uuid "b5845f38-5e87-4c38-96f7-b3ac35091222"))
+(global_label "VS" (shape passive) (at 158.75 38.1 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "a3370745-1289-4223-ba7a-e03446c59beb")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 158.75 38.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 168.91 50.8) (xy 171.45 50.8)) (stroke (width 0) (type default)) (uuid "a06bff43-a05f-499d-987f-dddc7b4c81b1"))
+(global_label "SDA" (shape passive) (at 171.45 50.8 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "e26ccf30-a737-4663-976a-de6644ae7062")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 171.45 50.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 168.91 53.34) (xy 171.45 53.34)) (stroke (width 0) (type default)) (uuid "14a369b3-d3c7-4a65-bba4-eb9cc11d18aa"))
+(global_label "SCL" (shape passive) (at 171.45 53.34 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "4aaa9600-576b-4f95-9149-831d241cb0a6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 171.45 53.34 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:ADS1115")
+		(at 234.95 53.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "faba18b6-4544-4c9d-9a0e-2512e48440b7")
+		(property "Reference" "U2"
+			(at 240.03 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "ADS1115IDGS (0x49)"
+			(at 240.03 74.93 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:MSOP-10_3x3mm_P0.5mm"
+			(at 234.95 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/ads1115.pdf"
+			(at 234.95 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "16-bit I2C ADC, 2 differential inputs (AIN0-1, AIN2-3), PGA, internal ref/oscillator. VSSOP-10 (TI DGS). Reads V_ref differentially at the R_ref pads. board_spec.md s.Current-sense ADC."
+			(at 234.95 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "ADS1115IDGSR"
+			(at 234.95 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Texas Instruments"
+			(at 234.95 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "I2C_Address" "ADDR strap -> address: GND=0x48, VDD=0x49, SDA=0x4A, SCL=0x4B. THIS BOARD (3 ch, 2 chips): U_A ADDR->GND = 0x48, U_B ADDR->VDD = 0x49 (board_spec.md Resolved inputs #2)."
+			(at 234.95 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Package" "VSSOP-10 / DGS (JEDEC MO-187 var BA, 3x3 mm, 0.5 mm pitch)"
+			(at 234.95 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "16 bit I2C ADC ADS1115 differential PGA current sense V_ref"
+			(at 234.95 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "MSOP*3x3mm*P0.5mm* VSSOP*10*"
+			(at 234.95 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "fc5bfc1f-6c17-4767-9393-ec735ba71d2e"))
+		(pin "2" (uuid "5ed0b13f-6d54-44b2-b401-d7ae12690a5f"))
+		(pin "3" (uuid "5428e7c6-f2bb-4414-8341-38ccf7ca3fed"))
+		(pin "4" (uuid "da5e0ea4-75f0-48d0-a286-cdb7d931d0ad"))
+		(pin "5" (uuid "5c4778cf-1be0-4e25-a15b-3e122141b0df"))
+		(pin "6" (uuid "eae8bedb-e49b-449e-b5ac-df037ee4cd68"))
+		(pin "7" (uuid "ccd60e97-8464-4069-86b0-0c395b0fc092"))
+		(pin "8" (uuid "3f210b61-43cf-4221-be7a-b35b62dafab5"))
+		(pin "9" (uuid "3a556337-d950-4796-8302-556270a729d6"))
+		(pin "10" (uuid "f81e7713-8e3d-4e07-91d9-486adea8703e"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "U2") (unit 1))))
+	)
+(wire (pts (xy 245.11 58.42) (xy 247.65 58.42)) (stroke (width 0) (type default)) (uuid "e2ac3a42-3bbf-4a29-b3f9-f301b1981d78"))
+(global_label "VS" (shape passive) (at 247.65 58.42 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "1bb92390-b90f-4c9d-952c-8cea9c901c82")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 247.65 58.42 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 245.11 48.26) (uuid "b7f33822-d50d-4e94-b040-c1dd8fa11b29"))
+(wire (pts (xy 234.95 63.5) (xy 234.95 66.04)) (stroke (width 0) (type default)) (uuid "57b8da9e-576f-4aaf-a99f-0b96d290a3ae"))
+(symbol
+		(lib_id "power:GND")
+		(at 234.95 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ae9bca6a-0d7a-43b2-86b9-8688d04ea27e")
+		(property "Reference" "#PWR009" (at 234.95 59.69 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 234.95 71.12 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "2bbeda6a-fcb1-4777-b963-66e09603a4f6"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR009") (unit 1))))
+	)
+(wire (pts (xy 224.79 50.8) (xy 222.25 50.8)) (stroke (width 0) (type default)) (uuid "c23de21a-18c3-458f-8de4-ae67187b7175"))
+(global_label "CH3_TOP" (shape passive) (at 222.25 50.8 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "74224e8a-1ec9-455e-a091-062e00ce5ff2")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 222.25 50.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 224.79 53.34) (xy 222.25 53.34)) (stroke (width 0) (type default)) (uuid "8b791bbc-d7ca-436a-b99c-7c2f9463126b"))
+(global_label "CH3_MID" (shape passive) (at 222.25 53.34 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "744956be-cfe3-4d4a-882b-4ba6fe8b7376")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 222.25 53.34 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 224.79 55.88) (uuid "2a87b23a-4cd0-4d06-bc48-b1d83c6ea3aa"))
+(no_connect (at 224.79 58.42) (uuid "9905c1f0-a6c0-4a91-a606-c750c13e9cd7"))
+(wire (pts (xy 234.95 40.64) (xy 234.95 38.1)) (stroke (width 0) (type default)) (uuid "1918c555-5cb1-42ab-a098-d4931074fe3b"))
+(global_label "VS" (shape passive) (at 234.95 38.1 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "3509339f-8209-47bd-b5aa-730e3368d34a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 234.95 38.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 245.11 50.8) (xy 247.65 50.8)) (stroke (width 0) (type default)) (uuid "38943c29-4222-46d3-9652-dc92e23b8816"))
+(global_label "SDA" (shape passive) (at 247.65 50.8 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "6cf22a31-2016-4f8a-a1af-6065fe59a82c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 247.65 50.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 245.11 53.34) (xy 247.65 53.34)) (stroke (width 0) (type default)) (uuid "5b3d8fc4-3cd0-4ec5-8edd-85b1b5881e5c"))
+(global_label "SCL" (shape passive) (at 247.65 53.34 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "1f12c2c3-11b5-40e3-8fc7-b0602c6d701e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 247.65 53.34 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:C")
+		(at 184.15 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d2a11b1e-993f-44c7-be6c-e063fe22c224")
+		(property "Reference" "C1"
+			(at 189.23 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 189.23 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R71H104KA93D"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "36dc3362-4dce-4502-97d2-dbd3bc173ad9"))
+		(pin "2" (uuid "21ae4372-ade1-440b-9192-0726225d1459"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "C1") (unit 1))))
+	)
+(wire (pts (xy 184.15 74.93) (xy 184.15 72.39)) (stroke (width 0) (type default)) (uuid "d4c46ad3-d115-4011-90f8-9171f28215ea"))
+(global_label "VS" (shape passive) (at 184.15 72.39 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "0d312496-7f92-44b7-b863-4ab7f545309d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 184.15 72.39 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 184.15 82.55) (xy 184.15 85.09)) (stroke (width 0) (type default)) (uuid "598e7a99-496e-4dd7-9b45-acb8a2fb54ed"))
+(symbol
+		(lib_id "power:GND")
+		(at 184.15 85.09 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bf15e655-713a-4cda-9fb8-ff853e7f612e")
+		(property "Reference" "#PWR010" (at 184.15 78.74 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 184.15 90.17 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "1d679a30-54ea-411c-94c7-efba1b4e8939"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR010") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:C")
+		(at 209.55 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6fcdb06b-1364-4a08-a0b0-5c73dc2ef7a2")
+		(property "Reference" "C2"
+			(at 214.63 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 214.63 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 209.55 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 209.55 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 209.55 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R71H104KA93D"
+			(at 209.55 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 209.55 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 209.55 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 209.55 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "cdba0a32-49fa-4f62-a877-e6b522d01983"))
+		(pin "2" (uuid "e2b2faa1-45d2-4227-82a8-aa34c94e8477"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "C2") (unit 1))))
+	)
+(wire (pts (xy 209.55 74.93) (xy 209.55 72.39)) (stroke (width 0) (type default)) (uuid "9c6e6f7b-823e-4260-8ad0-d038ad3d8313"))
+(global_label "VS" (shape passive) (at 209.55 72.39 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "c4e221e1-2784-47d3-916e-1b4b3997a60a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 209.55 72.39 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 209.55 82.55) (xy 209.55 85.09)) (stroke (width 0) (type default)) (uuid "241a57f5-eba0-4a3e-97ac-f67124cc2858"))
+(symbol
+		(lib_id "power:GND")
+		(at 209.55 85.09 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e35061c2-6dc0-4ab9-a269-704fae923090")
+		(property "Reference" "#PWR011" (at 209.55 78.74 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 209.55 90.17 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "0a01badb-53e9-4848-8b60-8f0574423f56"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR011") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 273.05 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d90126c5-f98f-41d6-9459-a2bfbfed54dd")
+		(property "Reference" "R4"
+			(at 278.13 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 278.13 35.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-074K7L"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "f169e815-4eff-4775-8bd8-fa66f15ba84f"))
+		(pin "2" (uuid "1a4a09f2-008e-453d-b817-4215d2853a3a"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R4") (unit 1))))
+	)
+(wire (pts (xy 273.05 29.21) (xy 273.05 26.67)) (stroke (width 0) (type default)) (uuid "4b34ec20-57ef-4a67-9318-09f19bd16155"))
+(global_label "VS" (shape passive) (at 273.05 26.67 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "0906ffbf-255b-439b-85cb-4f85b543edab")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 273.05 26.67 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 273.05 36.83) (xy 273.05 39.37)) (stroke (width 0) (type default)) (uuid "a616b98a-2cdb-4556-b73b-31859ef6e76a"))
+(global_label "SDA" (shape passive) (at 273.05 39.37 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "7ac2a400-92d3-4139-8f0e-5ddd44401905")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 273.05 39.37 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 285.75 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cc773975-d9d2-4fa0-a405-eabe5124ea18")
+		(property "Reference" "R5"
+			(at 290.83 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 290.83 35.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 285.75 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 285.75 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 285.75 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-074K7L"
+			(at 285.75 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 285.75 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 285.75 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 285.75 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "0ea6e04b-5060-4f46-848d-247b92e1128e"))
+		(pin "2" (uuid "9e895931-a61f-444e-a0d4-745e054a7a04"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R5") (unit 1))))
+	)
+(wire (pts (xy 285.75 29.21) (xy 285.75 26.67)) (stroke (width 0) (type default)) (uuid "b4e429cd-62e2-401b-9845-33cdac6fb7b8"))
+(global_label "VS" (shape passive) (at 285.75 26.67 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "a701503b-0d90-4a96-8697-6e064deec509")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 285.75 26.67 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 285.75 36.83) (xy 285.75 39.37)) (stroke (width 0) (type default)) (uuid "211e43b7-c535-4612-819b-e96a28762df4"))
+(global_label "SCL" (shape passive) (at 285.75 39.37 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "f5958ce3-a3ee-4781-99a6-1cc58aa71c7b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 285.75 39.37 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:Conn_T7_I2C")
+		(at 298.45 53.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "378b6df3-432b-4f78-9952-9502fa428aee")
+		(property "Reference" "J5"
+			(at 303.53 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_T7_I2C"
+			(at 298.45 74.93 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:PinHeader_1x04_P2.54mm_Vertical"
+			(at 298.45 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 298.45 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Digital/I2C link to the T7. VS (3.3-5 V supply in from T7), GND, SDA, SCL. Keep this side away from the precision-analog path (board_spec.md s.Mixed-signal discipline)."
+			(at 298.45 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "PREC004SAAN-RC"
+			(at 298.45 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Sullins"
+			(at 298.45 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector header I2C SDA SCL VS T7 digital"
+			(at 298.45 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "PinHeader*1x04*2.54*"
+			(at 298.45 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "af6dffbe-789a-47e0-9bc1-d569b718415e"))
+		(pin "2" (uuid "2502fc2f-c733-4389-8bfd-5ea12e866ccb"))
+		(pin "3" (uuid "033c4e9a-942b-402f-82b5-052327ded2a2"))
+		(pin "4" (uuid "df2e940e-b168-4941-b0cd-fa23d04ede8f"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "J5") (unit 1))))
+	)
+(wire (pts (xy 290.83 48.26) (xy 288.29 48.26)) (stroke (width 0) (type default)) (uuid "0250c49d-73fd-4428-85b9-3ec628e46528"))
+(global_label "VS" (shape passive) (at 288.29 48.26 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "807e3f39-0d01-4a9f-9dba-8f3ad7808386")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 48.26 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 290.83 52.07) (xy 288.29 52.07)) (stroke (width 0) (type default)) (uuid "05cf9b09-72cc-4669-b44a-ceb2bbdd8748"))
+(symbol
+		(lib_id "power:GND")
+		(at 288.29 52.07 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8b3bef92-f5ac-48a2-915d-468b41df663c")
+		(property "Reference" "#PWR012" (at 288.29 45.72 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 288.29 57.15 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "d033863e-e9f4-4ca3-b2c3-feffa7092d75"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR012") (unit 1))))
+	)
+(wire (pts (xy 290.83 54.61) (xy 288.29 54.61)) (stroke (width 0) (type default)) (uuid "458cadba-68a7-405d-ba65-5fa82db10f5d"))
+(global_label "SDA" (shape passive) (at 288.29 54.61 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "38152154-45ee-45c9-b7e1-5100172edc63")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 54.61 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 290.83 58.42) (xy 288.29 58.42)) (stroke (width 0) (type default)) (uuid "13b3f971-d54f-4d8f-92f4-977aa56fa793"))
+(global_label "SCL" (shape passive) (at 288.29 58.42 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "1da5c36d-0016-4365-b9d7-7c7ff0abcee6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 58.42 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 273.05 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dc988896-143b-4d9f-be04-7d99c472ceee")
+		(property "Reference" "TP7"
+			(at 278.13 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 278.13 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 273.05 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 273.05 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 273.05 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 273.05 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 273.05 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 273.05 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 273.05 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "67b75169-4d0c-4daf-9e1e-5b8d9aca8858"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "TP7") (unit 1))))
+	)
+(wire (pts (xy 273.05 68.58) (xy 273.05 71.12)) (stroke (width 0) (type default)) (uuid "777ae642-1024-4154-8741-078b94d4ac85"))
+(global_label "SDA" (shape passive) (at 273.05 71.12 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "a1b850e6-35e5-4a96-8823-428d681aeaf7")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 273.05 71.12 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 285.75 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f585887d-3105-4157-b2d9-87c0d453a153")
+		(property "Reference" "TP8"
+			(at 290.83 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 290.83 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 285.75 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 285.75 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 285.75 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 285.75 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 285.75 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 285.75 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 285.75 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "bf781e42-9273-47f4-ab59-f3f317cbadc8"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "TP8") (unit 1))))
+	)
+(wire (pts (xy 285.75 68.58) (xy 285.75 71.12)) (stroke (width 0) (type default)) (uuid "cb1245b8-3250-4008-95d6-f34f20a936be"))
+(global_label "SCL" (shape passive) (at 285.75 71.12 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "b7539a39-2015-4cf7-9ec4-75d756bfbc73")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 285.75 71.12 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:Conn_Power")
+		(at 76.2 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "203bba3a-079f-4632-83ee-baad001bd6c7")
+		(property "Reference" "J6"
+			(at 81.28 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_Power"
+			(at 76.2 149.86 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
+			(at 76.2 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.farnell.com/datasheets/100425.pdf"
+			(at 76.2 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Board power input, Phoenix MKDS-1,5-2-5.08 screw terminal. +VIN (5 V; higher improves CRD regulation) and GND."
+			(at 76.2 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "1729128 (MKDS 1,5/2-5,08)"
+			(at 76.2 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Phoenix Contact (or any 2-pos 5.08 mm screw terminal)"
+			(at 76.2 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector power input screw terminal rail"
+			(at 76.2 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TerminalBlock*1x02*5.08*"
+			(at 76.2 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "2328a0bf-ee67-42a1-b13a-4a7a5be0f943"))
+		(pin "2" (uuid "ba9c111e-197c-4e62-bb9a-e1b3160421ef"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "J6") (unit 1))))
+	)
+(wire (pts (xy 68.58 137.16) (xy 66.04 137.16)) (stroke (width 0) (type default)) (uuid "eb1561ec-df4b-4d67-abfe-7d6490270dc4"))
+(symbol
+		(lib_id "power:+5V")
+		(at 66.04 137.16 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c376e96e-fbc7-4d32-b6c8-77b948ba1eed")
+		(property "Reference" "#PWR013" (at 66.04 130.81 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+5V" (at 66.04 132.08 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "440b1d7a-fb01-441b-87e9-2795ceb821a9"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR013") (unit 1))))
+	)
+(wire (pts (xy 68.58 142.24) (xy 66.04 142.24)) (stroke (width 0) (type default)) (uuid "20b97c57-b936-4f1d-9939-5a24e9d04a36"))
+(symbol
+		(lib_id "power:GND")
+		(at 66.04 142.24 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f944478e-d0f8-42ff-932a-220d25fd2f27")
+		(property "Reference" "#PWR014" (at 66.04 135.89 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 66.04 147.32 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "39b5f84d-c543-4186-97e5-ffc396fb431e"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR014") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:Conn_T7_Analog")
+		(at 127 165.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c370df02-fa3b-4dd6-a54e-01308f6c1cdf")
+		(property "Reference" "J4"
+			(at 132.08 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_T7_Analog"
+			(at 127 181.61 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:PinHeader_2x04_P2.54mm_Vertical"
+			(at 127 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 127 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "V_RTD sense-pair output to the T7 analog (CB37). 3 Sense+/- differential pairs (one per RTD channel) + 2 AGND. 2x04 header; route each pair tight and differential."
+			(at 127 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "PREC004DAAN-RC (2x4; confirm)"
+			(at 127 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Sullins"
+			(at 127 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector header T7 analog CB37 sense pair V_RTD"
+			(at 127 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "PinHeader*2x04*2.54*"
+			(at 127 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "773ae88c-355b-4cd8-aca5-45a637186c42"))
+		(pin "2" (uuid "56de2e40-e95e-487f-a6aa-70b540f33a0b"))
+		(pin "3" (uuid "cf003897-ce46-4361-bc50-69866bda14c4"))
+		(pin "4" (uuid "bade82fa-4fbc-4fe1-8fa4-5a5a62a107ea"))
+		(pin "5" (uuid "96b79586-6315-4ede-bb1a-f535f203404f"))
+		(pin "6" (uuid "caa61e2c-74d8-4ec7-86d4-da27bf5de605"))
+		(pin "7" (uuid "b5ebcd93-6ef9-45bf-9065-e9dfea0a69f0"))
+		(pin "8" (uuid "b5f15db4-603c-4613-82ce-9981be2113a7"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "J4") (unit 1))))
+	)
+(wire (pts (xy 119.38 158.75) (xy 116.84 158.75)) (stroke (width 0) (type default)) (uuid "a6b779da-2283-494f-b272-ab67974301f3"))
+(global_label "CH1_SENSE+" (shape passive) (at 106.68 158.75 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "1b974276-3a99-4578-80e3-deb1f7c70a8c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 116.84 158.75 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 134.62 158.75) (xy 137.16 158.75)) (stroke (width 0) (type default)) (uuid "b6f1d148-97b3-4e62-8705-7418c0109c9a"))
+(global_label "CH1_SENSE-" (shape passive) (at 137.16 158.75 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "c66c2400-59bd-4435-bdb9-481bca38ea7c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 137.16 158.75 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 119.38 162.56) (xy 116.84 162.56)) (stroke (width 0) (type default)) (uuid "7094625e-6328-4491-bb36-463c4e915da4"))
+(global_label "CH2_SENSE+" (shape passive) (at 106.68 162.56 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "01035b5f-1476-4607-a786-9d58bb773eaa")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 116.84 162.56 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 134.62 162.56) (xy 137.16 162.56)) (stroke (width 0) (type default)) (uuid "26ad8751-d589-4b51-84c1-87d8c79cb6b7"))
+(global_label "CH2_SENSE-" (shape passive) (at 137.16 162.56 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "b05c3a45-a33d-4d1f-b7ba-a1e3b9d076a3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 137.16 162.56 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 119.38 166.37) (xy 116.84 166.37)) (stroke (width 0) (type default)) (uuid "a5f99de3-4e09-4130-8371-481906ea20d3"))
+(global_label "CH3_SENSE+" (shape passive) (at 106.68 166.37 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "87c66074-91b2-465d-b2ee-fbd7e6e47fb9")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 116.84 166.37 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 134.62 166.37) (xy 137.16 166.37)) (stroke (width 0) (type default)) (uuid "58472f64-e943-42a4-a6c3-2e9837bc3c30"))
+(global_label "CH3_SENSE-" (shape passive) (at 137.16 166.37 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "254b28c7-f042-4fc5-966c-2c988e0fd225")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 137.16 166.37 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 119.38 170.18) (xy 116.84 170.18)) (stroke (width 0) (type default)) (uuid "56be7573-f7b6-40ee-9ecb-85b51585588c"))
+(symbol
+		(lib_id "power:GND")
+		(at 116.84 170.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a65ec352-5ca8-4dd9-ba4f-68153b2290f9")
+		(property "Reference" "#PWR015" (at 116.84 163.83 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 116.84 175.26 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "ae825ba7-1baf-4b4b-a9d4-7de90188ad2f"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR015") (unit 1))))
+	)
+(wire (pts (xy 134.62 170.18) (xy 137.16 170.18)) (stroke (width 0) (type default)) (uuid "50b20207-0c1e-40d4-8a67-c64bb2ad5c70"))
+(symbol
+		(lib_id "power:GND")
+		(at 137.16 170.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "18765629-d51b-411d-a408-50555a957866")
+		(property "Reference" "#PWR016" (at 137.16 163.83 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 137.16 175.26 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "2d1516fa-a404-4ad7-83b2-ebbba1175aa4"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR016") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:C")
+		(at 76.2 165.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6dddd663-d72c-43fd-95c1-e5c6b1b82557")
+		(property "Reference" "C3"
+			(at 81.28 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF"
+			(at 81.28 167.64 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 76.2 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 76.2 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 76.2 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R61E106KA73D"
+			(at 76.2 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 76.2 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 76.2 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 76.2 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "90cac1e5-363c-4eaf-a7ff-13e86f7e5945"))
+		(pin "2" (uuid "92e7ddb6-a22c-4349-b97e-2dfd9fb68466"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "C3") (unit 1))))
+	)
+(wire (pts (xy 76.2 161.29) (xy 76.2 158.75)) (stroke (width 0) (type default)) (uuid "085f4ac5-d874-44de-a798-f6b8ab455d1d"))
+(symbol
+		(lib_id "power:+5V")
+		(at 76.2 158.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "82f9c4d2-7b14-4a81-97c7-2cceb312bff5")
+		(property "Reference" "#PWR017" (at 76.2 152.4 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+5V" (at 76.2 153.67 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "005b76d2-245e-4155-bf60-07b44bcd1474"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR017") (unit 1))))
+	)
+(wire (pts (xy 76.2 168.91) (xy 76.2 171.45)) (stroke (width 0) (type default)) (uuid "844a066d-0750-42ae-962d-a89645fe3b80"))
+(symbol
+		(lib_id "power:GND")
+		(at 76.2 171.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a3c53114-5438-476f-950e-f9ff7665aa06")
+		(property "Reference" "#PWR018" (at 76.2 165.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 76.2 176.53 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "97d83588-4d6a-4a5a-af33-a5c00008fba7"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR018") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:C")
+		(at 190.5 165.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "85a3f025-1233-4808-9dd2-3e5d3f6b5c08")
+		(property "Reference" "C4"
+			(at 195.58 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF"
+			(at 195.58 167.64 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 190.5 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 190.5 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 190.5 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R61E106KA73D"
+			(at 190.5 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 190.5 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 190.5 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 190.5 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "85fa3984-774f-428d-b7fc-3bbbac699463"))
+		(pin "2" (uuid "4be090a0-1fdd-4a67-9d97-6ad783b6f29e"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "C4") (unit 1))))
+	)
+(wire (pts (xy 190.5 161.29) (xy 190.5 158.75)) (stroke (width 0) (type default)) (uuid "3b7aa9b4-56b3-4a52-b7be-f971c5e557ba"))
+(global_label "VS" (shape passive) (at 190.5 158.75 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "9a9e9ab2-a87d-4738-a924-b6078084deed")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 190.5 158.75 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 190.5 168.91) (xy 190.5 171.45)) (stroke (width 0) (type default)) (uuid "b22da851-2063-4ed4-882d-ec208e360306"))
+(symbol
+		(lib_id "power:GND")
+		(at 190.5 171.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "51cbfe4f-4f23-46fb-aa62-fdc17e6056b2")
+		(property "Reference" "#PWR019" (at 190.5 165.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 190.5 176.53 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "4c36398f-7070-405b-a3ed-5e780ef2b038"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR019") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 76.2 187.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b70e696e-bd50-4882-9f35-3e114cfa749d")
+		(property "Reference" "TP9"
+			(at 81.28 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 81.28 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 76.2 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 76.2 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 76.2 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 76.2 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 76.2 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 76.2 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 76.2 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "01d405a4-cdbf-4300-b77f-d00315966361"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "TP9") (unit 1))))
+	)
+(wire (pts (xy 76.2 190.5) (xy 76.2 193.04)) (stroke (width 0) (type default)) (uuid "07caaf0c-6640-4f2c-924e-b99cc70f5eeb"))
+(symbol
+		(lib_id "power:+5V")
+		(at 76.2 193.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "33bda0a3-4bce-4f33-8e0c-ce30d49bb054")
+		(property "Reference" "#PWR020" (at 76.2 186.69 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+5V" (at 76.2 187.96 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "1f94f120-050f-44bf-a3b6-82c4a1a37b5c"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR020") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:TestPoint")
+		(at 88.9 187.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "53039ecb-4b66-424c-bde8-775fcd5c97ca")
+		(property "Reference" "TP10"
+			(at 93.98 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 93.98 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:TestPoint_Pad_D1.5mm"
+			(at 88.9 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 88.9 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Probe test point (1.5 mm pad). Place on: each TOP node, each MID/Sense+ node, rail, GND, SDA, SCL (board_spec.md s.Layout-critical points)."
+			(at 88.9 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "(copper pad)"
+			(at 88.9 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "(n/a)"
+			(at 88.9 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point probe pad"
+			(at 88.9 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "TestPoint*"
+			(at 88.9 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "e1590877-6ec2-48fd-950a-b52095e6a5d9"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "TP10") (unit 1))))
+	)
+(wire (pts (xy 88.9 190.5) (xy 88.9 193.04)) (stroke (width 0) (type default)) (uuid "32401490-c1f4-4824-819e-26196d0eed97"))
+(symbol
+		(lib_id "power:GND")
+		(at 88.9 193.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "240ed50e-e885-41b9-8ebe-28e735286919")
+		(property "Reference" "#PWR021" (at 88.9 186.69 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 88.9 198.12 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "98490ce0-6519-4a1c-b0ee-e21e3cf98837"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR021") (unit 1))))
+	)
+(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 215.9 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6c758b48-3ec6-4e2d-ae1e-e2e2be5d41d0")
+		(property "Reference" "#FLG001" (at 215.9 135.89 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "PWR_FLAG" (at 215.9 143.51 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "165fba2e-5e22-4bbc-be13-6ea08519be9a"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#FLG001") (unit 1))))
+	)
+(wire (pts (xy 215.9 139.7) (xy 215.9 135.89)) (stroke (width 0) (type default)) (uuid "b8404ed3-b21a-4f27-b7f3-5dedea248927"))
+(symbol
+		(lib_id "power:+5V")
+		(at 215.9 135.89 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4d752078-4cb5-498e-b2bb-d8515a850259")
+		(property "Reference" "#PWR022" (at 215.9 129.54 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+5V" (at 215.9 130.81 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "364deb63-5f19-4997-b3cc-28dfcd57bd18"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR022") (unit 1))))
+	)
+(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 228.6 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "65cb09ca-400b-4fee-95d8-0bcb04507b5e")
+		(property "Reference" "#FLG002" (at 228.6 135.89 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "PWR_FLAG" (at 228.6 143.51 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "e21fb876-e0b8-4c59-baf3-3bb374d4faa3"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#FLG002") (unit 1))))
+	)
+(wire (pts (xy 228.6 139.7) (xy 228.6 135.89)) (stroke (width 0) (type default)) (uuid "88f1b20e-bcea-4538-a871-a686986bfea5"))
+(symbol
+		(lib_id "power:GND")
+		(at 228.6 135.89 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "376013df-50bc-41bb-a161-26b96651fecf")
+		(property "Reference" "#PWR023" (at 228.6 129.54 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 228.6 140.97 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "9d04b34a-c324-4b1a-a55d-a364f1ced4bf"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR023") (unit 1))))
+	)
+(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 241.3 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b8c1c062-46ae-4f94-b4f2-6a9ca21b63c9")
+		(property "Reference" "#FLG003" (at 241.3 135.89 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "PWR_FLAG" (at 241.3 143.51 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "2b80e707-72a9-4c6b-9077-7820e510155c"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#FLG003") (unit 1))))
+	)
+(wire (pts (xy 241.3 139.7) (xy 241.3 135.89)) (stroke (width 0) (type default)) (uuid "a7d77dfd-7831-4737-8647-ffbfbb53984f"))
+(global_label "VS" (shape passive) (at 241.3 135.89 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "f129c11f-d218-47b4-a145-44df8a75bbbd")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 241.3 135.89 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(wire (pts (xy 58.42 50.8) (xy 146.05 50.8)) (stroke (width 0) (type default)) (uuid "8d596773-0c1a-48a9-9d0f-f9c1bf3e8b03"))
+	(wire (pts (xy 58.42 64.77) (xy 114.3 64.77)) (stroke (width 0) (type default)) (uuid "4363fb8b-659b-4a7e-becd-b0c65106c419"))
+	(wire (pts (xy 114.3 64.77) (xy 114.3 53.34)) (stroke (width 0) (type default)) (uuid "4afaef72-2c12-47ac-acdd-bae5b911782c"))
+	(wire (pts (xy 114.3 53.34) (xy 146.05 53.34)) (stroke (width 0) (type default)) (uuid "83efd403-9799-44aa-a947-fad74ebcfe1d"))
+	(wire (pts (xy 53.34 72.39) (xy 46.99 72.39)) (stroke (width 0) (type default)) (uuid "59ee74c5-dc16-497f-a0f4-aa8c29cbf96c"))
+	(wire (pts (xy 46.99 72.39) (xy 46.99 116.84)) (stroke (width 0) (type default)) (uuid "ef03edaa-156c-4c86-a9dc-0cc06e454080"))
+	(wire (pts (xy 46.99 116.84) (xy 116.84 116.84)) (stroke (width 0) (type default)) (uuid "7e87d849-d541-443e-b1a3-83dafe7551fe"))
+	(wire (pts (xy 116.84 116.84) (xy 116.84 158.75)) (stroke (width 0) (type default)) (uuid "5cf45372-ae45-404a-84b8-f48ea968497a"))
+	(wire (pts (xy 116.84 158.75) (xy 106.68 158.75)) (stroke (width 0) (type default)) (uuid "b1b24b36-2d12-4697-94e9-f6e101fadca5"))
+	(wire (pts (xy 116.84 162.56) (xy 106.68 162.56)) (stroke (width 0) (type default)) (uuid "c658a76a-2381-45e2-b7ab-6b2ef172e663"))
+	(wire (pts (xy 116.84 166.37) (xy 106.68 166.37)) (stroke (width 0) (type default)) (uuid "651e8ea5-232e-42d3-9f6e-ed5656b09724"))
+	(wire (pts (xy 53.34 74.93) (xy 44.45 74.93)) (stroke (width 0) (type default)) (uuid "f77bee46-22d4-4da6-86d2-a36892001d9e"))
+	(wire (pts (xy 44.45 74.93) (xy 44.45 114.3)) (stroke (width 0) (type default)) (uuid "23346be0-8bfb-4f7b-a6cb-e85d565795c2"))
+	(wire (pts (xy 44.45 114.3) (xy 142.24 114.3)) (stroke (width 0) (type default)) (uuid "399a6e64-29be-4652-bdf0-ee2bff121395"))
+	(wire (pts (xy 142.24 114.3) (xy 142.24 158.75)) (stroke (width 0) (type default)) (uuid "63bbb940-8723-4b43-92e2-7d4a2a9e89ba"))
+	(wire (pts (xy 142.24 158.75) (xy 137.16 158.75)) (stroke (width 0) (type default)) (uuid "e66aee5d-f8a9-4107-99cd-565bde49a8a9"))
+	(wire (pts (xy 171.45 50.8) (xy 171.45 20.32)) (stroke (width 0) (type default)) (uuid "3454d96e-ade1-4fde-8234-5ae754d2614e"))
+	(wire (pts (xy 171.45 20.32) (xy 281.94 20.32)) (stroke (width 0) (type default)) (uuid "8ccec5f7-c032-48f3-b274-4a2e342b0c2b"))
+	(wire (pts (xy 247.65 20.32) (xy 247.65 50.8)) (stroke (width 0) (type default)) (uuid "d7d438f3-a8ac-4889-9f82-f83582587a80"))
+	(wire (pts (xy 281.94 20.32) (xy 281.94 54.61)) (stroke (width 0) (type default)) (uuid "bf165ff4-289c-4944-b908-41bb90080890"))
+	(wire (pts (xy 281.94 54.61) (xy 288.29 54.61)) (stroke (width 0) (type default)) (uuid "6dd63f67-a1be-4880-9ecb-79c519dc583d"))
+	(wire (pts (xy 171.45 53.34) (xy 175.26 53.34)) (stroke (width 0) (type default)) (uuid "469e7edd-ac25-4574-b8d7-facb5a3a85fe"))
+	(wire (pts (xy 175.26 53.34) (xy 175.26 17.78)) (stroke (width 0) (type default)) (uuid "2650ed37-45dc-4964-9ba9-ad57473c8db1"))
+	(wire (pts (xy 175.26 17.78) (xy 284.48 17.78)) (stroke (width 0) (type default)) (uuid "52005591-140c-4290-ba9f-e26a4ba38c5f"))
+	(wire (pts (xy 250.19 17.78) (xy 250.19 53.34)) (stroke (width 0) (type default)) (uuid "105cbbe5-5595-4d73-a462-74644c23fe3c"))
+	(wire (pts (xy 250.19 53.34) (xy 247.65 53.34)) (stroke (width 0) (type default)) (uuid "c9330fa4-ed42-4552-b4e5-212d347ce540"))
+	(wire (pts (xy 284.48 17.78) (xy 284.48 58.42)) (stroke (width 0) (type default)) (uuid "fd4bb619-91f2-4338-b0a8-a310ce6f8e42"))
+	(wire (pts (xy 284.48 58.42) (xy 288.29 58.42)) (stroke (width 0) (type default)) (uuid "d3ab9596-9379-4faf-b256-a222baf4a8f4"))
+	(junction (at 247.65 20.32) (diameter 0) (color 0 0 0 0) (uuid "60ed0fd5-0888-454e-a669-2ae2a206eacc"))
+	(junction (at 281.94 20.32) (diameter 0) (color 0 0 0 0) (uuid "8868c5df-0d07-4911-bd76-0fd6232ea7c5"))
+	(junction (at 250.19 17.78) (diameter 0) (color 0 0 0 0) (uuid "7c3b2f43-f2fa-4a5e-bb4c-8d498db2dacf"))
+	(junction (at 284.48 17.78) (diameter 0) (color 0 0 0 0) (uuid "abb58bfd-6be4-4af0-8f20-8d5feadc2f97"))
+	(junction (at 116.84 158.75) (diameter 0) (color 0 0 0 0) (uuid "43fa300f-8c70-4570-b227-866ae8af73f6"))
 	(sheet
-		(at 25.4 50.8)
-		(size 33.02 12.7)
+		(at 327.66 203.2)
+		(size 38.1 12.7)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -44,13 +5242,13 @@
 		(stroke (width 0.1524) (type solid))
 		(fill (color 0 0 0 0.0000))
 		(uuid "ab6b3723-36d6-46c2-a17c-8219d4cb3d1c")
-		(property "Sheetname" "unit_cell_ch2" (at 25.4 50.0884 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
-		(property "Sheetfile" "unit_cell_ch2.kicad_sch" (at 25.4 64.2 0) (effects (font (size 1.27 1.27)) (justify left top)))
-		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "3"))))
+		(property "Sheetname" "unit_cell_ch2" (at 327.66 202.488 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
+		(property "Sheetfile" "unit_cell_ch2.kicad_sch" (at 327.66 216.6 0) (effects (font (size 1.27 1.27)) (justify left top)))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "2"))))
 	)
 	(sheet
-		(at 25.4 76.2)
-		(size 33.02 12.7)
+		(at 327.66 228.6)
+		(size 38.1 12.7)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -59,39 +5257,9 @@
 		(stroke (width 0.1524) (type solid))
 		(fill (color 0 0 0 0.0000))
 		(uuid "7f1cb510-1a57-40b5-ab4c-4fc79046c09e")
-		(property "Sheetname" "unit_cell_ch3" (at 25.4 75.4884 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
-		(property "Sheetfile" "unit_cell_ch3.kicad_sch" (at 25.4 89.6 0) (effects (font (size 1.27 1.27)) (justify left top)))
-		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "4"))))
-	)
-	(sheet
-		(at 88.9 25.4)
-		(size 33.02 12.7)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke (width 0.1524) (type solid))
-		(fill (color 0 0 0 0.0000))
-		(uuid "be3d8bef-5d2f-488b-bd11-5037e59c83de")
-		(property "Sheetname" "acquisition" (at 88.9 24.6884 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
-		(property "Sheetfile" "acquisition.kicad_sch" (at 88.9 38.8 0) (effects (font (size 1.27 1.27)) (justify left top)))
-		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "5"))))
-	)
-	(sheet
-		(at 88.9 50.8)
-		(size 33.02 12.7)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke (width 0.1524) (type solid))
-		(fill (color 0 0 0 0.0000))
-		(uuid "37ca4614-49a2-4c65-a9e5-6354f42dde22")
-		(property "Sheetname" "power_io" (at 88.9 50.0884 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
-		(property "Sheetfile" "power_io.kicad_sch" (at 88.9 64.2 0) (effects (font (size 1.27 1.27)) (justify left top)))
-		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "6"))))
+		(property "Sheetname" "unit_cell_ch3" (at 327.66 227.888 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
+		(property "Sheetfile" "unit_cell_ch3.kicad_sch" (at 327.66 242 0) (effects (font (size 1.27 1.27)) (justify left top)))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "3"))))
 	)
 	(sheet_instances
 		(path "/" (page "1"))
