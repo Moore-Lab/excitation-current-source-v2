@@ -122,18 +122,22 @@ and R_ref, digitizes V_ref locally on the ADS1115s, and routes outward:
 - 4-wire Kelvin preserved to each RTD; light sense-line RC filter at the T7 input.
 - Test points on: each TOP node, each MID/Sense+ node, the rail, GND, SDA, SCL.
 
-## Resolved inputs (locked 2026-06-22, Session 002 — Lucas)
+## Resolved inputs (locked 2026-06-22, Session 002 — Lucas; channel count revised
+## 2026-07-09, Session 008 — Lucas: use the spare ADS1115 pair → 4 channels)
 1. **RTD type = Pt100.** → T7 range **±0.1 V** (≈18–35 mV at ~220 µA). Set a high resolution
    index and adequate mux settling per channel. (Does not affect R_ref sizing, which keys off
    the ADS range, or the CRD.)
-2. **Channel count = 3** of the 7 T7 differential pairs are RTDs. This fixes the repeated
+2. **Channel count = 4** of the 7 T7 differential pairs are RTDs (was 3; the second ADS1115's
+   AIN2/AIN3 differential pair was spare, so CH4 costs no new ADC). This fixes the repeated
    hardware:
-   - **3 CRD/R_ref unit cells** (3× CRD 1N5283/CDLL5283, 3× R_ref ≈910 Ω on the ADS ±0.256 V
+   - **4 CRD/R_ref unit cells** (4× CRD 1N5283/CDLL5283, 4× R_ref ≈910 Ω on the ADS ±0.256 V
      range).
-   - **2 ADS1115** (1 chip per 2 channels → ceil(3/2) = 2): 4 differential V_ref reads, **3
-     used, 1 spare**. Strap ADDR for **0x48 and 0x49**.
-   - **3 RTD 4-wire connectors**; 3 of the 7 Sense± pairs go to the T7 analog (CB37). The
-     other 4 T7 pairs remain free for non-RTD use.
+   - **2 ADS1115** (1 chip per 2 channels → ceil(4/2) = 2): 4 differential V_ref reads, **4
+     used, 0 spare**. Strap ADDR for **0x48 and 0x49**. U1 reads CH1/CH2; U2 reads CH3/CH4.
+   - **4 RTD 4-wire connectors**; 4 of the 7 Sense± pairs go to the T7 analog (CB37). The
+     other 3 T7 pairs remain free for non-RTD use.
+   - **T7 analog connector = 2×5 header** (was 2×4): pins 1–6 = CH1–CH3 Sense± pairs,
+     pins 7/8 = AGND (kept per the analog-reference intent), pins 9/10 = CH4 Sense±.
 
 Cross-cal + ratiometric absorb component values, so these set ranges and counts, not
 precision. The build is intentionally scalable: adding channels later means more unit cells

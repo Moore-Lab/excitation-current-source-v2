@@ -5,10 +5,10 @@
 	(uuid "6ce05a31-b5af-4e3a-a08f-83802c091454")
 	(paper "A3")
 	(title_block
-		(title "RTD Readout - 3ch 4-wire RTD, ratiometric")
+		(title "RTD Readout - 4ch 4-wire RTD, ratiometric")
 		(rev "B")
 		(comment 1 "Page 1: CH1 unit cell + acquisition + power/IO, drawn wires (audit view)")
-		(comment 2 "Pages 2-3: CH2/CH3 unit cells (separate copies - edit all three by hand)")
+		(comment 2 "Pages 2-4: CH2-CH4 unit cells (separate copies - edit all four by hand)")
 	)
 	(lib_symbols
 (symbol "rtd-readout:CRD_1N5283"
@@ -2010,7 +2010,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:PinHeader_2x04_P2.54mm_Vertical"
+		(property "Footprint" "rtd-readout:PinHeader_2x05_P2.54mm_Vertical"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2090,7 +2090,7 @@
 		(symbol "Conn_T7_Analog_0_1"
 			(rectangle
 				(start -3.81 8.89)
-				(end 3.81 -8.89)
+				(end 3.81 -12.7)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -2245,6 +2245,42 @@
 					)
 				)
 			)
+			(pin passive line
+				(at -7.62 -8.89 0)
+				(length 3.81)
+				(name "CH4_Sense+"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "9"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -8.89 180)
+				(length 3.81)
+				(name "CH4_Sense-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "10"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
 		)
 		(embedded_fonts no)
 	)
@@ -2364,7 +2400,7 @@
 		(embedded_fonts no)
 	)
 	)
-	(text "AUDIT PAGE: full CH1 signal chain on this page - +5V > CRD D1 > R_ref R1 (V_ref taps CH1_TOP/CH1_MID > U1 ADS1115 AIN0/AIN1) > RTD J1 (Kelvin: Force via loop, Sense pair > J4 > T7) > GND.\nCH2 (page 2) and CH3 (page 3) are identical unit cells; their TOP/MID taps land on U1 AIN2/3 and U2 AIN0/1 by the CHn_* labels; their Sense pairs land on J4 by the CHn_SENSE labels.\nACCEPTED DEVIATION: CH2/CH3 are separate copies - a unit-cell change must be applied to CH1 (this page) AND pages 2-3 by hand. See docs/sessions/trackE.md."
+	(text "AUDIT PAGE: full CH1 signal chain on this page - +5V > CRD D1 > R_ref R1 (V_ref taps CH1_TOP/CH1_MID > U1 ADS1115 AIN0/AIN1) > RTD J1 (Kelvin: Force via loop, Sense pair > J4 > T7) > GND.\nCH2-CH4 (pages 2-4) are identical unit cells; TOP/MID taps land on U1 AIN2/3 (CH2), U2 AIN0/1 (CH3), U2 AIN2/3 (CH4); Sense pairs land on J4 (CH4 on pins 9/10) by the CHn_* labels.\nACCEPTED DEVIATION: CH2-CH4 are separate copies - a unit-cell change must be applied to CH1 (this page) AND pages 2-4 by hand. See docs/sessions/trackE.md."
 		(exclude_from_sim no)
 		(at 30.48 220.98 0)
 		(effects (font (size 2 2)) (justify left top))
@@ -3400,8 +3436,6 @@
 		(effects (font (size 1.27 1.27)) (justify right))
 		(uuid "744956be-cfe3-4d4a-882b-4ba6fe8b7376")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 222.25 53.34 0) (effects (font (size 1.27 1.27)) (hide yes))))
-(no_connect (at 224.79 55.88) (uuid "2a87b23a-4cd0-4d06-bc48-b1d83c6ea3aa"))
-(no_connect (at 224.79 58.42) (uuid "9905c1f0-a6c0-4a91-a606-c750c13e9cd7"))
 (wire (pts (xy 234.95 40.64) (xy 234.95 38.1)) (stroke (width 0) (type default)) (uuid "1918c555-5cb1-42ab-a098-d4931074fe3b"))
 (global_label "VS" (shape passive) (at 234.95 38.1 0)
 		(effects (font (size 1.27 1.27)) (justify left))
@@ -4447,7 +4481,7 @@
 			)
 		)
 		(property "Value" "Conn_T7_Analog"
-			(at 127 181.61 0)
+			(at 127 184.15 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4456,7 +4490,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:PinHeader_2x04_P2.54mm_Vertical"
+		(property "Footprint" "rtd-readout:PinHeader_2x05_P2.54mm_Vertical"
 			(at 127 165.1 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4489,7 +4523,7 @@
 				)
 			)
 		)
-		(property "MPN" "PREC004DAAN-RC (2x4; confirm)"
+		(property "MPN" "PREC005DAAN-RC (2x5; confirm)"
 			(at 127 165.1 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4540,6 +4574,8 @@
 		(pin "5" (uuid "96b79586-6315-4ede-bb1a-f535f203404f"))
 		(pin "6" (uuid "caa61e2c-74d8-4ec7-86d4-da27bf5de605"))
 		(pin "7" (uuid "b5ebcd93-6ef9-45bf-9065-e9dfea0a69f0"))
+		(pin "9" (uuid "f7152cda-61af-4604-998a-1ee511d46e07"))
+		(pin "10" (uuid "ae49dc32-5bfd-4f3d-809e-b6ebfb9ae48a"))
 		(pin "8" (uuid "b5f15db4-603c-4613-82ce-9981be2113a7"))
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "J4") (unit 1))))
 	)
@@ -5261,7 +5297,44 @@
 		(property "Sheetfile" "unit_cell_ch3.kicad_sch" (at 327.66 242 0) (effects (font (size 1.27 1.27)) (justify left top)))
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "3"))))
 	)
-	(sheet_instances
+	(wire (pts (xy 222.25 55.88) (xy 224.79 55.88)) (stroke (width 0) (type default)) (uuid "008669c6-8fb2-4787-b950-9a8f03639a5d"))
+(global_label "CH4_TOP" (shape passive) (at 222.25 55.88 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "db98c553-4f5e-40bb-88fc-634dfe3c6f3a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 222.25 55.88 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 222.25 58.42) (xy 224.79 58.42)) (stroke (width 0) (type default)) (uuid "a5ae42bc-7100-4870-8ca8-25ae4588f73b"))
+(global_label "CH4_MID" (shape passive) (at 222.25 58.42 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "fe0b8f53-47d9-4a62-ad91-7630df8f74da")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 222.25 58.42 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 119.38 173.99) (xy 116.84 173.99)) (stroke (width 0) (type default)) (uuid "6afe3145-e102-45be-be8a-939a92b25cf5"))
+(global_label "CH4_SENSE+" (shape passive) (at 106.68 173.99 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "fa4d686a-e9b0-4fa4-b4ea-9fd67d9b6ec8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 106.68 173.99 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 134.62 173.99) (xy 137.16 173.99)) (stroke (width 0) (type default)) (uuid "0703f697-9337-46ec-9bad-fecf61da3449"))
+(wire (pts (xy 137.16 173.99) (xy 147.32 173.99)) (stroke (width 0) (type default)) (uuid "6f45c13b-b2d1-45f9-b770-1c3b7c7ff24f"))
+(global_label "CH4_SENSE-" (shape passive) (at 147.32 173.99 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "70fdcfe6-a1aa-45c8-8cd1-7d97b05864a7")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 147.32 173.99 0) (effects (font (size 1.27 1.27)) (hide yes))))
+	(sheet
+		(at 372.11 203.2)
+		(size 38.1 12.7)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "b27775b0-664b-4593-ba4f-03faaa5cd354")
+		(property "Sheetname" "unit_cell_ch4" (at 372.11 202.4884 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
+		(property "Sheetfile" "unit_cell_ch4.kicad_sch" (at 372.11 216.6 0) (effects (font (size 1.27 1.27)) (justify left top)))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "4"))))
+	)
+(wire (pts (xy 116.84 173.99) (xy 106.68 173.99)) (stroke (width 0) (type default)) (uuid "5045f395-0064-4953-b566-43d957ecff64"))
+(sheet_instances
 		(path "/" (page "1"))
 	)
 	(embedded_fonts no)

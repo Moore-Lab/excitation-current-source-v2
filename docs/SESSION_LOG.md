@@ -30,6 +30,39 @@ one-entry summary per merged track.
 
 ---
 
+## Session 008 — 2026-07-09 — rev-C: 4th channel (use U2's spare ADS1115 pair)
+
+**Tooling:** KiCad 10.0.3 (kicad-cli + bundled pcbnew Python); ngspice 44 (conda `spice`).
+**Branch / commit at start:** `rev-c-4ch` off `main`.
+**Objective (Lucas request):** "we might as well make this 4 channels because we have that
+capacity on the adc" — U2's AIN2/AIN3 differential pair was a no-connect spare.
+**Actions:**
+- **board_spec:** channel count 3→4 (CRD=4, R_ref=4, ADS=2 with 0 spare, RTD conns=4; T7
+  analog connector 2×4→**2×5**, CH4 Sense± on pins 9/10, AGND kept on 7/8).
+- **Schematic:** page 4 = unit_cell_ch4 (clone of ch3: D4, R6, J7, TP11/TP12, CH4_* nets,
+  fresh UUIDs, #PWR renumbered); U2 AIN2/3 no-connects → CH4_TOP/MID; Conn_T7_Analog symbol
+  grown to 10 pins; J4 footprint/MPN → 2×5 (PREC005DAAN-RC). Netlist delta verified to be
+  **exactly** the specified additions (21→23 nets; nothing else moved).
+- **Library:** PinHeader_2x05_P2.54mm_Vertical added (extended from the 2x04).
+- **Layout (pcbnew scripting):** board grown 122×82→**122×104 mm**; bottom mounting holes →
+  y100; all 4 plane outlines extended y79→101 and refilled; D4/R6/J7/TP11/TP12 placed
+  mirroring CH3's cell; J4 swapped to 2×5; CH4 routed (V_ref taps up x63.4/x64.2 into U2
+  pads 6/7; sense pair on B.Cu x23/x26 to J4 9/10; +5V drop via). Two pre-existing items
+  reworked to make room: CH2_SENSE− rerouted off the new J4 row; one VS stub/via at U2's
+  east side relocated. Two intermediate DRC failures found & fixed (U2 pads 6/7 still bound
+  to old no-connect nets; first CH4_MID corridor collided with C2).
+**Validation:** ERC **0/0**; DRC **0 violations / 0 unconnected**; parity 60 (35+18 metadata
+on the 5 new parts + pre-existing, 7 mechanical — no net conflicts); netlist delta exact;
+**SPICE 7/7 PASS** (per-channel circuit unchanged); fab regenerated; renders updated.
+Independent 5-agent verification workflow ran (delta oracle, gates, adversarial layout
+review of the new copper incl. star-ground/single-tie discipline, visual audit, BOM=35).
+**Open issues / risks:** sense-line RC filter decision (Session 006) still open — now 4
+pairs affected; parity metadata (MPN fields on footprints) still cosmetic-only.
+**Next action:** Lucas review; resolve filter; order from `fab/` (`fab-rev-C`).
+**Commit:** on `rev-c-4ch`; tags `rev-C`, `fab-rev-C`; merged to `main`.
+
+---
+
 ## Session 007 — 2026-07-09 — Schematic readability restructure (audit view)
 
 **Tooling:** KiCad 10.0.3; Python 3.12 generator (out-of-tree, per Track-E convention); headless

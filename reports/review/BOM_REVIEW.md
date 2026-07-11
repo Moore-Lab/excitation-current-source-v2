@@ -1,29 +1,31 @@
-# BOM Review & Digi-Key Ordering List — rev-B (3-channel RTD readout)
+# BOM Review & Digi-Key Ordering List — rev-C (4-channel RTD readout)
 
-Source: `hardware/*.kicad_sch` (MPNs updated rev-B) → `fab/bom/bom_fab.csv`.
-Counts cross-checked against `docs/board_spec.md` for a **Pt100, 3-channel** board.
+Source: `hardware/*.kicad_sch` (rev-C) → `fab/bom/bom_fab.csv`.
+Counts cross-checked against `docs/board_spec.md` for a **Pt100, 4-channel** board.
 
 ## Order list (Digi-Key)
 
 | Ref | Qty | Value | Footprint | MPN | Mfr | Digi-Key P/N | Status |
 |-----|----|-------|-----------|-----|-----|--------------|--------|
-| D1–D3 | 3 | CRD ~220 µA | D_MELF (DO-213AB) | CDLL5283/TR | Microchip | 150-CDLL5283/TR-ND | ✅ confirmed |
-| R1–R3 | 3 | 910 Ω R_ref | R_1206 | **TNPU1206 910 Ω 0.1% ≤10 ppm** | Vishay | *parametric — select code* | ⚠ **see Finding 1** |
+| D1–D4 | 4 | CRD ~220 µA | D_MELF (DO-213AB) | CDLL5283/TR | Microchip | 150-CDLL5283/TR-ND | ✅ confirmed |
+| R1–R3,R6 | 4 | 910 Ω R_ref | R_1206 | **TNPU1206 910 Ω 0.1% ≤10 ppm** | Vishay | *parametric — select code* | ⚠ **see Finding 1** |
 | R4,R5 | 2 | 4.7 kΩ 1% | R_0805 | RC0805FR-074K7L | Yageo | 311-4.70KCRCT-ND | ◑ confirm at cart |
 | U1,U2 | 2 | ADS1115 16-bit ADC | MSOP-10 (VSSOP) | ADS1115IDGSR | TI | 296-38849-1-ND | ✅ confirmed |
 | C1,C2 | 2 | 0.1 µF 50 V X7R | C_0603 | GRM188R71H104KA93D | Murata | 490-3283-1-ND | ◑ confirm at cart |
 | C3,C4 | 2 | 10 µF 25 V X5R | C_0603 | GRM188R61E106KA73D | Murata | *MPN confirmed; DK P/N confirm* | ◑ confirm at cart |
-| J1–J3 | 3 | RTD 4-wire terminal | MKDS 1,5/4-5,08 | **1729144** | Phoenix | 277-1249-ND | ⚠ **corrected — Finding 2** |
-| J4 | 1 | T7 analog header | 2×4 2.54 mm | Sullins PREC 2×4 vert. | Sullins | *confirm 2×4 vertical code* | ◑ confirm at cart |
+| J1–J3,J7 | 4 | RTD 4-wire terminal | MKDS 1,5/4-5,08 | **1729144** | Phoenix | 277-1249-ND | ⚠ **corrected — Finding 2** |
+| J4 | 1 | T7 analog header | 2×5 2.54 mm | PREC005DAAN-RC (2×5 vert.) | Sullins | *confirm 2×5 vertical code* | ◑ confirm at cart |
 | J5 | 1 | T7 I²C header | 1×4 2.54 mm | PREC004SAAN-RC | Sullins | 2774850 / S2211EC-04-ND | ✅ confirmed |
 | J6 | 1 | Power terminal | MKDS 1,5/2-5,08 | 1729128 | Phoenix | 277-1247-ND | ✅ confirmed |
-| TP1–TP10 | 10 | Test pads | TestPoint_Pad | — copper feature, **do not order** | — | — | n/a |
+| TP1–TP12 | 12 | Test pads | TestPoint_Pad | — copper feature, **do not order** | — | — | n/a |
 
 **Legend:** ✅ MPN + Digi-Key P/N verified from a Digi-Key product page · ◑ MPN is a correct
 standard part; verify exact Digi-Key P/N + live stock at cart · ⚠ see finding below.
 
-**Count check vs board_spec (3-channel):** CRD D=3, R_ref R1–3=3, pull-ups R4,R5=2, ADS U=2,
-decouple C1,C2=2, bulk C3,C4=2, RTD conns J1–3=3, headers J4/J5, power J6, TP=10 → **all pass; 30 parts.**
+**Count check vs board_spec (4-channel):** CRD D=4, R_ref=4 (R1–R3,R6), pull-ups R4,R5=2, ADS U=2
+(ceil(4/2)), decouple C1,C2=2, bulk C3,C4=2, RTD conns=4 (J1–J3,J7), headers J4/J5, power J6,
+TP=12 → **all pass; 35 parts.** (rev-C: CH4 added on U2's spare AIN2/3; J4 grew to 2×5 —
+pins 1–6 = CH1–CH3 Sense±, 7/8 = AGND, 9/10 = CH4 Sense±.)
 
 ## Findings (must read before ordering)
 
