@@ -39,10 +39,10 @@ Each channel is one series current loop. The same current `I` flows through ever
 ```
    +5 V rail
       │
-   [ CRD ]            current-regulator diode, ~0.24 mA (LIS J500 TO-92). The current source.
+   [ CRD ]            current-regulator diode, ~0.10 mA (SEMITEC S-101T). The current source.
       │  I  (identical current through everything below)
   TOP ●───────────────► ADS1115 IN+   ┐  V_ref read differentially, on-board, over I²C
-   [ R_ref ]  820 Ω                    │
+   [ R_ref ]  1.0 kΩ                    │
   MID ●───────────────► ADS1115 IN−   ┘
       │  Force+
       ▼
@@ -120,14 +120,14 @@ Locked inputs (Session 002; channels revised Session 008): **Pt100, 4 of the 7 T
 
 | Item | Value | Why |
 |------|-------|-----|
-| RTD type | Pt100 | → T7 range ±0.1 V (≈19–38 mV at ~0.24 mA) |
+| RTD type | Pt100 | → T7 range ±0.1 V (≈3–16 mV at ~0.10 mA, to ~100 K) |
 | Channels | 4 | sets the repeated-hardware counts below |
-| CRD | LIS J500 (TO-92), ~0.24 mA | current source; value unimportant (measured live) |
-| R_ref | 820 Ω, ≤10 ppm/°C | V_ref ≈ 197 mV nominal, ≤ 236 mV at the +20 % CRD band max |
+| CRD | SEMITEC S-101T (SMD), ~0.10 mA | current source; value unimportant (measured live); rev-F: low current for cryostat self-heating |
+| R_ref | 1.00 kΩ, ±2 ppm/°C | V_ref ≈ 100 mV nominal, ≤ 210 mV at the 0.21 mA band max |
 | ADS1115 range | ±0.256 V | V_ref ≈ 86 % of full scale at worst case (no clip) |
 | ADS1115 count | 2 (0x48, 0x49) | 1 chip per 2 channels → ceil(4/2); U1: CH1/CH2, U2: CH3/CH4 — 0 spare |
 
-Rough operating numbers: `V_ref ≈ 820 Ω × 0.24 mA ≈ 197 mV`; Pt100 (≈100–138 Ω over 0–100 °C)
+Rough operating numbers: `V_ref ≈ 1.00 kΩ × 0.10 mA ≈ 100 mV`; Pt100 (≈100–138 Ω over 0–100 °C)
 → `V_RTD ≈ 22–30 mV`. Only the `V_RTD` (Sense±) lines leave as analog; `V_ref` never leaves the
 board as analog.
 
@@ -139,14 +139,14 @@ Exported from the schematic; counts cross-checked against the spec's rules.
 
 | Refdes | Qty | Part | Notes |
 |--------|-----|------|-------|
-| D1–D4 | 4 | CRD ~240 µA (LIS J500, TO-92) | = channels |
-| R1–R3,R6 | 4 | 820 Ω ≤10 ppm/°C thin-film | R_ref; pay for tempco, not tolerance |
+| D1–D4 | 4 | CRD ~100 µA (SEMITEC S-101T, SMD) | = channels |
+| R1–R3,R6 | 4 | 1.00 kΩ ±2 ppm/°C thin-film | R_ref; pay for tempco, not tolerance |
 | R4,R5 | 2 | 4.7 kΩ | I²C pull-ups (SDA, SCL) |
 | R7–R14 | 8 | 1 kΩ 1% | sense-filter series (2 per channel) |
 | U1,U2 | 2 | ADS1115IDGS | 0x48 (ADDR→GND), 0x49 (ADDR→VS) |
 | C1,C2 | 2 | 0.1 µF | per-chip decoupling |
 | C3,C4 | 2 | 10 µF | bulk on +5V / VS |
-| C5–C8 | 4 | 0.1 µF | sense-filter differential caps at J4 (back side) |
+| C5–C8 | 4 | 0.1 µF C0G/NP0 | sense-filter differential caps near J4 (back side; rev-F Class-1 dielectric) |
 | J1–J3,J7 | 4 | 4-pos 5.08 mm screw terminal | RTD 4-wire (Phoenix MKDS) |
 | J4 | 1 | 2×5 header | to T7 analog (4 Sense± pairs + AGND; CH4 on pins 9/10) |
 | J5 | 1 | 1×4 header | to T7 I²C (SDA/SCL/VS/GND) |
@@ -168,6 +168,14 @@ with real MPNs + part numbers:** [`reports/review/BOM_REVIEW.md`](../reports/rev
 > CL21B104KBCNNNC 0.1 µF / CL21A106KACLRNC 10 µF); R_ref re-sized **910 Ω → 820 Ω**
 > (KOA RN73H2BTTD8200B10, ±0.1 %, ±10 ppm/°C — the only in-stock qualifying part) so the
 > J500's ±20 % band never clips the ±0.256 V range. See `BOM_REVIEW.md` (rev-E).
+
+> **rev-F (2026-07-11, cryostat/stability respin):** the Pt100s live in vacuum at down to
+> ~100 K, so excitation dropped to **~100 µA** (SEMITEC **S-101T**, SMD flat-lead — ~6×
+> less self-heating); **R_ref → 1.00 kΩ ±2 ppm/°C** (Vishay TNPU12061K00AWEN00) so the
+> reference is no longer the drift limiter; sense-path passives upgraded: **C0G/NP0**
+> filter caps (Murata GRM31C5C1H104JA01L, 1206) and **0.1 %/±25 ppm** thin-film filter
+> resistors (Susumu RG2012P-102-B). Rail decoupling/bulk stay X7R/X5R (not in the
+> measurement path; 10 µF does not exist in C0G). See `BOM_REVIEW.md` (rev-F).
 
 ---
 
@@ -307,8 +315,10 @@ the fitted hardware; the filter costs nothing measurable (T7 input bias ~nA → 
 absorbed by cross-cal; the resistors' Johnson noise is band-limited by the same cap,
 f_c ≈ 800 Hz differential).
 
-**Assembly note:** C5–C8 mount on the **back side**, directly across the J4 pin pairs (their
-courtyards/silk are intentionally omitted — the pads straddle the through-hole barrels).
+**Assembly note:** C5–C8 mount on the **back side just east of J4** (rev-F: 1206 C0G bodies
+no longer fit across the pin pairs; they connect via short B.Cu stubs). Courtyards/silk are
+omitted on these four instances (carried over from rev-D); J4 insertion order is no longer
+constrained by the caps.
 
 ---
 
@@ -372,8 +382,8 @@ Staged go/no-go gates (from [`TESTING_PLAN.md`](TESTING_PLAN.md)); bench data �
   static layout review; the board is proven correct in design, not yet in hardware.
 - **Bench Part 2 (§11) is pending** and requires the physical board — it includes the headline
   position-independence test the redesign exists to pass.
-- **R_ref part** is pinned (rev-E): 820 Ω ≤10 ppm/°C 1206 **KOA RN73H2BTTD8200B10**, verified
-  in stock at Digi-Key 2026-07-11. A few generic Digi-Key P/Ns remain "confirm at cart."
+- **R_ref part** is pinned (rev-F): 1.00 kΩ ±0.05 % ±2 ppm/°C 1206 **Vishay TNPU12061K00AWEN00**,
+  verified in stock at Digi-Key 2026-07-11. A few generic Digi-Key P/Ns remain "confirm at cart."
 - **Footprint MPN metadata** isn't pushed to the PCB (schematic carries the real MPNs; the 47
   schematic-parity items are unchanged/cosmetic). A one-click GUI "update PCB from schematic"
   clears them; it doesn't affect fab or function.

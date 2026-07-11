@@ -28,7 +28,7 @@ REPORT_DIR = REPO_ROOT / "reports" / "sim"
 # --- physical constants & board references (mirror sim/models/params.inc) ---
 KB = 1.380649e-23          # Boltzmann [J/K]
 T_KELVIN = 300.15          # ngspice default TNOM/TEMP = 27 C
-R_REF = 910.0              # reference resistor [Ohm]
+R_REF = 1000.0             # reference resistor [Ohm] (rev-F)
 PT100_DRDT = 0.39083       # Pt100 dR/dT at 0 C [Ohm/degC]
 PT100_SENS_C = 100.0 / PT100_DRDT   # degC per fractional ratio error (~255.9)
 ADS_FS = 0.256             # ADS1115 +/-0.256 V range [V]

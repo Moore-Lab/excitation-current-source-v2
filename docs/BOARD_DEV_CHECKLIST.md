@@ -10,12 +10,12 @@ bite. Everything traces to `docs/board_spec.md`. Canonical gate commands are at 
 
 - [ ] Every symbol has value, footprint, MPN, manufacturer, datasheet. No blank fields.
 - [ ] **CRD placed two-terminal in each loop** (anode→rail, cathode→R_ref), part =
-      LIS J500 TO-92 (`board_spec.md` §Components; rev-E). Its tolerance is intentionally
+      SEMITEC S-101T (`board_spec.md` §Components; rev-F). Its tolerance is intentionally
       irrelevant — do not "improve" it with a precision source; the design measures current
       live.
 - [ ] **R_ref annotated for stability, not tolerance:** ≤10 ppm/°C, low-noise, real MPN.
       **Absolute value is absorbed by cross-cal** — value is chosen to land V_ref in the
-      ADS1115 range (default 820 Ω → ~197 mV; never clips at the +20 % CRD band max).
+      ADS1115 range (default 1.00 kΩ → ~100 mV; never clips at the 0.21 mA band max).
 - [ ] **RTD at the bottom of each loop** (low common-mode) — the reason the board exists.
 - [ ] **Force/Sense separate nets** to the RTD; Kelvin junction at the RTD, not on-board.
 - [ ] **V_ref tapped differentially at the R_ref pads → ADS1115 IN±.** V_ref common-mode is
@@ -33,7 +33,7 @@ bite. Everything traces to `docs/board_spec.md`. Canonical gate commands are at 
 
 ## Phase 2 — Footprints & library
 
-- [ ] Each footprint verified against its datasheet land pattern (CRD TO-92, ADS1115
+- [ ] Each footprint verified against its datasheet land pattern (CRD S-101T flat SMD, ADS1115
       package, connectors, R_ref). A wrong pinout here is silent and fatal.
 - [ ] Courtyards present, non-overlapping; 3D models attached.
 - [ ] All symbols/footprints in project-local `libraries/`, not global libs.

@@ -2,7 +2,7 @@
 * ----------------------------------------------------------------------------
 * Proves TESTING_PLAN Part 1 #2: with C found from a modeled known resistor,
 * R_calc = C * V_RTD/V_ref recovers the swept RTD, and is INVARIANT when the CRD
-* current (kc) is perturbed +/-20 % (J500 band) and R_ref absolute value (kref) +/-10 %.
+* current (kc) is perturbed over the S-101T guaranteed band (0.5x..2.1x) and R_ref absolute value (kref) +/-10 %.
 * Cross-cal point R_known = RTD_0 (100 Ohm); python forms C and R_calc.
 * Output columns per file: rrtd(scale)  V_RTD_meas  V_ref_meas
 * ----------------------------------------------------------------------------
@@ -22,11 +22,11 @@ alter Vkc = 1
 alter Vkref = 1
 dc Vrrtd 80 158 1
 wrdata reports/sim/data/test2_nom.dat     v(nrtd) v(nref)
-* --- CRD +20 % / -20 % (J500 band; must not move R_calc) ---
-alter Vkc = 1.2
+* --- CRD band edges 2.1x / 0.5x (S-101T; must not move R_calc) ---
+alter Vkc = 2.1
 dc Vrrtd 80 158 1
 wrdata reports/sim/data/test2_crd_hi.dat  v(nrtd) v(nref)
-alter Vkc = 0.8
+alter Vkc = 0.5
 dc Vrrtd 80 158 1
 wrdata reports/sim/data/test2_crd_lo.dat  v(nrtd) v(nref)
 * --- R_ref +10 % / -10 % (absolute value must not move R_calc) ---

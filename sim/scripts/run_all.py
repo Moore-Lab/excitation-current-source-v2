@@ -30,13 +30,13 @@ import spice_io as io
 # ===========================================================================
 # Bench-measurable assumptions (replace with datasheet/bench numbers as known)
 # ===========================================================================
-T7_NOISE_RMS_V  = 1.0e-6    # T7 Pro effective RMS noise on +/-0.1 V range  [V]
+T7_NOISE_RMS_V  = 0.5e-6    # T7 Pro effective RMS noise PER READ on +/-0.1 V [V] (4-conversion average of a conservative 1 uV/conversion; spec prescribes averaging - bench Stage 5 must confirm)
 ADS_NOISE_RMS_V = 5.0e-6    # ADS1115 effective RMS noise (averaged)         [V]
 MEAS_BW_HZ      = 10.0      # effective per-channel measurement bandwidth    [Hz]
 MUX_DWELL_S     = 5.0e-3    # assumed per-channel mux dwell                  [s]
 SETTLE_HALF_LSB_V = 1.0e-6  # 1/2-LSB-equivalent settle target at T7 input   [V]
 RES_TARGET_C    = 0.02      # per-channel noise/resolution target            [degC]
-VL_CRD          = 1.2       # CRD limiting voltage (regulation floor), J500 max [V]
+VL_CRD          = 2.0       # CRD regulation floor [V]; S-101T Vk 0.5V max, plateau ~1-2V (conservative)
 STAR_GND_BUDGET_OHM = 0.1   # achievable star-ground resistance on the board [Ohm]
 
 
@@ -84,7 +84,7 @@ def t1_dc_compliance():
         {"Objective": "Acceptance (a): the CRD keeps regulating (V across it > V_L) "
                       "across the full Pt100 sweep at the worst-case low rail.",
          "Setup": "Deck sim/netlists/test1_dc_compliance.cir; ngspice op sweep of "
-                  "Vrrtd 80-158 Ohm at rail = 5.0 V and 4.5 V; CRD = 240 uA || 4 MOhm.",
+                  "Vrrtd 29-158 Ohm (100 K cryostat floor to +150 C) at rail = 5.0 V and 4.5 V; CRD = 100 uA || 5 MOhm.",
          "Method": "Vcrd = v(rail)-v(top) over the sweep; take the minimum at the "
                    "low rail and compare to V_L.",
          "Results": results + "\n\n![compliance](plots/test1_compliance.png)",
@@ -162,13 +162,15 @@ def t3_montecarlo():
     s_tcref = read_param("test3_montecarlo.cir", "SIG_TCREF")
     s_tcgr = read_param("test3_montecarlo.cir", "SIG_TCGR")
     s_off = read_param("test3_montecarlo.cir", "SIG_OFF")
-    v_rtd = 221.0e-6 * 100.0    # V_RTD at RTD_0: I~221 uA x 100 Ohm ~ 22.1 mV
+    v_rtd = 100.0e-6 * 100.0    # V_RTD at RTD_0: I~100 uA x 100 Ohm ~ 10 mV (rev-F)
     term_tcref = s_tcref * 1e-6 * dt * io.PT100_SENS_C
     term_tcgr = s_tcgr * 1e-6 * dt * io.PT100_SENS_C
     term_off = (s_off / v_rtd) * io.PT100_SENS_C
     rss = float(np.sqrt(term_tcref**2 + term_tcgr**2 + term_off**2))
-    tempco_dominates = min(term_tcref, term_tcgr) >= term_off
-    passed = (sigma_C <= 0.05) and tempco_dominates
+    # rev-F: with the 2 ppm/C reference, R_ref must NOT be the limiting term;
+    # the residual budget is set by ADC gain tempco + V_RTD offset drift.
+    rref_not_limiting = term_tcref <= min(term_tcgr, term_off)
+    passed = (sigma_C <= 0.05) and rref_not_limiting
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.hist(errC, bins=60, color="#4477aa", alpha=.8)
     ax.axvline(sigma_C, color="r", ls="--", label=f"+1sigma={sigma_C:.4f} C")
@@ -187,59 +189,62 @@ def t3_montecarlo():
                f"| MC 95th pct \\|err\\| | | {p95:.4f} |")
     io.write_report(
         "test3_montecarlo", "Test 3 - Monte-Carlo accuracy -> degC error",
-        {"Objective": "Acceptance (c): over board dT the accuracy is dominated by "
-                      "R_ref tempco + relative ADC gain tempco, within target.",
+        {"Objective": "Acceptance (c): over board dT the accuracy stays within target, "
+                      "with the reference resistor NOT the limiting term (rev-F: "
+                      "2 ppm/C R_ref; ADC gain tempco + offset drift set the residual).",
          "Setup": f"Deck test3_montecarlo.cir; N={len(errC)} Gaussian samples; "
                   f"dT={dt:g} C; sigmas R_ref/gain={s_tcref:g}/{s_tcgr:g} ppm/C, "
-                  f"offset={s_off*1e6:g} uV; cross-cal C verified = R_ref0 = 910 Ohm.",
+                  f"offset={s_off*1e6:g} uV; cross-cal C verified = R_ref0 = 1000 Ohm.",
          "Method": "Per sample: cross-cal at dt=0, then op at dt with sampled tempco/"
                    "offset; fractional error -> Pt100 degC via x255.9.",
          "Results": results + "\n\n![hist](plots/test3_mc_hist.png)",
-         "Pass / Fail": f"Criterion sigma <= 0.05 C AND tempco terms dominate. "
+         "Pass / Fail": f"Criterion sigma <= 0.05 C AND R_ref tempco not limiting. "
                         f"**{'PASS' if passed else 'FAIL'}** (sigma={sigma_C:.4f} C; "
-                        f"each tempco term {term_tcref:.4f} C > offset {term_off:.4f} C).",
-         "Anomalies & notes": "Offset term scales as 1/V_RTD (~22 mV), so it is the "
-                              "term most sensitive to the small Pt100 signal - tighten "
-                              "T7/ADS offset drift or recal more often if it grows.",
+                        f"R_ref term {term_tcref:.4f} C <= gain {term_tcgr:.4f} / offset {term_off:.4f} C).",
+         "Anomalies & notes": "Offset term scales as 1/V_RTD (~10 mV at 100 uA) and is now, "
+                              "with ADC gain tempco, the accuracy limiter between recals - the "
+                              "deliberate rev-F trade for ~6x lower cryostat self-heating. "
+                              "Mitigations: recal cadence, thermal stability of the T7, and "
+                              "tracking the T7 internal-GND channel for offset drift.",
          "Next": "Inject real part tempco/offset specs; bench Stage 7 measures C drift."})
     return passed, (f"sigma={sigma_C:.4f} C, RSS={rss:.4f} C, "
-                    f"tempco-dominated={tempco_dominates}")
+                    f"rref-not-limiting={rref_not_limiting}")
 
 
 def t4_rref_sizing():
     d = io.load_wrdata(io.DATA_DIR / "test4_vref_vs_kc.dat")   # kc, Vref
     kc, vref = d[:, 0], d[:, 1]
-    i_hi = int(np.argmin(np.abs(kc - 1.20)))                   # +20% CRD (J500 band max)
+    i_hi = int(np.argmin(np.abs(kc - 2.10)))                   # S-101T band max (0.21 mA)
     vref_hi = float(vref[i_hi])
     fs_frac = vref_hi / io.ADS_FS
     ebits = np.log2(vref_hi / io.ADS_LSB)
-    passed = fs_frac < 0.95
+    passed = fs_frac < 0.90
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.plot(kc, 1e3 * vref, label="V_ref")
     ax.axhline(1e3 * io.ADS_FS, color="r", ls="--", label="ADS FS 256 mV")
-    ax.axhline(0.95e3 * io.ADS_FS, color="orange", ls=":", label="95% FS")
-    ax.axvspan(0.8, 1.2, alpha=.1, color="g", label="CRD +/-20%")
+    ax.axhline(0.9e3 * io.ADS_FS, color="orange", ls=":", label="90% FS")
+    ax.axvspan(0.5, 2.1, alpha=.1, color="g", label="CRD band 0.05-0.21 mA")
     ax.set(xlabel="CRD current scale kc", ylabel="V_ref [mV]",
            title="Test 4 - R_ref sizing / no-clip")
     ax.legend(fontsize=8); ax.grid(alpha=.3)
     fig.tight_layout(); fig.savefig(io.PLOT_DIR / "test4_sizing.png", dpi=110)
     plt.close(fig)
     results = (f"| quantity | expected | measured | unit |\n|---|---|---|---|\n"
-               f"| V_ref at +20% CRD | < 243 | {1e3*vref_hi:.1f} | mV |\n"
-               f"| fraction of ADS FS | < 95 | {1e2*fs_frac:.1f} | % |\n"
+               f"| V_ref at band-max CRD (0.21 mA) | < 230 | {1e3*vref_hi:.1f} | mV |\n"
+               f"| fraction of ADS FS | < 90 | {1e2*fs_frac:.1f} | % |\n"
                f"| effective bits used | high | {ebits:.1f} | bits |")
     io.write_report(
         "test4_rref_sizing", "Test 4 - R_ref sizing / no-clip vs ADS1115 range",
         {"Objective": "Acceptance: worst-case V_ref stays under the ADS1115 +/-0.256 V "
                       "range with margin and good effective bits.",
-         "Setup": "Deck test4_rref_sizing.cir; R_ref=820 Ohm; sweep CRD scale kc 0.7-1.3.",
-         "Method": "V_ref = drop across R_ref (RTD-independent); evaluate at kc=1.20 "
-                   "(+20% CRD, J500 guaranteed band max) and compare to 95% of full scale.",
+         "Setup": "Deck test4_rref_sizing.cir; R_ref=1.00 kOhm; sweep CRD scale kc 0.4-2.2.",
+         "Method": "V_ref = drop across R_ref (RTD-independent); evaluate at kc=2.10 "
+                   "(0.21 mA, S-101T guaranteed band max) and compare to 90% of full scale.",
          "Results": results + "\n\n![sizing](plots/test4_sizing.png)",
-         "Pass / Fail": f"Criterion V_ref(+20%) < 95% FS. "
+         "Pass / Fail": f"Criterion V_ref(band max) < 90% FS. "
                         f"**{'PASS' if passed else 'FAIL'}** ({1e2*fs_frac:.0f}% FS).",
-         "Next": "If more headroom is wanted, use the +/-0.512 V range (halves resolution) or a 750 Ohm <=10ppm part when restocked."})
-    return passed, f"V_ref(+20%)={1e3*vref_hi:.0f} mV = {1e2*fs_frac:.0f}% FS, {ebits:.1f} bits"
+         "Next": "Headroom is generous at 82% FS worst case; a low-band S-101T (0.05 mA) reads V_ref at ~20% FS - averaging covers the resolution loss."})
+    return passed, f"V_ref(band max)={1e3*vref_hi:.0f} mV = {1e2*fs_frac:.0f}% FS, {ebits:.1f} bits"
 
 
 def t5_transient():
@@ -289,7 +294,7 @@ def t6_noise():
     sb = np.sqrt(MEAS_BW_HZ)
     sig_vref = np.hypot(dens_ref * sb, ADS_NOISE_RMS_V)   # V_ref total
     sig_vrtd = np.hypot(dens_rtd * sb, T7_NOISE_RMS_V)    # V_RTD total
-    v_ref, v_rtd = 0.201, 0.0221
+    v_ref, v_rtd = 0.100, 0.010    # rev-F: 100 uA x 1.00 kOhm / x 100 Ohm
     f_johnson_adc = np.hypot(sig_vrtd / v_rtd, sig_vref / v_ref)
     c_johnson_adc = f_johnson_adc * io.PT100_SENS_C
     f_target = RES_TARGET_C / io.PT100_SENS_C
@@ -360,14 +365,14 @@ def t6_noise():
                               "(Johnson) terms are ~0.05 mdegC. The number the bench (Track C, "
                               f"Wave 3 Stage 5) must beat: **T7 <= {t7_max_v*1e6:.2f} uV RMS** "
                               f"(at ADS {ADS_NOISE_RMS_V*1e6:g} uV, BW {MEAS_BW_HZ:g} Hz). The "
-                              "small V_RTD (~22 mV) is why the T7 path dominates.",
+                              "small V_RTD (~10 mV at 100 uA) is why the T7 path dominates.",
          "Next": "Bench Stage 5 (noise/position) measures real T7/ADS noise; Stage 8 the CRD."})
     return passed, (f"{c_johnson_adc*1e3:.1f} m/{RES_TARGET_C*1e3:.0f} mC (T7={T7_NOISE_RMS_V*1e6:g}uV); "
                     f"needs T7<={t7_max_v*1e6:.2f}uV; CRD bound {in_bound*1e9:.1f} nA/rtHz")
 
 
 def t7_crosstalk():
-    # Aggressor perturbation = the +/-20% J500 band on a ~240 uA channel.
+    # Aggressor perturbation = the S-101T guaranteed band (0.5x-2.1x) on a ~100 uA channel.
     rgs = [("0p01", 0.01), ("0p1", 0.1), ("1", 1.0), ("10", 10.0)]
     coupling_c = {}
     for tag, rg in rgs:
@@ -375,7 +380,7 @@ def t7_crosstalk():
         kca, ratioB = d[:, 0], d[:, 1]
         C_B = 100.0 / ratioB[int(np.argmin(np.abs(kca - 1.0)))]   # victim cross-cal
         rcalc = C_B * ratioB                                      # recovered R_RTD_B
-        # victim recovered-R swing over the aggressor's full +/-20% current spread
+        # victim recovered-R swing over the aggressor's full band (0.5x-2.1x)
         coupling_c[rg] = (rcalc.max() - rcalc.min()) / 100.0 * io.PT100_SENS_C
     rg_arr = np.array([r for _, r in rgs])
     cc = np.array([coupling_c[r] for r in rg_arr])
@@ -391,7 +396,7 @@ def t7_crosstalk():
     ax.axhline(RES_TARGET_C, color="r", ls="--", label=f"target {RES_TARGET_C} C")
     ax.axvline(STAR_GND_BUDGET_OHM, color="g", ls=":", label="star-gnd budget 0.1 Ohm")
     ax.set(xlabel="star-ground R [Ohm]", ylabel="victim coupling [degC]",
-           title="Test 7 - shared-ground crosstalk (aggressor +/-20% I)")
+           title="Test 7 - shared-ground crosstalk (aggressor band 0.5x-2.1x)")
     ax.legend(fontsize=8); ax.grid(alpha=.3, which="both")
     fig.tight_layout(); fig.savefig(io.PLOT_DIR / "test7_crosstalk.png", dpi=110)
     plt.close(fig)
@@ -405,12 +410,12 @@ def t7_crosstalk():
                       "ground return stays below the noise floor; sets max ground R.",
          "Setup": "Deck test7_crosstalk.cir; two unit cells share RG (sg->gnd) at RG = "
                   "0.01/0.1/1/10 Ohm. ADC CMRR: T7 90 dB, ADS1115 105 dB. Aggressor CRD "
-                  "swept over its +/-20% band (kca 0.8-1.2, dI_A ~ 96 uA); victim at 100 Ohm.",
+                  "swept over its guaranteed band (kca 0.5-2.1, dI_A ~ 160 uA); victim at 100 Ohm.",
          "Method": "The aggressor current sets the shared-return common mode "
                    "v(sg)=(I_A+I_B)*RG at the victim's inputs; the differential readout "
                    "rejects it to first order, the residual leaks via finite ADC CMRR. "
                    "Cross-cal the victim, then take its recovered-R swing as the aggressor "
-                   "current spans +/-20% -> degC. (Note: the *ratio* metric cancels the "
+                   "current spans its band -> degC. (Note: the *ratio* metric cancels the "
                    "channel current, so this coupling is genuinely the CMRR/shared-return "
                    "path, not a metric artifact.)",
          "Results": results + "\n\n![crosstalk](plots/test7_crosstalk.png)",

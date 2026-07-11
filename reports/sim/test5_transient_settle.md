@@ -13,13 +13,13 @@ Find the last time the filtered node is outside final +/- 1/2 LSB; compare that 
 | quantity | expected | measured | unit |
 |---|---|---|---|
 | RC time constant | ~100 | 100 | us |
-| settle to 1/2 LSB (1 uV) | < 5 | 1.03 | ms |
+| settle to 1/2 LSB (1 uV) | < 5 | 0.97 | ms |
 | mux dwell budget | - | 5 | ms |
 
 ![settle](plots/test5_settle.png)
 
 ## Pass / Fail
-Criterion settle < dwell. **PASS** (settle 1.03 ms < 5 ms).
+Criterion settle < dwell. **PASS** (settle 0.97 ms < 5 ms).
 
 ## Next
 Confirm the chosen scan dwell on the T7 in Track C / bench.

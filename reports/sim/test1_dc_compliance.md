@@ -4,7 +4,7 @@
 Acceptance (a): the CRD keeps regulating (V across it > V_L) across the full Pt100 sweep at the worst-case low rail.
 
 ## Setup
-Deck sim/netlists/test1_dc_compliance.cir; ngspice op sweep of Vrrtd 80-158 Ohm at rail = 5.0 V and 4.5 V; CRD = 240 uA || 4 MOhm.
+Deck sim/netlists/test1_dc_compliance.cir; ngspice op sweep of Vrrtd 29-158 Ohm (100 K cryostat floor to +150 C) at rail = 5.0 V and 4.5 V; CRD = 100 uA || 5 MOhm.
 
 ## Method
 Vcrd = v(rail)-v(top) over the sweep; take the minimum at the low rail and compare to V_L.
@@ -12,14 +12,14 @@ Vcrd = v(rail)-v(top) over the sweep; take the minimum at the low rail and compa
 ## Results
 | quantity | expected | measured | unit |
 |---|---|---|---|
-| min V across CRD (rail 4.5 V) | > 1.2 | 4.264 | V |
-| margin above V_L | > 0 | 3.064 | V |
-| V_RTD span (Pt100) | 18-35 | 19.3-38.1 | mV |
+| min V across CRD (rail 4.5 V) | > 2.0 | 4.383 | V |
+| margin above V_L | > 0 | 2.383 | V |
+| V_RTD span (Pt100) | 18-35 | 2.9-16.0 | mV |
 
 ![compliance](plots/test1_compliance.png)
 
 ## Pass / Fail
-Criterion min Vcrd > V_L=1.2 V. **PASS** (margin 3.06 V).
+Criterion min Vcrd > V_L=2.0 V. **PASS** (margin 2.38 V).
 
 ## Next
 Re-point at the exported KiCad netlist in Wave 3.

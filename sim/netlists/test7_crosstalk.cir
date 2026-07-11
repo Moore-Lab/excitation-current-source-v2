@@ -10,7 +10,7 @@
 * the victim metric V_RTD/V_ref cancels the channel current algebraically, AND a
 * current source holds I_A ~constant when its RTD changes, so v(sg) barely moves.
 * The physical aggressor is a change in aggressor CURRENT. We sweep the aggressor
-* CRD over its +/-20 % band (kca 0.8..1.2 = dI_A ~ 96 uA at 240 uA), which directly
+* CRD over its guaranteed band (kca 0.5..2.1 = dI_A ~ 160 uA at 100 uA typ), which directly
 * moves v(sg), and watch the victim's recovered R via CMRR leakage. Sweeping RG
 * sets the max acceptable star-ground resistance.
 *
@@ -31,7 +31,7 @@ Vrail rail 0 DC {VRAIL_NOM}
 Vdt   dt   0 DC 0
 Vtcgr tcgr 0 DC 0
 Voff  off  0 DC 0
-Vkca  kca  0 DC 1              $ aggressor current scale (swept 0.8..1.2)
+Vkca  kca  0 DC 1              $ aggressor current scale (swept 0.5..2.1)
 Vkcb  kcb  0 DC 1              $ victim current scale (nominal)
 * shared star-ground return impedance (alter to sweep)
 RG sg 0 1
@@ -55,16 +55,16 @@ set wr_singlescale
 set wr_vecnames
 * victim ratio vs aggressor current, at several star-ground resistances
 alter RG = 0.01
-dc Vkca 0.8 1.2 0.005
+dc Vkca 0.5 2.1 0.005
 wrdata reports/sim/data/test7_rg_0p01.dat (v(nrtdB)/v(nrefB))
 alter RG = 0.1
-dc Vkca 0.8 1.2 0.005
+dc Vkca 0.5 2.1 0.005
 wrdata reports/sim/data/test7_rg_0p1.dat  (v(nrtdB)/v(nrefB))
 alter RG = 1
-dc Vkca 0.8 1.2 0.005
+dc Vkca 0.5 2.1 0.005
 wrdata reports/sim/data/test7_rg_1.dat    (v(nrtdB)/v(nrefB))
 alter RG = 10
-dc Vkca 0.8 1.2 0.005
+dc Vkca 0.5 2.1 0.005
 wrdata reports/sim/data/test7_rg_10.dat   (v(nrtdB)/v(nrefB))
 .endc
 .end

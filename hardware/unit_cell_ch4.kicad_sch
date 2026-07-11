@@ -25,7 +25,7 @@
 				)
 			)
 		)
-		(property "Value" "CRD ~240uA"
+		(property "Value" "CRD ~100uA"
 			(at 0 -2.54 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -35,7 +35,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:TO-92-2_CRD-J500"
+		(property "Footprint" "rtd-readout:D_SEMITEC_S-101T"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -46,7 +46,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.linearsystems.com/currentregulatingdiodes/j500-series"
+		(property "Datasheet" "https://www.semitec-global.com/uploads/2022/01/P22-23-CRD.pdf"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -57,7 +57,7 @@
 				)
 			)
 		)
-		(property "Description" "Current-regulator diode (constant-current diode), ~0.24 mA (LIS J500, 0.192-0.288 mA band), two-terminal, TO-92 2-lead THT. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
+		(property "Description" "Current-regulator diode (constant-current diode), ~0.10 mA (SEMITEC S-101T, 0.05-0.21 mA band), two-terminal, SMD flat 2-lead. rev-F: current lowered ~2.4x to cut RTD self-heating in the vacuum cryostat (sensors to ~100 K). Exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -68,7 +68,7 @@
 				)
 			)
 		)
-		(property "MPN" "J500 TO-92 2L"
+		(property "MPN" "S-101T"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -79,7 +79,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Linear Integrated Systems"
+		(property "Manufacturer" "SEMITEC"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -90,7 +90,7 @@
 				)
 			)
 		)
-		(property "Polarity" "Pin 1 = K (cathode). Pin 2 = A (anode). J500 TO-92 physical: facing the flat/marked face, left lead = A, right lead = K; the TO-92-2_CRD-J500 footprint silk is mirrored so matching the flat face to the silk outline puts K in pad 1."
+		(property "Polarity" "Pin 1 = K (cathode). Pin 2 = A (anode). S-101T physical: the CATHODE end carries a hatched band on the marked (top) face; place that band toward pad 1 (the silk bar + K marker side)."
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -101,7 +101,7 @@
 				)
 			)
 		)
-		(property "Current_nom" "~0.24 mA (J500), +/-20% band (0.192-0.288 mA); stability over one scan is what matters, not absolute value."
+		(property "Current_nom" "~0.10 mA typ (S-101T), band 0.05-0.21 mA (-50%/+110%); stability over one scan is what matters, not absolute value (huge spread and up to +2.1%/C Ip tempco are cancelled by the ratiometric readout)."
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -112,7 +112,7 @@
 				)
 			)
 		)
-		(property "ki_keywords" "CRD current regulator diode constant current J500 RTD excitation TO-92"
+		(property "ki_keywords" "CRD current regulator diode constant current SEMITEC S-101T RTD excitation SMD"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -123,7 +123,7 @@
 				)
 			)
 		)
-		(property "ki_fp_filters" "TO?92*"
+		(property "ki_fp_filters" "D_SEMITEC*"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -240,7 +240,7 @@
 				)
 			)
 		)
-		(property "Value" "820R"
+		(property "Value" "1k"
 			(at -2.032 0 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -261,7 +261,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.koaspeer.com/pdfs/RN73H.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/28779/tnpue3.pdf"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -272,7 +272,7 @@
 				)
 			)
 		)
-		(property "Description" "Reference resistor for ratiometric current sense. 820 ohm sets V_ref ~197 mV nominal, <=236 mV at the J500 guaranteed-max 0.288 mA, inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
+		(property "Description" "Reference resistor for ratiometric current sense. 1.00 kohm sets V_ref ~100 mV nominal, <=210 mV at the S-101T band max 0.21 mA, inside the ADS1115 +/-0.256 V range. rev-F part is +/-2 ppm/C so R_ref is no longer the drift limiter. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal absorbs the value; board_spec.md s.R_ref)."
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -294,7 +294,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "KOA Speer"
+		(property "Manufacturer" "Vishay Dale"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1006,7 +1006,7 @@
 				)
 			)
 		)
-		(property "Value" "CRD ~240uA"
+		(property "Value" "CRD ~100uA"
 			(at 55.88 35.56 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1016,7 +1016,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:TO-92-2_CRD-J500"
+		(property "Footprint" "rtd-readout:D_SEMITEC_S-101T"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1027,7 +1027,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.linearsystems.com/currentregulatingdiodes/j500-series"
+		(property "Datasheet" "https://www.semitec-global.com/uploads/2022/01/P22-23-CRD.pdf"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1038,7 +1038,7 @@
 				)
 			)
 		)
-		(property "Description" "Current-regulator diode (constant-current diode), ~0.24 mA (LIS J500, 0.192-0.288 mA band), two-terminal, TO-92 2-lead THT. Sets the per-channel excitation current; exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
+		(property "Description" "Current-regulator diode (constant-current diode), ~0.10 mA (SEMITEC S-101T, 0.05-0.21 mA band), two-terminal, SMD flat 2-lead. rev-F: current lowered ~2.4x to cut RTD self-heating in the vacuum cryostat (sensors to ~100 K). Exact value is measured live and cancels (board_spec.md). Anode -> +V rail, cathode -> R_ref."
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1049,7 +1049,7 @@
 				)
 			)
 		)
-		(property "MPN" "J500 TO-92 2L"
+		(property "MPN" "S-101T"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1060,7 +1060,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Linear Integrated Systems"
+		(property "Manufacturer" "SEMITEC"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1071,7 +1071,7 @@
 				)
 			)
 		)
-		(property "Polarity" "Pin 1 = K (cathode). Pin 2 = A (anode). J500 TO-92 physical: facing the flat/marked face, left lead = A, right lead = K; the TO-92-2_CRD-J500 footprint silk is mirrored so matching the flat face to the silk outline puts K in pad 1."
+		(property "Polarity" "Pin 1 = K (cathode). Pin 2 = A (anode). S-101T physical: the CATHODE end carries a hatched band on the marked (top) face; place that band toward pad 1 (the silk bar + K marker side)."
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1082,7 +1082,7 @@
 				)
 			)
 		)
-		(property "Current_nom" "~0.24 mA (J500), +/-20% band (0.192-0.288 mA); stability over one scan is what matters, not absolute value."
+		(property "Current_nom" "~0.10 mA typ (S-101T), band 0.05-0.21 mA (-50%/+110%); stability over one scan is what matters, not absolute value (huge spread and up to +2.1%/C Ip tempco are cancelled by the ratiometric readout)."
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1093,7 +1093,7 @@
 				)
 			)
 		)
-		(property "ki_keywords" "CRD current regulator diode constant current J500 RTD excitation TO-92"
+		(property "ki_keywords" "CRD current regulator diode constant current SEMITEC S-101T RTD excitation SMD"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1104,7 +1104,7 @@
 				)
 			)
 		)
-		(property "ki_fp_filters" "TO?92*"
+		(property "ki_fp_filters" "D_SEMITEC*"
 			(at 50.8 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1138,7 +1138,7 @@
 				)
 			)
 		)
-		(property "Value" "820R"
+		(property "Value" "1k"
 			(at 55.88 48.26 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1159,7 +1159,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.koaspeer.com/pdfs/RN73H.pdf"
+		(property "Datasheet" "https://www.vishay.com/docs/28779/tnpue3.pdf"
 			(at 50.8 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1170,7 +1170,7 @@
 				)
 			)
 		)
-		(property "Description" "Reference resistor for ratiometric current sense. 820 ohm sets V_ref ~197 mV nominal, <=236 mV at the J500 guaranteed-max 0.288 mA, inside the ADS1115 +/-0.256 V range. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal constant C absorbs the value; board_spec.md s.R_ref)."
+		(property "Description" "Reference resistor for ratiometric current sense. 1.00 kohm sets V_ref ~100 mV nominal, <=210 mV at the S-101T band max 0.21 mA, inside the ADS1115 +/-0.256 V range. rev-F part is +/-2 ppm/C so R_ref is no longer the drift limiter. BINDING SPEC = tempco/stability, NOT absolute value (cross-cal absorbs the value; board_spec.md s.R_ref)."
 			(at 50.8 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1181,7 +1181,7 @@
 				)
 			)
 		)
-		(property "MPN" "RN73H2BTTD8200B10"
+		(property "MPN" "TNPU12061K00AWEN00"
 			(at 50.8 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)

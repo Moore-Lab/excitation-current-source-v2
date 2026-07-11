@@ -20,7 +20,7 @@ digitized on the board by I²C ADC(s) on the T7's digital lines, not on an analo
 ```
    +V rail (5 V; higher improves CRD regulation if available)
       │
-   [ CRD ]            current-regulator diode, ~240 µA (LIS J500, TO-92), two-terminal
+   [ CRD ]            current-regulator diode, ~100 µA (SEMITEC S-101T, SMD), two-terminal
       │  I (same current through everything below)
   TOP ●───────────────► ADS1115 IN+   ┐ V_ref read differentially on-board, over I²C
    [R_ref]                            │
@@ -67,12 +67,13 @@ ratio shows up as ≈ `260 · (error)` °C. So ~100 ppm of combined drift ≈ 0.
 ## Components
 
 ### Current source — CRD (current-regulator diode)
-- **LIS J500, TO-92 2-lead** (Linear Integrated Systems; replaces the Siliconix J500),
-  ~0.24 mA nominal, ±20 % band (0.192–0.288 mA guaranteed), 50 V, two-terminal.
-  *rev-E (2026-07-11):* the original 1N5283/CDLL5283 (~0.22 mA ±10 %) became unbuyable
-  (zero stock everywhere at Digi-Key, MOQ-only 25–40-week factory leads) and the MELF
-  package is hand-assembly-hostile; the J500 is the verified in-stock equivalent —
-  through-hole TO-92, an accepted deviation from the all-SMD preference.
+- **SEMITEC S-101T, SMD flat 2-lead**, ~0.10 mA typical, band 0.05–0.21 mA guaranteed
+  (−50 %/+110 %), Vk 0.5 V max, 100 V, 500 mW.
+  *rev-F (2026-07-11):* current lowered ~2.4× (from the rev-E 0.24 mA J500) because the
+  Pt100s sit **in vacuum in a cryostat (down to ~100 K)** where self-heating cannot
+  convect away — at 100 µA the sensor dissipates ~0.3–1.6 µW (~6× less). The S-101T's
+  huge band and up-to-+2.1 %/°C Ip tempco are cancelled by the ratiometric readout —
+  stability burden sits on R_ref and the ADC gain ratio, not the CRD.
   Anode → rail, cathode → R_ref.
 - Exact current is unimportant (measured live). It must only be **stable over one scan**
   and quiet. Compliance: needs a few volts across it to regulate; on a 5 V rail with
@@ -85,10 +86,13 @@ ratio shows up as ≈ `260 · (error)` °C. So ~100 ppm of combined drift ≈ 0.
   (cross-cal absorbs it) — do not pay for 0.01 % here; pay for tempco and stability.
 - **Size R_ref to the ADS1115 input range, not to the RTD.** Target V_ref near full-scale
   of the chosen PGA range, with margin for the CRD's +10 % spread so it never clips.
-  Default (rev-E, re-sized for the J500's ±20 % band): **R_ref = 820 Ω** → V_ref ≈ 197 mV
-  nominal, ≤ 236 mV at the guaranteed band max — never clips the ADS1115 **±0.256 V** range
-  (7.8125 µV/LSB), ~8 % worst-case headroom. If you prefer more headroom, use the ±0.512 V
-  range (halves resolution).
+  Default (rev-F, sized for the S-101T band): **R_ref = 1.00 kΩ, ±0.05 %, ±2 ppm/°C**
+  (Vishay TNPU12061K00AWEN00 bulk-thin-film) → V_ref ≈ 100 mV nominal, ≤ 210 mV (82 % FS)
+  at the 0.21 mA band max — never clips the ADS1115 **±0.256 V** range (7.8125 µV/LSB).
+  At ±2 ppm/°C the reference is deliberately **no longer the drift limiter** (ADC gain
+  tempco and offset drift are); this is the rev-F stability-first policy: precision parts
+  everywhere in the measurement path (2 ppm R_ref, 0.1 %/25 ppm thin-film filter R's,
+  C0G/NP0 sense capacitors), ordinary grades for rails and digital.
 
 ### Current-sense ADC — ADS1115 (I²C)
 - 16-bit, programmable-gain, I²C, four selectable addresses (0x48–0x4B via the ADDR pin).
@@ -102,7 +106,7 @@ ratio shows up as ≈ `260 · (error)` °C. So ~100 ppm of combined drift ≈ 0.
 
 ### RTD voltage — existing T7 Pro pairs
 - V_RTD on each RTD's existing differential pair, Kelvin-sensed at the RTD. Range: **±0.1 V**
-  for Pt100 (≈19–38 mV at ~240 µA), **±1 V** for Pt1000 (≈193–378 mV). Set the resolution
+  for Pt100 (≈3–16 mV at ~100 µA, 100 K floor), **±1 V** for Pt1000 (≈80–157 mV at 100 µA). Set the resolution
   index high and give each channel adequate mux settling.
 
 ## Board as the hub / interfaces
@@ -129,13 +133,13 @@ and R_ref, digitizes V_ref locally on the ADS1115s, and routes outward:
 
 ## Resolved inputs (locked 2026-06-22, Session 002 — Lucas; channel count revised
 ## 2026-07-09, Session 008 — Lucas: use the spare ADS1115 pair → 4 channels)
-1. **RTD type = Pt100.** → T7 range **±0.1 V** (≈19–38 mV at ~240 µA). Set a high resolution
+1. **RTD type = Pt100.** → T7 range **±0.1 V** (≈3–16 mV at ~100 µA, 100 K floor). Set a high resolution
    index and adequate mux settling per channel. (Does not affect R_ref sizing, which keys off
    the ADS range, or the CRD.)
 2. **Channel count = 4** of the 7 T7 differential pairs are RTDs (was 3; the second ADS1115's
    AIN2/AIN3 differential pair was spare, so CH4 costs no new ADC). This fixes the repeated
    hardware:
-   - **4 CRD/R_ref unit cells** (4× CRD LIS J500, 4× R_ref 820 Ω on the ADS ±0.256 V
+   - **4 CRD/R_ref unit cells** (4× CRD SEMITEC S-101T, 4× R_ref 1.00 kΩ on the ADS ±0.256 V
      range).
    - **2 ADS1115** (1 chip per 2 channels → ceil(4/2) = 2): 4 differential V_ref reads, **4
      used, 0 spare**. Strap ADDR for **0x48 and 0x49**. U1 reads CH1/CH2; U2 reads CH3/CH4.

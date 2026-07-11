@@ -27,7 +27,7 @@ Vrail rail 0 DC {VRAIL_NOM}
 * ---- Monte-Carlo settings (1-sigma); edit here to inject real part specs -----
 .param N_MC      = 2000
 .param DT_HOT    = 10       $ board delta-T between recals [degC]
-.param SIG_TCREF = 10       $ R_ref tempco 1-sigma [ppm/degC]
+.param SIG_TCREF = 2        $ R_ref tempco 1-sigma [ppm/degC] (TNPU W-grade max, rev-F)
 .param SIG_TCGR  = 10       $ relative ADC gain tempco 1-sigma [ppm/degC]
 .param SIG_OFF   = 1u       $ V_RTD offset-drift 1-sigma over DT_HOT [V]
 .param RKNOWN    = 100      $ cross-cal known resistor [Ohm] (= RTD_0)

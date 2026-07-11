@@ -30,6 +30,87 @@ one-entry summary per merged track.
 
 ---
 
+## Session 012 — 2026-07-11 — rev-F: cryostat/stability respin (100 µA S-101T, C0G sense path, 2 ppm R_ref)
+
+**Tooling:** KiCad 10.0.3 (kicad-cli; s-expression text surgery); ngspice 44 (conda `spice`);
+8 web agents with adversarial fact-check passes (SEMITEC land pattern extracted from the
+catalog drawing at 600–1100 dpi and independently re-verified).
+**Branch / commit at start:** `rev-f-cryo` off `rev-e-dfm` @ `d2df930` (rev-E, unmerged).
+**State before:** rev-E complete (ERC 0/0, DRC 0/0, SPICE 7/7).
+**Objective:** Lucas: sensors are **embedded in a vacuum cryostat down to ~100 K**; kill
+self-heating (asked for 10–100 µA class), prioritize **stability/low drift above all**, and
+use tight-tolerance/low-drift passives (e.g. C0G) — "precise excitation for research."
+**Actions:**
+- CRD: J500 (0.24 mA) → **SEMITEC S-101T** (0.10 mA typ, band 0.05–0.21 mA, Vk 0.5 V max,
+  100 V, SMD flat 2-lead; DK 4316-S-101TCT-ND, 3,261 pcs). Sensor dissipation 0.3–1.6 µW
+  (~6×↓). Nothing exists at 10–50 µA; 100 µA is the floor of the CRD species. Custom
+  footprint `D_SEMITEC_S-101T` from SEMITEC's recommended land pattern (pads 1.2×1.6 mm at
+  3.4 mm centers; cathode-band silk + "K" at pad 1). Board: 4 blocks rebuilt (SMD pads at
+  ±1.7 mm), rev-E stubs replaced (±2.4 → ±1.7 mm).
+- **R_ref → 1.00 kΩ ±0.05 % ±2 ppm/°C** (Vishay TNPU12061K00AWEN00, 3,105 pcs — found by
+  the adversarial verify pass after the researcher missed it). V_ref 100 mV nominal,
+  ≤210 mV (82 % FS) at band max — no clipping, generous margin. At 2 ppm the reference is
+  deliberately no longer the drift limiter.
+- Sense path to precision grade: C5–C8 → **0.1 µF 50 V C0G/NP0 1206** (Murata
+  GRM31C5C1H104JA01L, 40k pcs; RC product unchanged → test5 still valid); R7–R14 →
+  **0.1 %/±25 ppm thin film** (Susumu RG2012P-102-B, one-strip matching note). Rail
+  decoupling/bulk stay X7R/X5R (not in the measurement path; 10 µF C0G does not exist) —
+  documented deviation from "all passives C0G", flagged to Lucas.
+- Layout: the 1206 C0G cannot sit across the J4 pin pairs (body would cover the pin holes),
+  so **C5–C8 moved east of J4** (back side, x=34.5) with routed B.Cu stubs: straight run to
+  the T7− nets (colinear with existing runs), around-path at row±1.27 mm for T7+ (CH4 routed
+  above its row — its T7− arrives on a B.Cu vertical from the south; first DRC pass caught
+  the crossing, fixed). Differential imbalance ~mΩ vs 1 kΩ series — negligible. J4 assembly
+  order no longer constrained by the caps.
+- Sims re-pointed: I_CRD0 100 µ, R_REF0 1000, TC/SIG_TCREF 2 ppm, VL_CRD 2.0 (S-101T
+  plateau, conservative), Z_CRD 5 MΩ (no MΩ spec published; ≥~9 MΩ derived — swept),
+  **RTD_MIN 29.5 Ω (Pt100 ≈30.0 Ω at 100 K per CVD)**, test1 sweep 29–158 Ω, band sweeps
+  kc 0.5–2.1 (test2/4/7), test4 gate restored to <90 % FS at band max, T7 noise assumption
+  made per-READ (0.5 µV = 4-conversion average of a conservative 1 µV — spec prescribes
+  averaging; bench Stage 5 gate now ≤0.60 µV per read). test3 criterion re-gated: "tempco
+  dominates" → "**R_ref not the limiting term**" (with a 2 ppm reference, ADC gain tempco +
+  offset drift set the budget — that is the success condition of the stability priority).
+- Docs: board_spec §CRD/§R_ref (cryo rationale + rev-F passives policy), USER_MANUAL,
+  components.md (S-101T polarity note — silent-fatal), checklist, TESTING_PLAN, test/README,
+  host defaults (100e-6, 1000.0), BOM_REVIEW.md rewritten (rev-F).
+**Files touched:** `hardware/*.kicad_sch` (×4), `hardware/rtd-readout.kicad_pcb`,
+`libraries/footprints/rtd-readout.pretty/{D_SEMITEC_S-101T,C_1206_3216Metric}.kicad_mod` (new),
+`sim/models/{params,crd}.inc`, `sim/netlists/test{1,2,3,4,7}*.cir`, `sim/scripts/{run_all,spice_io}.py`,
+`docs/{board_spec,USER_MANUAL,TESTING_PLAN,BOARD_DEV_CHECKLIST,DIRECTORY_MANAGEMENT}.md`,
+`docs/datasheets/components.md`, `test/README.md`, `host/{config,t7_rtd}.py`,
+`reports/review/BOM_REVIEW.md`.
+**Validation:**
+- ERC: **0 errors / 0 warnings** (reports/erc/erc_rev_f.json)
+- DRC: **0 violations / 0 unconnected** (reports/drc/drc_rev_f.json; zones refilled+saved;
+  one intermediate tracks-crossing on CH4's cap stub was caught and fixed)
+- SPICE: **7/7 PASS** — t1 Vcrd 4.38 V (margin 2.38 V over the conservative 2.0 V floor);
+  t2 invariance 1.0e-8 across the full 0.5–2.1× band; t3 σ=0.0365 °C, R_ref-not-limiting;
+  t4 V_ref(band max)=211 mV = 82 % FS, 14.7 bits; t5 settle 0.97 ms; t6 18.1 m°C vs 20 m°C
+  target (bench must beat T7 ≤ 0.60 µV per read); t7 1.3e-5 °C at 0.1 Ω.
+**Decisions (rationale + spec ref):**
+- 100 µA excitation per Lucas (vacuum cryostat, ~100 K, no self-heating); spec §Current
+  source updated. Noise cost (2.4× per-volt sensitivity) absorbed by documented 4-conversion
+  averaging — spec §ADS1115 already prescribes averaging.
+- "All passives C0G/tight" implemented **in the measurement path only**; rails/digital stay
+  ordinary grades (justified: not in the path; 10 µF C0G nonexistent). Lucas may override.
+- t3/t6 re-gates are assumption-level, not spec-level: σ target 0.05 °C and 20 m°C noise
+  target unchanged.
+**Open issues / risks:**
+- **Offset drift (T7) + ADC gain tempco are now the accuracy limiters** between recals
+  (~0.026 °C each per the assumptions at the 0 °C point). Mitigations: recal cadence,
+  thermal stability of the T7, tracking the T7 internal-GND channel; bench Stage 7 measures
+  the real drift. Thermal EMFs in cryostat wiring (µV-class) are the practical floor at
+  3–16 mV signals — bench item.
+- Host R→T conversion needs the CVD low-temperature branch (<0 °C) for the 100 K window.
+- S-101T dims are catalog nominals (no tolerances published); footprint uses SEMITEC's own
+  recommended pads — verify fit on the first article. No 3D model.
+- S-101T stock 3,261 — modest; order spares for binning.
+**Next action:** Lucas final review → merge `rev-e-dfm`+`rev-f-cryo` to `main`, tag `rev-F` +
+`fab-rev-F`, run `sh scripts/fab_drop` at the tag, order per BOM_REVIEW.md (rev-F).
+**Commit:** this commit on `rev-f-cryo`.
+
+---
+
 ## Session 011 — 2026-07-11 — rev-E: DFM/availability respin (CRD→TO-92, 0603→0805, R_ref 820 Ω)
 
 **Tooling:** KiCad 10.0.3 (kicad-cli; s-expression text surgery — pcbnew Python footprint swap

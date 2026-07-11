@@ -3,7 +3,7 @@
 * Proves TESTING_PLAN Part 1 #4: worst-case V_ref (max CRD current x R_ref) stays
 * under the chosen ADS1115 PGA range with margin and good effective bits. V_ref
 * is independent of the RTD (it is the drop across R_ref), so we sweep the CRD
-* current scale kc over +/-30 % (covers the +/-20 % J500 band plus margin).
+* current scale kc over 0.4x-2.2x (covers the S-101T 0.05-0.21 mA band plus margin).
 * Reference: ADS1115 +/-0.256 V range, 7.8125 uV/LSB. python computes %FS.
 * Output: kc(scale)  V_ref
 * ----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ Vrail rail 0 DC {VRAIL_NOM}
 .control
 set wr_singlescale
 set wr_vecnames
-dc Vkc 0.7 1.3 0.005
+dc Vkc 0.4 2.2 0.005
 wrdata reports/sim/data/test4_vref_vs_kc.dat v(nref)
 .endc
 .end

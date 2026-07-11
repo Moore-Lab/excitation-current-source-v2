@@ -19,11 +19,11 @@ set wr_vecnames
 * columns written: rrtd(scale)  Vcrd  Vref  Vrtd  Vrail
 * --- nominal rail (5.0 V) ---
 alter Vrail = 5.0
-dc Vrrtd 80 158 1
+dc Vrrtd 29 158 1
 wrdata reports/sim/data/test1_rail_nom.dat (v(rail)-v(top)) (v(top)-v(mid)) v(mid) v(rail)
 * --- worst-case low rail (4.5 V, -10 %) ---
 alter Vrail = 4.5
-dc Vrrtd 80 158 1
+dc Vrrtd 29 158 1
 wrdata reports/sim/data/test1_rail_min.dat (v(rail)-v(top)) (v(top)-v(mid)) v(mid) v(rail)
 .endc
 .end

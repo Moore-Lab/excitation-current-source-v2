@@ -19,7 +19,7 @@ not by the source; and (d) **no channel/position dependence** in the noise.
 
 ### Model strategy
 - **CRD:** model as a current source in parallel with its finite dynamic impedance (the
-  J500-class low-current parts sit high, ~MΩ-range Zt) plus a current-noise source
+  S-101-class low-current parts sit high, ~MΩ-range Zt) plus a current-noise source
   (JFET-style; treat as the unknown to bound). The CRD's absolute value and tempco are
   intentionally not trusted — sweep them to confirm they cancel.
 - **R_ref:** the chosen value; vary by tempco over board ΔT for the budget.

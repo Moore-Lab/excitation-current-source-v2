@@ -5,7 +5,7 @@ channel -> AIN{2ch}/AIN{2ch+1}). This driver sets the range, resolution index,
 settling time and negative-channel pairing once, then returns per-channel V_RTD.
 
 Range follows the RTD type (board_spec.md "RTD voltage"): ±0.1 V for Pt100
-(≈19–38 mV at ~240 µA), ±1 V for Pt1000. A high resolution index and adequate
+(≈3–16 mV at ~100 µA, down to the ~100 K cryostat floor), ±1 V for Pt1000. A high resolution index and adequate
 settling guard the mux-settling risk -- each channel must fully settle within
 its dwell before the next is read.
 """
