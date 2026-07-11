@@ -30,6 +30,63 @@ one-entry summary per merged track.
 
 ---
 
+## Session 013 — 2026-07-11 — HANDOFF: rev-E+rev-F merged to main, awaiting Lucas review (continuing on another machine)
+
+**Purpose of this entry:** a fresh session on another machine should recover full state from
+`main` alone. Read this, then the Session 011/012 entries below (the two revs merged today),
+then `docs/USER_MANUAL.md`. **The design has NOT yet had Lucas's final human review — that is
+the first next action, before any tagging or ordering.**
+
+**Exact repo state at handoff:**
+- `main` @ this commit = rev-D + **rev-E** (`d2df930`, DFM/availability respin) + **rev-F**
+  (`2f9aecf`, cryostat/stability respin) + this handoff. Pushed to
+  `github.com/eldarro/excitation-current-source-v2`.
+- **No rev-E/rev-F tags exist — deliberately.** Per `DIRECTORY_MANAGEMENT.md`, tags mark a
+  *reviewed* rev and `fab_drop` runs only at a tag. Tag `rev-F` + `fab-rev-F` after review
+  (rev-E was never fabbed; a separate rev-E tag is optional history, not needed).
+- Dev branches `rev-e-dfm`, `rev-f-cryo` are local-only to the OneDrive/Windows machine and
+  fully merged — a fresh clone needs none of them. Old tags `rev-A..D`, `fab-rev-A..D` remain.
+- `fab/` is gitignored and stale (regenerate at the tag; note `scripts/fab_drop` drill-merge
+  caveat in `docs/ORDERING_DKRED.md` §2).
+
+**Design state: rev-F — complete, gates-clean, UNREVIEWED.**
+- Context shift this session: the Pt100s live **in a vacuum cryostat down to ~100 K**;
+  priority = stability/low drift; excitation lowered to ~100 µA (SEMITEC S-101T) to cut
+  self-heating ~6×; measurement-path passives to precision grade (C0G sense caps, ±2 ppm/°C
+  R_ref, 0.1 %/±25 ppm filters). All parts live-verified on Digi-Key 2026-07-11 with
+  adversarial fact-check passes — order list in `reports/review/BOM_REVIEW.md` (rev-F).
+- Gates at this commit: ERC **0/0**, DRC **0 violations / 0 unconnected**
+  (`reports/{erc,drc}/*_rev_f.json`), SPICE **7/7 PASS** (`reports/sim/`). Two documented
+  assumption-level re-gates in Session 012: test3 criterion is now "R_ref not the limiting
+  term"; test6 uses per-read (4-conversion-averaged) ADC noise.
+
+**Environment a new machine needs:** KiCad 10.0.x (files v10; kicad-cli for gates, pcbnew
+Python is wrapper-flaky — prefer s-expression text edits); ngspice (conda-forge env; set
+`NGSPICE_BIN` to its `ngspice_con`); Python 3.12 + numpy/matplotlib for `sim/scripts/run_all.py`
+(expect 7/7). Gates: `sh scripts/run_gates`.
+
+**What remains (in order):**
+1. **Lucas final review of rev-E+rev-F** — headline items to eyeball: S-101T swap + custom
+   footprint (catalog-nominal dims), R_ref 1.00 kΩ ±2 ppm (TNPU12061K00AWEN00), C5–C8 C0G
+   1206 relocated east of J4 with B.Cu stubs, test3/test6 re-gate rationale (Session 012
+   Decisions), rails deliberately NOT C0G (not in measurement path; overridable).
+2. Tag `rev-F` + `fab-rev-F`; run `sh scripts/fab_drop` at the tag.
+3. Order: PCB via DKRed + stencil via a US vendor + parts via BOM Manager — the complete
+   verified walkthrough is **`docs/ORDERING_DKRED.md`** (order Phoenix 1729144 first, 131 pcs).
+4. Bench (TESTING_PLAN Part 2): new gate numbers — T7 ≤ **0.60 µV RMS per read** (Stage 5);
+   Stage 7 measures offset drift (now a co-dominant accuracy term with ADC gain tempco);
+   thermal EMFs in cryostat wiring are the expected practical floor at 3–16 mV signals.
+5. Host: `host/t7_rtd.py` R→T needs the Callendar–Van Dusen low-temperature branch (<0 °C)
+   for the 100 K window (defaults in `host/config.py` already updated to 100 µA / 1.00 kΩ).
+6. First-article checks: S-101T polarity (hatched band = cathode → pad 1 "K"; conducts
+   ~0.10 mA A→K above ~2 V) and footprint fit (catalog dims are nominals, no tolerances).
+
+**Next action:** on the new machine — clone/pull `main`, re-run `sh scripts/run_gates` and
+the SPICE harness to confirm reproduction, then start at item 1 (Lucas review).
+**Commit:** this handoff entry (with `docs/ORDERING_DKRED.md` + `.gitignore` for `.claude/`).
+
+---
+
 ## Session 012 — 2026-07-11 — rev-F: cryostat/stability respin (100 µA S-101T, C0G sense path, 2 ppm R_ref)
 
 **Tooling:** KiCad 10.0.3 (kicad-cli; s-expression text surgery); ngspice 44 (conda `spice`);

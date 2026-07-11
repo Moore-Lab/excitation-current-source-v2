@@ -37,3 +37,6 @@ references/excitation-current-source/.git.disabled/
 Thumbs.db
 desktop.ini
 *~
+
+# --- Claude Code local session settings ---
+.claude/
