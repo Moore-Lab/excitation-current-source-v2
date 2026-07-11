@@ -4,7 +4,7 @@
 Acceptance (c): over board dT the accuracy is dominated by R_ref tempco + relative ADC gain tempco, within target.
 
 ## Setup
-Deck test3_montecarlo.cir; N=1995 Gaussian samples; dT=10 C; sigmas R_ref/gain=10/10 ppm/C, offset=1 uV; cross-cal C verified = R_ref0 = 910 Ohm.
+Deck test3_montecarlo.cir; N=2000 Gaussian samples; dT=10 C; sigmas R_ref/gain=10/10 ppm/C, offset=1 uV; cross-cal C verified = R_ref0 = 910 Ohm.
 
 ## Method
 Per sample: cross-cal at dt=0, then op at dt with sampled tempco/offset; fractional error -> Pt100 degC via x255.9.
