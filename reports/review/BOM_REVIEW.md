@@ -1,6 +1,6 @@
 # BOM Review & Digi-Key Ordering List — rev-D (4-channel RTD readout, sense filters fitted)
 
-Source: `hardware/*.kicad_sch` (rev-C) → `fab/bom/bom_fab.csv`.
+Source: `hardware/*.kicad_sch` (rev-D) → `fab/bom/bom_fab.csv`.
 Counts cross-checked against `docs/board_spec.md` for a **Pt100, 4-channel** board.
 
 ## Order list (Digi-Key)
@@ -46,7 +46,7 @@ is the 6-position** MKDS; J1–J3 use the **4-position** footprint. Corrected to
 (MKDS 1,5/4-5,08, DK 277-1249-ND). J6's 1729128 (2-pos) was already correct.
 
 **Finding 3 — Generic-passive/​header Digi-Key P/Ns marked ◑ "confirm at cart":** the MPNs are
-correct standard parts, but live stock/pricing and the exact 2×4 header order code (J4) should
+correct standard parts, but live stock/pricing and the exact 2×5 header order code (J4) should
 be confirmed in the cart. This is normal procurement hygiene, not a design gap.
 
 **Finding 4 — RESOLVED (rev-D).** The sense-line RC filter is now fitted: R7–R14 (1 kΩ) +

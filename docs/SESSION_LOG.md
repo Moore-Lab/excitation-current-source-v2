@@ -30,6 +30,59 @@ one-entry summary per merged track.
 
 ---
 
+## Session 010 — 2026-07-09 — HANDOFF: continuing development on another machine
+
+**Purpose of this entry:** a fresh session (possibly on a different machine) should be able to
+recover full state from `main` alone. Read this, then `docs/USER_MANUAL.md` (the single
+review document), then the entries below for history.
+
+**Exact repo state at handoff:**
+- `main` @ `ea947e0`, pushed to `github.com/eldarro/excitation-current-source-v2` with all
+  tags: `rev-A..D`, `fab-rev-A..D`. Working tree clean; nothing unpushed.
+- All development branches (`trackA..G`, `integration`, `rev-b-parts`,
+  `schematic-readability`, `rev-c-4ch`, `rev-d-filter`) are **local-only to the old machine
+  and fully merged into `main`** — a new clone needs none of them.
+- The old machine also had stale git *worktrees* under `../ivmux-python/` (removed) — do not
+  recreate worktrees inside another repo; see the warning in `PARALLEL_PLAN.md`.
+
+**Design state: rev-D — complete and fleet-verified. Nothing is open in the design.**
+- 4 channels (Pt100), ratiometric across T7 + 2× ADS1115 (0x48/0x49, all 4 diff pairs used).
+- Board 122×104 mm, 4-layer, split planes, single-point GND tie at (80,50)→(83,50).
+- Sense RC filters fitted (R7–R14 1 kΩ + C5–C8 0.1 µF diff at J4; filtered nets `CHn_T7±`;
+  **C5–C8 mount on the BACK side** across J4's pin pairs — hand-assembly note).
+- Gates at `ea947e0`: ERC 0/0 (all severities), DRC 0 violations / 0 unconnected, parity 84
+  (metadata-only — 47 MPN-field + 30 attr-flag + 7 mechanical; no net conflicts), SPICE 7/7.
+  Every rev was verified by multi-agent workflows incl. netlist-delta oracles and adversarial
+  copper review — evidence in `reports/` and the session entries below.
+
+**Environment a new machine needs:**
+- **KiCad 10.0.x** (files are v10, `version 20251024`; developed on 10.0.3). `kicad-cli` does
+  ERC/DRC/exports; PCB scripting used KiCad's bundled Python (`pcbnew`) — note its track
+  iteration is flaky, s-expression text editing was more reliable.
+- **ngspice** for the SPICE harness: `conda create -y -n spice -c conda-forge ngspice`, then
+  set `NGSPICE_BIN` to the env's `ngspice_con` binary (auto-detect misses non-default conda
+  paths). Run `python sim/scripts/run_all.py` — expect 7/7 PASS.
+- Python 3.12+ with numpy. Gates: `sh scripts/run_gates`; fab: `sh scripts/fab_drop`
+  (regenerates `fab/` deterministically — it is gitignored, captured by the `fab-rev-D` tag).
+
+**What remains (physical-world only):**
+1. **Order rev-A boards** — package = `sh scripts/fab_drop` at tag `fab-rev-D` (gerbers/
+   drill/pos/STEP/BOM). Before ordering, resolve the "◑ confirm at cart" Digi-Key codes in
+   `reports/review/BOM_REVIEW.md` — especially the exact **R_ref 910 Ω ≤10 ppm/°C order code**
+   (Vishay TNPU1206 family, parametric pick) and the 2×5 header code.
+2. **Bench verification** — `docs/TESTING_PLAN.md` Part 2, Stages 0–8, using `host/` +
+   `test/procedures/`; headline test = Stage 5 noise/position-independence. Probe filtered
+   nets at J4 (`CHn_T7±`), unfiltered at the `CHn_SENSE±` test points.
+3. If a design change is ever needed: unit cells CH2–CH4 are **separate copies** of CH1
+   (pages 2–4) — edit all four by hand (accepted deviation, noted on schematic page 1).
+
+**Next action:** on the new machine — clone, open `docs/USER_MANUAL.md`, re-run
+`sh scripts/run_gates` + the SPICE harness to confirm the environment reproduces the gates,
+then proceed to ordering/bench.
+**Commit:** this handoff entry.
+
+---
+
 ## Session 009 — 2026-07-09 — rev-D: sense-line RC filters fitted (closes Session-006 decision)
 
 **Tooling:** KiCad 10.0.3 (kicad-cli; pcbnew Python + s-expression text surgery); ngspice 44.
