@@ -1,4 +1,4 @@
-# RTD Readout Board — User Manual (rev-B)
+# RTD Readout Board — User Manual (rev-C)
 
 **One document to understand the board, see exactly what was built, and judge whether it
 makes sense.** It covers the design rationale, the as-built configuration, the verification
@@ -7,8 +7,8 @@ operate, and bench-test it.
 
 - **Design source of truth:** [`board_spec.md`](board_spec.md) (electrical). This manual
   explains and summarizes it; if the two ever disagree, `board_spec.md` wins.
-- **Hardware revision:** `rev-B` (git tag) — real Digi-Key parts + corrected MPNs vs rev-A;
-  copper unchanged. Manufacturing drop tag `fab-rev-B`.
+- **Hardware revision:** `rev-C` (git tag) — **4 channels** (was 3; uses U2's spare AIN2/3),
+  J4 grown to 2×5, board grown 22 mm south. Manufacturing drop tag `fab-rev-C`.
 - **Status:** Design complete; **layout independently reviewed + adversarially verified** (§8.4);
   verified in simulation; **not yet fabricated or bench-tested.**
 
@@ -26,7 +26,7 @@ it sits near ground (killing the position-dependent common-mode noise a series c
 and the excitation current is measured **live** so the current source's accuracy and drift
 never enter the result. The trick that makes it fit with zero spare analog channels: the
 current-sense voltage is digitized **on the board** by I²C ADCs (ADS1115) on the T7's digital
-lines, not on an analog pair. **This build is populated for Pt100, 3 channels.**
+lines, not on an analog pair. **This build is populated for Pt100, 4 channels** (rev-C: the 4th uses U2's spare AIN2/3 pair).
 
 ---
 
@@ -116,16 +116,16 @@ Sense (voltage) wires, so lead resistance carries current but isn't measured.
 
 ## 3. As-built configuration (this board)
 
-Locked inputs (Session 002): **Pt100, 3 of the 7 T7 pairs are RTDs.**
+Locked inputs (Session 002; channels revised Session 008): **Pt100, 4 of the 7 T7 pairs are RTDs.**
 
 | Item | Value | Why |
 |------|-------|-----|
 | RTD type | Pt100 | → T7 range ±0.1 V (≈18–35 mV at ~0.22 mA) |
-| Channels | 3 | sets the repeated-hardware counts below |
+| Channels | 4 | sets the repeated-hardware counts below |
 | CRD | CDLL5283, ~0.22 mA | current source; value unimportant (measured live) |
 | R_ref | 910 Ω, ≤10 ppm/°C | V_ref ≈ 200 mV nominal, ≈ 220 mV at +10 % CRD |
 | ADS1115 range | ±0.256 V | V_ref ≈ 86 % of full scale at worst case (no clip) |
-| ADS1115 count | 2 (0x48, 0x49) | 1 chip per 2 channels → ceil(3/2); ch3 uses one input of U2, one spare |
+| ADS1115 count | 2 (0x48, 0x49) | 1 chip per 2 channels → ceil(4/2); U1: CH1/CH2, U2: CH3/CH4 — 0 spare |
 
 Rough operating numbers: `V_ref ≈ 910 Ω × 0.22 mA ≈ 200 mV`; Pt100 (≈100–138 Ω over 0–100 °C)
 → `V_RTD ≈ 22–30 mV`. Only the `V_RTD` (Sense±) lines leave as analog; `V_ref` never leaves the
@@ -139,20 +139,20 @@ Exported from the schematic; counts cross-checked against the spec's rules.
 
 | Refdes | Qty | Part | Notes |
 |--------|-----|------|-------|
-| D1–D3 | 3 | CRD ~220 µA (CDLL5283) | = channels |
-| R1–R3 | 3 | 910 Ω ≤10 ppm/°C thin-film | R_ref; pay for tempco, not tolerance |
+| D1–D4 | 4 | CRD ~220 µA (CDLL5283) | = channels |
+| R1–R3,R6 | 4 | 910 Ω ≤10 ppm/°C thin-film | R_ref; pay for tempco, not tolerance |
 | R4,R5 | 2 | 4.7 kΩ | I²C pull-ups (SDA, SCL) |
 | U1,U2 | 2 | ADS1115IDGS | 0x48 (ADDR→GND), 0x49 (ADDR→VS) |
 | C1,C2 | 2 | 0.1 µF | per-chip decoupling |
 | C3,C4 | 2 | 10 µF | bulk on +5V / VS |
-| J1–J3 | 3 | 4-pos 5.08 mm screw terminal | RTD 4-wire (Phoenix MKDS) |
-| J4 | 1 | 2×4 header | to T7 analog (3 Sense± pairs + AGND) |
+| J1–J3,J7 | 4 | 4-pos 5.08 mm screw terminal | RTD 4-wire (Phoenix MKDS) |
+| J4 | 1 | 2×5 header | to T7 analog (4 Sense± pairs + AGND; CH4 on pins 9/10) |
 | J5 | 1 | 1×4 header | to T7 I²C (SDA/SCL/VS/GND) |
 | J6 | 1 | 2-pos screw terminal | power in (+VIN/GND) |
-| TP1–TP10 | 10 | test pads | TOP/MID/rail/GND/SDA/SCL taps |
+| TP1–TP12 | 12 | test pads | TOP/MID/rail/GND/SDA/SCL taps |
 
-**Total: 30 components.** Count rules all pass: CRD = channels (3), R_ref = channels (3),
-ADS1115 = ceil(3/2) (2), pull-ups + decoupling + bulk present. **Full Digi-Key ordering list
+**Total: 35 components.** Count rules all pass: CRD = channels (4), R_ref = channels (4),
+ADS1115 = ceil(4/2) (2), pull-ups + decoupling + bulk present. **Full Digi-Key ordering list
 with real MPNs + part numbers:** [`reports/review/BOM_REVIEW.md`](../reports/review/BOM_REVIEW.md).
 
 > rev-B replaced the rev-A placeholder MPNs with real Digi-Key parts and fixed two errors: the
@@ -190,12 +190,12 @@ Full fab-readiness summary: [`reports/review/FAB_READINESS.md`](../reports/revie
 
 | Connector | Goes to | Signals |
 |-----------|---------|---------|
-| J1–J3 | the RTDs | Force+, Force−, Sense+, Sense− (4-wire, per RTD) |
+| J1–J3, J7 | the RTDs | Force+, Force−, Sense+, Sense− (4-wire, per RTD) |
 | J4 | T7 analog (CB37) | 3× Sense± pairs (V_RTD) + AGND. **Only analog lines that leave the board.** |
 | J5 | T7 digital | SDA, SCL, VS, GND (I²C) |
 | J6 | power supply | +VIN (5 V), GND |
 
-**Test points (TP1–TP10):** each TOP node, each MID/Sense+ node, the rail, GND, SDA, SCL —
+**Test points (TP1–TP12):** each TOP node, each MID/Sense+ node, the rail, GND, SDA, SCL —
 use these for the bench stages in §10.
 
 ---
