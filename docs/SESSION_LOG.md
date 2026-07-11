@@ -30,6 +30,46 @@ one-entry summary per merged track.
 
 ---
 
+## Session 007 — 2026-07-09 — Schematic readability restructure (audit view)
+
+**Tooling:** KiCad 10.0.3; Python 3.12 generator (out-of-tree, per Track-E convention); headless
+Chrome for render inspection.
+**Branch / commit at start:** `schematic-readability` off `main` (rev-B).
+**Objective (Lucas request):** the label-stub schematic is hard to audit — restructure to
+**page 1 = CH1 unit cell + acquisition + power/IO on one sheet with drawn wires**, pages 2–3 =
+CH2/CH3; keep the circuit provably identical.
+**Actions:**
+- Merged `unit_cell_ch1` + `acquisition` + `power_io` into the root sheet by rigid block
+  translation (all internal geometry, labels, and UUIDs preserved); deleted the three files;
+  root re-authored on A3 with the two remaining subsheets (pages 2–3).
+- Added **28 join wires + 5 junctions**, all connecting points already on the same net:
+  CH1_TOP/CH1_MID → U1 AIN0/1; J1 Sense± → J4 (Kelvin visible); SDA/SCL trunks U1→U2→J5.
+  A collision checker proved no added segment touches any foreign connection point.
+- Cosmetics only: flipped east-side labels that rendered into symbol bodies (rot 0→180);
+  moved value texts below connector/IC bodies; relocated CH1 sense + J4-west labels onto the
+  new wires with stub extensions. All labels kept ⇒ every net keeps its name.
+- Instance paths re-rooted (`/<root>/<sheet>` → `/<root>`); PCB untouched (it links by refdes
+  — verified it contains no `(path)` bindings).
+**Files touched:** `hardware/rtd-readout.kicad_sch` (rewritten), `hardware/unit_cell_ch1.kicad_sch`
++ `acquisition.kicad_sch` + `power_io.kicad_sch` (deleted), this log, `reports/review/` schematic
+PDF regenerated. **Copper untouched.**
+**Validation:**
+- **Netlist oracle: node-for-node IDENTICAL** to pre-restructure (21 nets, same names, same
+  (ref,pin) membership) — re-derived independently in the verification workflow.
+- ERC **0 errors / 0 warnings**; DRC + schematic parity re-run (baseline 47 cosmetic items —
+  no new categories).
+- Visual audit of all 3 rendered pages + an adversarial spec-trace audit (workflow agents).
+**Decisions:** blocks translated rather than redrawn (zero-risk to connectivity); cross-page
+nets (CH2/CH3 taps + sense) stay as global labels — conventional and unavoidable; the
+three-copies deviation note kept on page 1.
+**Open issues / risks:** minor residual text overlaps inside J4 (pin names vs east labels) —
+cosmetic; the sense-RC-filter decision (Session 006) still open before ordering.
+**Next action:** Lucas audits page 1 against board_spec §Signal chain; then resolve the filter
+decision and order.
+**Commit:** on `schematic-readability`, merged to `main`.
+
+---
+
 ## Session 006 — 2026-07-09 — rev-B: layout review + adversarial verify + real Digi-Key parts
 
 **Tooling:** KiCad 10.0.3; Python 3.12.4; web research.
