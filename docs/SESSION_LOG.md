@@ -40,7 +40,8 @@ the first next action, before any tagging or ordering.**
 **Exact repo state at handoff:**
 - `main` @ this commit = rev-D + **rev-E** (`d2df930`, DFM/availability respin) + **rev-F**
   (`2f9aecf`, cryostat/stability respin) + this handoff. Pushed to
-  `github.com/eldarro/excitation-current-source-v2`.
+  `github.com/Moore-Lab/excitation-current-source-v2` (canonical — the repo moved; the old
+  `eldarro/...` URL redirects).
 - **No rev-E/rev-F tags exist — deliberately.** Per `DIRECTORY_MANAGEMENT.md`, tags mark a
   *reviewed* rev and `fab_drop` runs only at a tag. Tag `rev-F` + `fab-rev-F` after review
   (rev-E was never fabbed; a separate rev-E tag is optional history, not needed).
