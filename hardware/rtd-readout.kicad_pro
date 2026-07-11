@@ -354,6 +354,10 @@
     "netclass_patterns": [
       {
         "netclass": "SENSE",
+        "pattern": "CH*_T7*"
+      },
+      {
+        "netclass": "SENSE",
         "pattern": "CH*_SENSE*"
       },
       {

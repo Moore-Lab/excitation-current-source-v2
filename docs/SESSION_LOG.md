@@ -30,6 +30,38 @@ one-entry summary per merged track.
 
 ---
 
+## Session 009 — 2026-07-09 — rev-D: sense-line RC filters fitted (closes Session-006 decision)
+
+**Tooling:** KiCad 10.0.3 (kicad-cli; pcbnew Python + s-expression text surgery); ngspice 44.
+**Branch / commit at start:** `rev-d-filter` off `main` (rev-C).
+**Objective:** Lucas approved adding the spec's sense filter ("what do you think it should be?
+Can you add that?") — recommendation: fit it (spec-required, SPICE test5 already validates it,
+zero accuracy cost, protects mux settling + anti-aliasing).
+**Actions:**
+- **Schematic (page 1):** per channel 1 kΩ inline in Sense+ and Sense− (R7–R14) + 0.1 µF
+  differential cap (C5–C8) at J4; filtered nets labeled **CHn_T7±**; cap bank drawn with
+  lanes east of J4; CH1's drawn legs re-landed on the unfiltered side (caught by the netlist
+  delta oracle on first pass). ERC 0/0; delta = exactly the filter insertion (23→31 nets).
+- **Layout:** R's inserted inline in each leg's existing copper (F-inline where possible,
+  via-sandwich F-resistor where the leg runs on B); caps on **B.Cu directly across the J4 pin
+  pairs** (courtyard/silk-less variant footprint — barrels inside courtyard otherwise);
+  R9/R13 repositioned after DRC caught courtyard clashes; 4 footprints rotated 180° + pad
+  nets aligned so pin1/pin2 match the schematic (parity net_conflicts → 0).
+- MPNs: R 1 kΩ = Yageo RC0805FR-071KL; C = same Murata GRM188R71H104KA93D as C1/C2 (BOM
+  consolidation). Netclass: `CH*_T7*` → SENSE.
+**Validation:** ERC **0/0**; DRC **0 violations / 0 unconnected / 0 net-conflicts** (parity 84,
+all metadata: 47 field + 30 attr + 7 mechanical); netlist delta assertion PASS; **SPICE 7/7**
+(test5 now describes real hardware); fab + renders regenerated; verification workflow
+(delta oracle, gates, visual, adversarial filter-copper review).
+**Decisions:** filter fitted rather than waived — see USER_MANUAL §8.5 (now RESOLVED);
+back-side caps accepted (hand assembly; documented in BOM_REVIEW + manual).
+**Open issues / risks:** C5–C8 are the only back-side parts (assembly note); parity metadata
+unchanged-cosmetic.
+**Next action:** order from `fab/` (`fab-rev-D`); bench per TESTING_PLAN Part 2.
+**Commit:** on `rev-d-filter`; tags `rev-D`, `fab-rev-D`; merged to `main`; pushed.
+
+---
+
 ## Session 008 — 2026-07-09 — rev-C: 4th channel (use U2's spare ADS1115 pair)
 
 **Tooling:** KiCad 10.0.3 (kicad-cli + bundled pcbnew Python); ngspice 44 (conda `spice`).

@@ -1,4 +1,4 @@
-# BOM Review & Digi-Key Ordering List — rev-C (4-channel RTD readout)
+# BOM Review & Digi-Key Ordering List — rev-D (4-channel RTD readout, sense filters fitted)
 
 Source: `hardware/*.kicad_sch` (rev-C) → `fab/bom/bom_fab.csv`.
 Counts cross-checked against `docs/board_spec.md` for a **Pt100, 4-channel** board.
@@ -10,8 +10,10 @@ Counts cross-checked against `docs/board_spec.md` for a **Pt100, 4-channel** boa
 | D1–D4 | 4 | CRD ~220 µA | D_MELF (DO-213AB) | CDLL5283/TR | Microchip | 150-CDLL5283/TR-ND | ✅ confirmed |
 | R1–R3,R6 | 4 | 910 Ω R_ref | R_1206 | **TNPU1206 910 Ω 0.1% ≤10 ppm** | Vishay | *parametric — select code* | ⚠ **see Finding 1** |
 | R4,R5 | 2 | 4.7 kΩ 1% | R_0805 | RC0805FR-074K7L | Yageo | 311-4.70KCRCT-ND | ◑ confirm at cart |
+| R7–R14 | 8 | 1 kΩ 1% (sense filter) | R_0805 | RC0805FR-071KL | Yageo | 311-1.00KCRCT-ND | ◑ confirm at cart |
 | U1,U2 | 2 | ADS1115 16-bit ADC | MSOP-10 (VSSOP) | ADS1115IDGSR | TI | 296-38849-1-ND | ✅ confirmed |
 | C1,C2 | 2 | 0.1 µF 50 V X7R | C_0603 | GRM188R71H104KA93D | Murata | 490-3283-1-ND | ◑ confirm at cart |
+| C5–C8 | 4 | 0.1 µF 50 V X7R (sense filter, back side) | C_0603 | GRM188R71H104KA93D | Murata | same as C1,C2 | ◑ confirm at cart |
 | C3,C4 | 2 | 10 µF 25 V X5R | C_0603 | GRM188R61E106KA73D | Murata | *MPN confirmed; DK P/N confirm* | ◑ confirm at cart |
 | J1–J3,J7 | 4 | RTD 4-wire terminal | MKDS 1,5/4-5,08 | **1729144** | Phoenix | 277-1249-ND | ⚠ **corrected — Finding 2** |
 | J4 | 1 | T7 analog header | 2×5 2.54 mm | PREC005DAAN-RC (2×5 vert.) | Sullins | *confirm 2×5 vertical code* | ◑ confirm at cart |
@@ -24,7 +26,7 @@ standard part; verify exact Digi-Key P/N + live stock at cart · ⚠ see finding
 
 **Count check vs board_spec (4-channel):** CRD D=4, R_ref=4 (R1–R3,R6), pull-ups R4,R5=2, ADS U=2
 (ceil(4/2)), decouple C1,C2=2, bulk C3,C4=2, RTD conns=4 (J1–J3,J7), headers J4/J5, power J6,
-TP=12 → **all pass; 35 parts.** (rev-C: CH4 added on U2's spare AIN2/3; J4 grew to 2×5 —
+TP=12, sense filters 8R+4C → **all pass; 47 parts.** (rev-C: CH4 added on U2's spare AIN2/3; J4 grew to 2×5 —
 pins 1–6 = CH1–CH3 Sense±, 7/8 = AGND, 9/10 = CH4 Sense±.)
 
 ## Findings (must read before ordering)
@@ -47,10 +49,9 @@ is the 6-position** MKDS; J1–J3 use the **4-position** footprint. Corrected to
 correct standard parts, but live stock/pricing and the exact 2×4 header order code (J4) should
 be confirmed in the cart. This is normal procurement hygiene, not a design gap.
 
-**Finding 4 (design decision, not a part) — sense-line RC filter.** `board_spec.md` §Layout and
-`TRACK_F_layout.md` item 6 require a "~1 kΩ + 0.1 µF differential" sense filter at the T7 input;
-it is **absent** from schematic and board, and SPICE `test5` models it anyway. See
-`USER_MANUAL.md` §"Open design decision" — this is your call before ordering.
+**Finding 4 — RESOLVED (rev-D).** The sense-line RC filter is now fitted: R7–R14 (1 kΩ) +
+C5–C8 (0.1 µF differential at J4, mounted on the **back side** across the pin pairs — hand
+assembly, no courtyard). SPICE test5 now describes the real hardware.
 
 Sources (Digi-Key product pages): [CDLL5283](https://www.digikey.com/en/products/detail/microchip-technology/1N5283/7607015),
 [ADS1115IDGSR](https://www.digikey.com/en/products/detail/texas-instruments/ADS1115IDGSR/2231567),

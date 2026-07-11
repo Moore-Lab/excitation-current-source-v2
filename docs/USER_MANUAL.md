@@ -1,4 +1,4 @@
-# RTD Readout Board — User Manual (rev-C)
+# RTD Readout Board — User Manual (rev-D)
 
 **One document to understand the board, see exactly what was built, and judge whether it
 makes sense.** It covers the design rationale, the as-built configuration, the verification
@@ -7,14 +7,14 @@ operate, and bench-test it.
 
 - **Design source of truth:** [`board_spec.md`](board_spec.md) (electrical). This manual
   explains and summarizes it; if the two ever disagree, `board_spec.md` wins.
-- **Hardware revision:** `rev-C` (git tag) — **4 channels** (was 3; uses U2's spare AIN2/3),
-  J4 grown to 2×5, board grown 22 mm south. Manufacturing drop tag `fab-rev-C`.
+- **Hardware revision:** `rev-D` (git tag) — 4 channels + the **sense-line RC filters**
+  (1 kΩ per leg + 0.1 µF differential at J4, all channels). Manufacturing drop tag `fab-rev-D`.
 - **Status:** Design complete; **layout independently reviewed + adversarially verified** (§8.4);
   verified in simulation; **not yet fabricated or bench-tested.**
 
-> ⚠ **One open decision before you order — read §8.5:** the spec's *sense-line RC filter* is not
-> on the board, and SPICE `test5` models it anyway. Add it or waive it — your call. Everything
-> else is review-ready.
+> ✅ **The former open decision is resolved:** rev-D adds the spec's sense-line RC filter
+> (1 kΩ in each Sense leg + 0.1 µF differential at J4, ×4 channels) — SPICE `test5` now
+> models exactly what is on the board. The design is review-ready to order.
 
 ---
 
@@ -142,17 +142,19 @@ Exported from the schematic; counts cross-checked against the spec's rules.
 | D1–D4 | 4 | CRD ~220 µA (CDLL5283) | = channels |
 | R1–R3,R6 | 4 | 910 Ω ≤10 ppm/°C thin-film | R_ref; pay for tempco, not tolerance |
 | R4,R5 | 2 | 4.7 kΩ | I²C pull-ups (SDA, SCL) |
+| R7–R14 | 8 | 1 kΩ 1% | sense-filter series (2 per channel) |
 | U1,U2 | 2 | ADS1115IDGS | 0x48 (ADDR→GND), 0x49 (ADDR→VS) |
 | C1,C2 | 2 | 0.1 µF | per-chip decoupling |
 | C3,C4 | 2 | 10 µF | bulk on +5V / VS |
+| C5–C8 | 4 | 0.1 µF | sense-filter differential caps at J4 (back side) |
 | J1–J3,J7 | 4 | 4-pos 5.08 mm screw terminal | RTD 4-wire (Phoenix MKDS) |
 | J4 | 1 | 2×5 header | to T7 analog (4 Sense± pairs + AGND; CH4 on pins 9/10) |
 | J5 | 1 | 1×4 header | to T7 I²C (SDA/SCL/VS/GND) |
 | J6 | 1 | 2-pos screw terminal | power in (+VIN/GND) |
 | TP1–TP12 | 12 | test pads | TOP/MID/rail/GND/SDA/SCL taps |
 
-**Total: 35 components.** Count rules all pass: CRD = channels (4), R_ref = channels (4),
-ADS1115 = ceil(4/2) (2), pull-ups + decoupling + bulk present. **Full Digi-Key ordering list
+**Total: 47 components.** Count rules all pass: CRD = channels (4), R_ref = channels (4),
+ADS1115 = ceil(4/2) (2), pull-ups + decoupling + bulk + sense filters (8R+4C) present. **Full Digi-Key ordering list
 with real MPNs + part numbers:** [`reports/review/BOM_REVIEW.md`](../reports/review/BOM_REVIEW.md).
 
 > rev-B replaced the rev-A placeholder MPNs with real Digi-Key parts and fixed two errors: the
@@ -249,7 +251,7 @@ Reproduce: set `NGSPICE_BIN` to your ngspice console binary, then
 | 2 | Ratiometric + cross-cal | recovered-R error ~7×10⁻⁹ (tol 10⁻⁶) | the math works and is invariant to ±10 % CRD / R_ref perturbation |
 | 3 | Monte-Carlo accuracy | σ ≈ 0.038 °C, tempco-dominated | accuracy is limited by R_ref + relative ADC gain tempco, as designed |
 | 4 | R_ref sizing / no-clip | V_ref = 86 % FS, 14.8 effective bits | worst-case V_ref never clips the ADS1115 range |
-| 5 | Sense-line settling | 1.02 ms < 5 ms mux dwell | ⚠ models a 1 kΩ/0.1 µF filter **not on the board** — see §8.5 |
+| 5 | Sense-line settling | 1.02 ms < 5 ms mux dwell | the RC filter (on the board since rev-D) settles within the T7 dwell |
 | 6 | Noise of the ratio | within target; **CRD noise bound 2.9 nA/√Hz** | the one architectural risk (CRD noise) is quantified and tolerable |
 | 7 | Crosstalk vs star-ground R | 1.6×10⁻⁵ °C/Ω | sets the acceptable shared-ground resistance |
 
@@ -288,27 +290,18 @@ strength above by exact s-expression geometry, not by trusting the layout log.
 
 **The one real gap both reviews found → §8.5.**
 
-### 8.5 Open design decision — the sense-line RC filter (resolve before ordering)
+### 8.5 Sense-line RC filter — RESOLVED in rev-D
 
-`board_spec.md` §Layout and `TRACK_F_layout.md` item 6 both require a **"~1 kΩ + 0.1 µF
-differential" anti-alias/settling filter** at the T7 sense input. It is **absent from both the
-schematic and the board** — the `CHn_SENSE±` nets run straight from each RTD connector to J4
-with nothing in between. Compounding it, SPICE `test5` **models** a 1 kΩ/0.1 µF filter, so
-"test5 pass" currently validates a network that isn't populated (a docs/SPICE-vs-board mismatch).
+The spec's "~1 kΩ + 0.1 µF differential" anti-alias/settling filter is now **on the board**:
+per channel, 1 kΩ in Sense+ and 1 kΩ in Sense− (matched legs), with a 0.1 µF differential
+cap at J4. The filtered nets are named **CHn_T7±** (labeled on page 1 — probe there when
+bench-debugging). SPICE `test5` (settling: 1.02 ms « 5 ms mux dwell) now describes exactly
+the fitted hardware; the filter costs nothing measurable (T7 input bias ~nA → µV offset,
+absorbed by cross-cal; the resistors' Johnson noise is band-limited by the same cap,
+f_c ≈ 800 Hz differential).
 
-This is a **design decision, not a defect I should silently make** — and it can't be added
-cleanly without a schematic change (new parts + routing near J4), which would need re-verification.
-Your two options:
-
-- **Add it** (recommended if the T7 mux settling / anti-alias margin matters to you): add per
-  channel `1 kΩ` series in Sense+ and Sense− plus a `0.1 µF` differential cap at J4 — this makes
-  test5 truthful and matches the spec. It's a rev-C schematic+layout task; I can do it on request.
-- **Waive it** (defensible — the ADS averaging + high-Z T7 inputs tolerate its absence): record
-  the waiver in the log and **re-scope test5** so SPICE stops asserting a nonexistent part.
-
-Either way, the board is otherwise ready. Impact if shipped as-is: no anti-alias/settling network
-at the T7 mux input — a mux-settling/noise-margin risk to confirm on the bench, **not** a
-functional showstopper.
+**Assembly note:** C5–C8 mount on the **back side**, directly across the J4 pin pairs (their
+courtyards/silk are intentionally omitted — the pads straddle the through-hole barrels).
 
 ---
 
@@ -368,8 +361,6 @@ Staged go/no-go gates (from [`TESTING_PLAN.md`](TESTING_PLAN.md)); bench data �
 
 ## 12. Limitations & open items
 
-- **⚠ Sense-line RC filter decision is open (§8.5)** — spec-required, not on the board, and
-  SPICE test5 models it. Add or waive before ordering. *This is the only item gating the order.*
 - **Not yet fabricated or bench-tested.** Sections 8.1–8.4 are simulation + rule checks + a
   static layout review; the board is proven correct in design, not yet in hardware.
 - **Bench Part 2 (§11) is pending** and requires the physical board — it includes the headline

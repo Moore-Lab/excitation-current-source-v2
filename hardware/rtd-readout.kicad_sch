@@ -4585,7 +4585,7 @@
 		(uuid "1b974276-3a99-4578-80e3-deb1f7c70a8c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 116.84 158.75 0) (effects (font (size 1.27 1.27)) (hide yes))))
 (wire (pts (xy 134.62 158.75) (xy 137.16 158.75)) (stroke (width 0) (type default)) (uuid "b6f1d148-97b3-4e62-8705-7418c0109c9a"))
-(global_label "CH1_SENSE-" (shape passive) (at 137.16 158.75 0)
+(global_label "CH1_SENSE-" (shape passive) (at 147.32 158.75 0)
 		(effects (font (size 1.27 1.27)) (justify left))
 		(uuid "c66c2400-59bd-4435-bdb9-481bca38ea7c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 137.16 158.75 0) (effects (font (size 1.27 1.27)) (hide yes))))
@@ -4595,7 +4595,7 @@
 		(uuid "01035b5f-1476-4607-a786-9d58bb773eaa")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 116.84 162.56 0) (effects (font (size 1.27 1.27)) (hide yes))))
 (wire (pts (xy 134.62 162.56) (xy 137.16 162.56)) (stroke (width 0) (type default)) (uuid "26ad8751-d589-4b51-84c1-87d8c79cb6b7"))
-(global_label "CH2_SENSE-" (shape passive) (at 137.16 162.56 0)
+(global_label "CH2_SENSE-" (shape passive) (at 147.32 162.56 0)
 		(effects (font (size 1.27 1.27)) (justify left))
 		(uuid "b05c3a45-a33d-4d1f-b7ba-a1e3b9d076a3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 137.16 162.56 0) (effects (font (size 1.27 1.27)) (hide yes))))
@@ -4605,7 +4605,7 @@
 		(uuid "87c66074-91b2-465d-b2ee-fbd7e6e47fb9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 116.84 166.37 0) (effects (font (size 1.27 1.27)) (hide yes))))
 (wire (pts (xy 134.62 166.37) (xy 137.16 166.37)) (stroke (width 0) (type default)) (uuid "58472f64-e943-42a4-a6c3-2e9837bc3c30"))
-(global_label "CH3_SENSE-" (shape passive) (at 137.16 166.37 0)
+(global_label "CH3_SENSE-" (shape passive) (at 147.32 166.37 0)
 		(effects (font (size 1.27 1.27)) (justify left))
 		(uuid "254b28c7-f042-4fc5-966c-2c988e0fd225")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 137.16 166.37 0) (effects (font (size 1.27 1.27)) (hide yes))))
@@ -5240,17 +5240,10 @@
 	(wire (pts (xy 114.3 53.34) (xy 146.05 53.34)) (stroke (width 0) (type default)) (uuid "83efd403-9799-44aa-a947-fad74ebcfe1d"))
 	(wire (pts (xy 53.34 72.39) (xy 46.99 72.39)) (stroke (width 0) (type default)) (uuid "59ee74c5-dc16-497f-a0f4-aa8c29cbf96c"))
 	(wire (pts (xy 46.99 72.39) (xy 46.99 116.84)) (stroke (width 0) (type default)) (uuid "ef03edaa-156c-4c86-a9dc-0cc06e454080"))
-	(wire (pts (xy 46.99 116.84) (xy 116.84 116.84)) (stroke (width 0) (type default)) (uuid "7e87d849-d541-443e-b1a3-83dafe7551fe"))
-	(wire (pts (xy 116.84 116.84) (xy 116.84 158.75)) (stroke (width 0) (type default)) (uuid "5cf45372-ae45-404a-84b8-f48ea968497a"))
-	(wire (pts (xy 116.84 158.75) (xy 106.68 158.75)) (stroke (width 0) (type default)) (uuid "b1b24b36-2d12-4697-94e9-f6e101fadca5"))
-	(wire (pts (xy 116.84 162.56) (xy 106.68 162.56)) (stroke (width 0) (type default)) (uuid "c658a76a-2381-45e2-b7ab-6b2ef172e663"))
-	(wire (pts (xy 116.84 166.37) (xy 106.68 166.37)) (stroke (width 0) (type default)) (uuid "651e8ea5-232e-42d3-9f6e-ed5656b09724"))
-	(wire (pts (xy 53.34 74.93) (xy 44.45 74.93)) (stroke (width 0) (type default)) (uuid "f77bee46-22d4-4da6-86d2-a36892001d9e"))
+						(wire (pts (xy 53.34 74.93) (xy 44.45 74.93)) (stroke (width 0) (type default)) (uuid "f77bee46-22d4-4da6-86d2-a36892001d9e"))
 	(wire (pts (xy 44.45 74.93) (xy 44.45 114.3)) (stroke (width 0) (type default)) (uuid "23346be0-8bfb-4f7b-a6cb-e85d565795c2"))
 	(wire (pts (xy 44.45 114.3) (xy 142.24 114.3)) (stroke (width 0) (type default)) (uuid "399a6e64-29be-4652-bdf0-ee2bff121395"))
-	(wire (pts (xy 142.24 114.3) (xy 142.24 158.75)) (stroke (width 0) (type default)) (uuid "63bbb940-8723-4b43-92e2-7d4a2a9e89ba"))
-	(wire (pts (xy 142.24 158.75) (xy 137.16 158.75)) (stroke (width 0) (type default)) (uuid "e66aee5d-f8a9-4107-99cd-565bde49a8a9"))
-	(wire (pts (xy 171.45 50.8) (xy 171.45 20.32)) (stroke (width 0) (type default)) (uuid "3454d96e-ade1-4fde-8234-5ae754d2614e"))
+			(wire (pts (xy 171.45 50.8) (xy 171.45 20.32)) (stroke (width 0) (type default)) (uuid "3454d96e-ade1-4fde-8234-5ae754d2614e"))
 	(wire (pts (xy 171.45 20.32) (xy 281.94 20.32)) (stroke (width 0) (type default)) (uuid "8ccec5f7-c032-48f3-b274-4a2e342b0c2b"))
 	(wire (pts (xy 247.65 20.32) (xy 247.65 50.8)) (stroke (width 0) (type default)) (uuid "d7d438f3-a8ac-4889-9f82-f83582587a80"))
 	(wire (pts (xy 281.94 20.32) (xy 281.94 54.61)) (stroke (width 0) (type default)) (uuid "bf165ff4-289c-4944-b908-41bb90080890"))
@@ -5313,7 +5306,6 @@
 		(uuid "fa4d686a-e9b0-4fa4-b4ea-9fd67d9b6ec8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 106.68 173.99 0) (effects (font (size 1.27 1.27)) (hide yes))))
 (wire (pts (xy 134.62 173.99) (xy 137.16 173.99)) (stroke (width 0) (type default)) (uuid "0703f697-9337-46ec-9bad-fecf61da3449"))
-(wire (pts (xy 137.16 173.99) (xy 147.32 173.99)) (stroke (width 0) (type default)) (uuid "6f45c13b-b2d1-45f9-b770-1c3b7c7ff24f"))
 (global_label "CH4_SENSE-" (shape passive) (at 147.32 173.99 0)
 		(effects (font (size 1.27 1.27)) (justify left))
 		(uuid "70fdcfe6-a1aa-45c8-8cd1-7d97b05864a7")
@@ -5333,7 +5325,1409 @@
 		(property "Sheetfile" "unit_cell_ch4.kicad_sch" (at 372.11 216.6 0) (effects (font (size 1.27 1.27)) (justify left top)))
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (page "4"))))
 	)
-(wire (pts (xy 116.84 173.99) (xy 106.68 173.99)) (stroke (width 0) (type default)) (uuid "5045f395-0064-4953-b566-43d957ecff64"))
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 111.76 158.75 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d4455555-e680-4ed5-bf31-c33bc8c1e474")
+		(property "Reference" "R7"
+			(at 109.3 157.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 113.6 157.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 111.76 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.76 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 111.76 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-071KL"
+			(at 111.76 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 111.76 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "cc34d146-d897-4d4f-92f1-9a37161f73da"))
+		(pin "2" (uuid "526f1d61-05bb-4c7a-8d0a-3f8a7e0f7edc"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R7") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 140.97 158.75 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b6e5ba0d-c058-47bd-9c41-7c52f40cd896")
+		(property "Reference" "R8"
+			(at 138.43 157.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 142.75 157.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 140.97 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 140.97 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 140.97 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-071KL"
+			(at 140.97 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 140.97 158.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "26526cc7-49b3-4d4e-a8dc-928eeeb38c07"))
+		(pin "2" (uuid "c8e6d26a-8e9c-4eed-a1b2-58f1f7fd38b1"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R8") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:C")
+		(at 170.18 160.02 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9786aea8-1040-4b94-a1a5-a09083f53b30")
+		(property "Reference" "C5"
+			(at 170.18 158.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 170.18 161.67 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 176.53 160.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 176.53 160.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 176.53 160.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R71H104KA93D"
+			(at 176.53 160.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 176.53 160.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "98274537-b656-49b5-9fc4-9d0fbd7e7995"))
+		(pin "2" (uuid "12d23276-b660-44f8-a201-b8605ca070db"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "C5") (unit 1))))
+	)
+(wire (pts (xy 106.68 158.75) (xy 107.95 158.75)) (stroke (width 0) (type default)) (uuid "c09b50c3-c241-42f9-a789-fb7246b59ad2"))
+(wire (pts (xy 115.57 158.75) (xy 116.84 158.75)) (stroke (width 0) (type default)) (uuid "c2538f8b-ef06-4e9d-b842-86ff0c6a5e22"))
+(wire (pts (xy 144.78 158.75) (xy 147.32 158.75)) (stroke (width 0) (type default)) (uuid "f21bd367-90de-4c5d-b175-22349f300bba"))
+(wire (pts (xy 116.84 158.75) (xy 116.84 160.02)) (stroke (width 0) (type default)) (uuid "20e5f80c-76ca-449d-9d6c-760352a5206b"))
+(wire (pts (xy 135.89 158.75) (xy 135.89 161.29)) (stroke (width 0) (type default)) (uuid "cc0559de-5a57-4cf6-9747-2329f852ecb8"))
+(junction (at 116.84 158.75) (diameter 0) (color 0 0 0 0) (uuid "5e86818f-a3b2-474d-8e71-9a7067fb3f33"))
+(junction (at 135.89 158.75) (diameter 0) (color 0 0 0 0) (uuid "90607163-e9a3-4a4b-9e6b-53ed67aa9732"))
+(global_label "CH1_T7+" (shape passive) (at 162.56 160.02 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "84f783f9-fe23-4f76-80e3-0f20a0eb464c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 123.19 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CH1_T7-" (shape passive) (at 171.45 161.29 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "1dc26b3d-326a-4c70-9263-41eb77ad0cd8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 142.24 161.29 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 111.76 162.56 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a15955bc-1bbf-4581-9718-96d1dd810e28")
+		(property "Reference" "R9"
+			(at 109.3 161.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 113.6 161.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 111.76 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.76 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 111.76 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-071KL"
+			(at 111.76 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 111.76 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "a0721a9a-e899-409c-b94f-b8bef1d8049a"))
+		(pin "2" (uuid "c484c517-a824-48b6-8cc6-cc5b74ca751b"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R9") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 140.97 162.56 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7642222f-69b1-4f94-a512-69ce38b57491")
+		(property "Reference" "R10"
+			(at 138.43 161.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 142.75 161.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 140.97 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 140.97 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 140.97 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-071KL"
+			(at 140.97 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 140.97 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "733e3e14-39bb-42e6-aee3-a220951c2839"))
+		(pin "2" (uuid "7180e918-8ecf-4eb7-8ebf-96880a8dc250"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R10") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:C")
+		(at 190.5 163.83 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7e34ef81-f0e7-4dda-b6d8-6d5e5436abd2")
+		(property "Reference" "C6"
+			(at 190.5 162.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 190.5 165.48 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 176.53 163.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 176.53 163.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 176.53 163.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R71H104KA93D"
+			(at 176.53 163.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 176.53 163.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "3548572d-6937-4a89-8e3c-bd03ef11c3aa"))
+		(pin "2" (uuid "9359e0ee-bcd6-475c-a828-f2d559fa2ac6"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "C6") (unit 1))))
+	)
+(wire (pts (xy 106.68 162.56) (xy 107.95 162.56)) (stroke (width 0) (type default)) (uuid "28785e9c-f958-4895-bfc6-6f0af99ef01a"))
+(wire (pts (xy 115.57 162.56) (xy 116.84 162.56)) (stroke (width 0) (type default)) (uuid "afb22927-9d12-446a-bc05-e438edd821e0"))
+(wire (pts (xy 144.78 162.56) (xy 147.32 162.56)) (stroke (width 0) (type default)) (uuid "f82fa663-90b9-41bd-a850-729191a1aacc"))
+(wire (pts (xy 116.84 162.56) (xy 116.84 163.83)) (stroke (width 0) (type default)) (uuid "76774f27-991d-4bec-b681-8079af20943e"))
+(wire (pts (xy 135.89 162.56) (xy 135.89 165.1)) (stroke (width 0) (type default)) (uuid "52a45e3b-bb85-4371-be24-6ca6867bd1e1"))
+(junction (at 116.84 162.56) (diameter 0) (color 0 0 0 0) (uuid "feb3c893-8832-4681-9d49-e8b546bc571a"))
+(junction (at 135.89 162.56) (diameter 0) (color 0 0 0 0) (uuid "f762cbd7-1c78-493d-9828-c64dde99e55d"))
+(global_label "CH2_T7+" (shape passive) (at 182.88 163.83 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "04e73734-962b-43ca-8ce3-5c543dee9e7f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 123.19 163.83 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CH2_T7-" (shape passive) (at 191.77 165.1 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "f2e54f52-5773-4fb7-8053-4f875cb0f4cf")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 142.24 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 111.76 166.37 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0d705981-00a1-4b0c-8a91-b9ec5ae8fc0c")
+		(property "Reference" "R11"
+			(at 109.3 164.97 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 113.6 164.97 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 111.76 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.76 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 111.76 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-071KL"
+			(at 111.76 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 111.76 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "9c5a8f45-fda5-4dc3-9854-6a51e29dff2d"))
+		(pin "2" (uuid "cd506e4a-9414-42d7-8b9a-29e6ebf6aed6"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R11") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 140.97 166.37 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6f743e45-1657-49b3-b3f9-3c7bec2b7e1b")
+		(property "Reference" "R12"
+			(at 138.43 164.97 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 142.75 164.97 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 140.97 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 140.97 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 140.97 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-071KL"
+			(at 140.97 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 140.97 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "cf6d3a52-fcae-4c35-b131-cc312d823722"))
+		(pin "2" (uuid "5b48ab82-d386-41ae-ba96-04b6db7a83cd"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R12") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:C")
+		(at 210.82 167.64 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d01688e8-1fa2-4554-a8b5-2e85118e258d")
+		(property "Reference" "C7"
+			(at 210.82 166.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 210.82 169.29 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 176.53 167.64 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 176.53 167.64 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 176.53 167.64 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R71H104KA93D"
+			(at 176.53 167.64 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 176.53 167.64 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "968781ca-59ff-40ea-80ab-f3ae151e6e68"))
+		(pin "2" (uuid "ed0b191a-f3af-4376-99f5-7298f521adee"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "C7") (unit 1))))
+	)
+(wire (pts (xy 106.68 166.37) (xy 107.95 166.37)) (stroke (width 0) (type default)) (uuid "9a342686-2da0-4da7-954c-2a51160bc00e"))
+(wire (pts (xy 115.57 166.37) (xy 116.84 166.37)) (stroke (width 0) (type default)) (uuid "b8a3f3ac-2826-4402-8540-4a9e0cc270d6"))
+(wire (pts (xy 144.78 166.37) (xy 147.32 166.37)) (stroke (width 0) (type default)) (uuid "bf1dd39e-3948-4ae7-94f2-2b07dea667bb"))
+(wire (pts (xy 116.84 166.37) (xy 116.84 167.64)) (stroke (width 0) (type default)) (uuid "bcb14331-e9d3-4e14-9ae1-8f7afdc0c66b"))
+(wire (pts (xy 135.89 166.37) (xy 135.89 168.91)) (stroke (width 0) (type default)) (uuid "8ee78434-8cd6-41a1-bbd1-1b334b504394"))
+(junction (at 116.84 166.37) (diameter 0) (color 0 0 0 0) (uuid "9223a501-f7c1-4e9a-8aeb-df71a3445e14"))
+(junction (at 135.89 166.37) (diameter 0) (color 0 0 0 0) (uuid "db088c07-e0b0-4a22-882d-d58118c69a5c"))
+(global_label "CH3_T7+" (shape passive) (at 203.2 167.64 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "2cb8b26e-66d9-40eb-8daf-42c43a33504b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 123.19 167.64 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CH3_T7-" (shape passive) (at 212.09 168.91 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "50a3b5d6-3c5e-4d3a-b46a-f497b1b11f59")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 142.24 168.91 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 111.76 173.99 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "03fa9080-87f7-4a74-8483-5b7d116e71a2")
+		(property "Reference" "R13"
+			(at 109.3 172.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 113.6 172.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 111.76 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.76 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 111.76 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-071KL"
+			(at 111.76 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 111.76 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "b7788b54-ea86-4ba7-9bc4-169b537b51aa"))
+		(pin "2" (uuid "ff9bf72c-2456-4df8-b9ab-5ff60a9366e6"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R13") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:R")
+		(at 140.97 173.99 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e7552886-ce1b-4664-bdbb-a0c63009b9a5")
+		(property "Reference" "R14"
+			(at 138.43 172.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 142.75 172.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:R_0805_2012Metric"
+			(at 140.97 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 140.97 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic chip resistor, 0805. Use for I2C bus pull-ups (4.7k typ; 2.2k if bus is long/fast) and general non-precision use."
+			(at 140.97 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-071KL"
+			(at 140.97 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 140.97 173.99 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R resistor pullup"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 273.05 33.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "d3027d30-c1eb-4694-915a-693d47956655"))
+		(pin "2" (uuid "48c2cc50-5f7f-400f-a8a6-8d7a888bdcba"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "R14") (unit 1))))
+	)
+(symbol
+		(lib_id "rtd-readout:C")
+		(at 231.14 175.26 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bec65f0a-26fe-4e28-baa7-f25b51d359b2")
+		(property "Reference" "C8"
+			(at 231.14 173.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 231.14 176.91 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "rtd-readout:C_0603_1608Metric"
+			(at 176.53 175.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 176.53 175.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic non-polarized chip capacitor, 0603. Use for per-ADS1115 VDD decoupling (0.1 uF) and general bypass."
+			(at 176.53 175.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "GRM188R71H104KA93D"
+			(at 176.53 175.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 176.53 175.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "C capacitor decoupling bypass"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 184.15 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1" (uuid "7b32e9ee-a3ab-4b5c-8f90-0f6ce7c41a1d"))
+		(pin "2" (uuid "18ea3a96-60e0-4d7f-91b8-0fa262ed4a72"))
+		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "C8") (unit 1))))
+	)
+(wire (pts (xy 106.68 173.99) (xy 107.95 173.99)) (stroke (width 0) (type default)) (uuid "b28b11c8-93f1-4647-bf55-a6ede856facd"))
+(wire (pts (xy 115.57 173.99) (xy 116.84 173.99)) (stroke (width 0) (type default)) (uuid "1be8eea3-50f7-482f-b755-2ebc750c473f"))
+(wire (pts (xy 144.78 173.99) (xy 147.32 173.99)) (stroke (width 0) (type default)) (uuid "0cadd8b0-502c-4a1f-8d54-5c73bbc198ce"))
+(wire (pts (xy 116.84 173.99) (xy 116.84 175.26)) (stroke (width 0) (type default)) (uuid "6404f16b-688d-4573-b3b7-9690e400b710"))
+(wire (pts (xy 135.89 173.99) (xy 135.89 176.53)) (stroke (width 0) (type default)) (uuid "00cfcfcb-e78a-4c16-bd55-8212f6f76e32"))
+(junction (at 116.84 173.99) (diameter 0) (color 0 0 0 0) (uuid "d52653c2-b110-41ce-920e-75511a25fcc7"))
+(junction (at 135.89 173.99) (diameter 0) (color 0 0 0 0) (uuid "3101bd6b-53b0-41d2-98ec-66116be78493"))
+(global_label "CH4_T7+" (shape passive) (at 223.52 175.26 0)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "54dc9748-055f-48f3-946e-19be12b846f4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 123.19 175.26 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CH4_T7-" (shape passive) (at 232.41 176.53 0)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "647cccea-1b4c-45b7-90ae-22aba60096f2")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 142.24 176.53 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(wire (pts (xy 46.99 116.84) (xy 106.68 116.84)) (stroke (width 0) (type default)) (uuid "6ec1fa8b-0dc2-417b-872f-19b134a2f98a"))
+(wire (pts (xy 106.68 116.84) (xy 106.68 158.75)) (stroke (width 0) (type default)) (uuid "45b6fc91-dc70-41d8-acc4-21f91895ac61"))
+(junction (at 106.68 158.75) (diameter 0) (color 0 0 0 0) (uuid "32f18d10-f66c-435b-9ff5-6a6f0c4742f1"))
+(wire (pts (xy 142.24 114.3) (xy 142.24 151.13)) (stroke (width 0) (type default)) (uuid "23aff215-fd1f-4d7e-8473-2d5ddc23ce67"))
+(wire (pts (xy 142.24 151.13) (xy 147.32 151.13)) (stroke (width 0) (type default)) (uuid "7436d03b-c101-4fce-8603-c48ad29fdf9e"))
+(wire (pts (xy 147.32 151.13) (xy 147.32 158.75)) (stroke (width 0) (type default)) (uuid "2dba1452-8320-4d0c-a35c-332685980516"))
+(junction (at 147.32 158.75) (diameter 0) (color 0 0 0 0) (uuid "594f47ad-520a-4410-ab8c-d5a2aa6f3895"))
+(wire (pts (xy 116.84 160.02) (xy 166.37 160.02)) (stroke (width 0) (type default)) (uuid "96aaa1d3-45f6-4607-90fb-0b038c47b5e9"))
+(wire (pts (xy 135.89 161.29) (xy 176.53 161.29)) (stroke (width 0) (type default)) (uuid "2be493a2-e758-4129-8328-1d51e377ce4f"))
+(wire (pts (xy 176.53 161.29) (xy 176.53 160.02)) (stroke (width 0) (type default)) (uuid "e8e72059-f3c2-4321-bfd1-1670a2357f4c"))
+(wire (pts (xy 176.53 160.02) (xy 173.99 160.02)) (stroke (width 0) (type default)) (uuid "45e02930-1119-4b90-b5a7-b9817c912067"))
+(wire (pts (xy 116.84 163.83) (xy 186.69 163.83)) (stroke (width 0) (type default)) (uuid "f27f2aaa-60e0-47ba-98fe-91ab03dd8493"))
+(wire (pts (xy 135.89 165.1) (xy 196.85 165.1)) (stroke (width 0) (type default)) (uuid "3a07486a-4e35-4db1-9334-6ce9c64bef41"))
+(wire (pts (xy 196.85 165.1) (xy 196.85 163.83)) (stroke (width 0) (type default)) (uuid "56d63cf3-334e-4a8c-9c5c-f50f5b673613"))
+(wire (pts (xy 196.85 163.83) (xy 194.31 163.83)) (stroke (width 0) (type default)) (uuid "85b1a489-096d-42a3-a1e0-201ecb76d2fc"))
+(wire (pts (xy 116.84 167.64) (xy 207.01 167.64)) (stroke (width 0) (type default)) (uuid "dfd2dfeb-56c1-4d85-9ab0-f0d0ad4b0de8"))
+(wire (pts (xy 135.89 168.91) (xy 217.17 168.91)) (stroke (width 0) (type default)) (uuid "bd9a0039-9fb0-4316-a5b6-762adfb0a532"))
+(wire (pts (xy 217.17 168.91) (xy 217.17 167.64)) (stroke (width 0) (type default)) (uuid "b5b7fb8e-3205-46f3-a0bf-7d041f6c2971"))
+(wire (pts (xy 217.17 167.64) (xy 214.63 167.64)) (stroke (width 0) (type default)) (uuid "16cef66b-a332-438c-8800-6d661ebfb804"))
+(wire (pts (xy 116.84 175.26) (xy 227.33 175.26)) (stroke (width 0) (type default)) (uuid "3bf59b26-521d-4c88-80c1-5d4b2b9d76e3"))
+(wire (pts (xy 135.89 176.53) (xy 237.49 176.53)) (stroke (width 0) (type default)) (uuid "8483ad8e-6b84-49ac-a722-d9f6cee6b604"))
+(wire (pts (xy 237.49 176.53) (xy 237.49 175.26)) (stroke (width 0) (type default)) (uuid "fe74a27e-c6e5-4d62-a991-4b492c1439ca"))
+(wire (pts (xy 237.49 175.26) (xy 234.95 175.26)) (stroke (width 0) (type default)) (uuid "16447f51-be5e-46e8-9296-d24447620694"))
 (sheet_instances
 		(path "/" (page "1"))
 	)
