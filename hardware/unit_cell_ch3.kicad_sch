@@ -428,7 +428,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal"
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_PT-1,5-5-3.5-H_1x05_P3.50mm_Horizontal"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -472,7 +472,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Phoenix Contact (or any 4-pos 5.08 mm screw terminal)"
+		(property "Manufacturer" "Phoenix Contact (PT 1,5/5-3,5-H, 3.5 mm pitch; pin 5 = cable shield to AGND)"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -508,7 +508,7 @@
 		(symbol "Conn_RTD_4W_0_1"
 			(rectangle
 				(start -2.54 6.35)
-				(end 2.54 -6.35)
+				(end 2.54 -8.89)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -584,6 +584,24 @@
 					)
 				)
 				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -7.62 0)
+				(length 5.08)
+				(name "Shield"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1280,7 +1298,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal"
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_PT-1,5-5-3.5-H_1x05_P3.50mm_Horizontal"
 			(at 76.2 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1313,7 +1331,7 @@
 				)
 			)
 		)
-		(property "MPN" "1729144 (MKDS 1,5/4-5,08)"
+		(property "MPN" "1984646 (PT 1,5/5-3,5-H)"
 			(at 76.2 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1324,7 +1342,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Phoenix Contact (or any 4-pos 5.08 mm screw terminal)"
+		(property "Manufacturer" "Phoenix Contact (PT 1,5/5-3,5-H, 3.5 mm pitch; pin 5 = cable shield to AGND)"
 			(at 76.2 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1361,6 +1379,7 @@
 		(pin "2" (uuid "da6115a7-2f79-44f6-a805-843f94f04485"))
 		(pin "3" (uuid "65203b24-139c-4a93-af5a-448e9febeb92"))
 		(pin "4" (uuid "e18651fa-4485-4771-885e-c8d126b6d501"))
+		(pin "5" (uuid "842c3382-35a2-4eb8-9d8f-795051f81789"))
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/7f1cb510-1a57-40b5-ab4c-4fc79046c09e" (reference "J3") (unit 1))))
 	)
 	(symbol
@@ -1639,6 +1658,17 @@
 		(property "Value" "GND" (at 66.04 71.12 0) (effects (font (size 1.27 1.27))))
 		(pin "1" (uuid "88e66f6d-3610-47c4-95ab-742a9f931124"))
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454/7f1cb510-1a57-40b5-ab4c-4fc79046c09e" (reference "#PWR006") (unit 1))))
+	)
+	(global_label "GND"
+		(shape input)
+		(at 68.58 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f5ef4505-6636-4676-96ae-f559de564092")
 	)
 	(sheet_instances
 		(path "/" (page "4"))

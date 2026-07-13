@@ -1,4 +1,23 @@
-# BOM Review & Digi-Key Ordering List — rev-F (4-channel cryostat RTD readout, stability-first)
+# BOM Review & Digi-Key Ordering List — rev-G (adds enclosure + panel-mount connectors)
+
+> **rev-G (2026-07-13).** Board resized to **100 × 159.5 mm** for a Hammond 1455N extruded
+> enclosure (slide-in slots, machinable end panels; see `docs/PANELS_AND_PINOUTS.md`).
+> Connector changes vs rev-F, all live-verified on DigiKey with adversarial fact-checks:
+>
+> | Item | Part | DigiKey | Qty/board | Note |
+> |---|---|---|---|---|
+> | Enclosure | Hammond **1455N1601** (clear; BK = 1455N1601BK) | HM979-ND, $34.37, 308 pcs | 1 | end panels machined per `reports/review/panel-*.dxf` |
+> | RTD inputs J1–J3,J7 | Phoenix **PT 1,5/5-3,5-H** (1984646) | 277-1723-ND | 4 | 3.5 mm push-in, 26–16 AWG; **pin 5 = cable shield** |
+> | T7 analog J4 | Amphenol **RJHSE-5380** shielded RA RJ45 | 664-RJHSE5380-ND, $1.72, 14.8k | 1 | T568 map + shield policy in PANELS_AND_PINOUTS |
+> | T7 I²C J5 | Molex KK 254 header **22-05-7048** | WM2786-ND | 1 | + housing **22-01-3047** (WM2002-ND) + 4× crimp **0008500160** (WM16517-ND); ⚠ pin order reversed — see PANELS_AND_PINOUTS |
+> | Power J6 | Phoenix **PT 1,5/2-3,5-H** (1984617) | 277-1721-ND | 1 | |
+> | Cables | CAT6a S/FTP patch (cut one end) + ferrules 26–20 AWG | any | — | |
+>
+> Superseded rev-F rows: MKDSN blocks (1729144/1729128), Sullins headers (S2012EC-05-ND /
+> S1012EC-04-ND) — **do not order those**. Everything below (semiconductors + passives)
+> is unchanged from rev-F and still current.
+
+# Superseded header (rev-F) — passives/semis below remain the order list
 
 Source: `hardware/*.kicad_sch` (rev-F) → `fab/bom/bom_fab.csv`.
 Counts cross-checked against `docs/board_spec.md` for a **Pt100, 4-channel** board.

@@ -30,6 +30,68 @@ one-entry summary per merged track.
 
 ---
 
+## Session 014 — 2026-07-13 — rev-G: enclosure integration respin (100×159.5 board, Hammond 1455N, RJ45/PT/KK connectors)
+
+**Tooling:** KiCad 10.0.3 (s-expression surgery; pcbnew load-only for verification); ngspice 44;
+8 web agents with adversarial verification (enclosure + connector dimensions from manufacturer
+drawings; the RJ45 land pattern cross-checked numerically against KiCad's official footprint).
+**Branch / commit at start:** `main` @ `bb5740a` (rev-F reviewed by Lucas this session: approved
+with I/O architecture changes).
+**Objective:** Lucas approved rev-F and directed: shielded CAT6a to the LabJack via an RJ45 on
+the board; keep RTD terminal blocks (bare cryostat cables; easy swaps) with shield landing;
+latching I²C pigtail (not loose jumpers); source an extruded enclosure with removable end
+panels (Adafruit-2230 style); **resize the board to fit, machinable panel cutouts, connectors
+accessible**. Also gold/thermal-EMF and cable-hygiene rationale from the same discussion.
+**Actions:**
+- Sourced + verified (live DigiKey + drawings): **Hammond 1455N1601** (103×53×160; 100 mm PCB
+  slot width, ~41 mm clearance over the lowest slot; machinable 103×53×1.5 end panels);
+  Phoenix **PT 1,5/5-3,5-H** ×4 (3.5 mm push-in, 5th position = cable shield) + **PT 1,5/2**
+  power; Amphenol **RJHSE-5380** shielded RA RJ45 (KiCad official footprint verified exact);
+  Molex **KK 254** RA header + housing + crimps. Rejected: RJ45 for the RTD side (IDC crimp
+  geometry is wrong for non-CAT cryo cable), Adafruit 2230 (77 mm interior — too small).
+- Schematic: `Conn_RTD_4W` gained **pin 5 = Shield → GND** (all 4 sheets, labels at each
+  instance); J4's 2×5 symbol replaced by **Conn_T7_RJ45** (8+SH pins, **T568 mapping**:
+  CH1=1/2, CH2=3/6, CH3=4/5, CH4=7/8, SH→GND) placed in clear sheet space with net labels
+  terminating the old wires; J5 footprint/MPN → KK 254 and its **pin numbers deliberately
+  reversed** (1↔4, 2↔3 — makes the board fan planar; pigtail map in PANELS_AND_PINOUTS.md);
+  J6 → PT 1,5/2. ERC 0/0.
+- Board: outline **122×104 → 159.5×100** (slot keepouts clear by scan); analog core kept at
+  identical coordinates; mounting holes deleted (slots carry the board); RTD blocks re-landed
+  at x=6 with per-feed-layer jogs (Force−/Shield pads connect via the In1 GND planes — no
+  jogs needed; CH2_MID's west feed rerouted to x=4); **DAQ end**: RJ45 at (154.5, 32.5) rot270
+  (face proud through panel), KK north of it, power block south; sense pairs re-routed through
+  the **via-free corridor y≈63–81**: escape stubs → ordered dive columns (x 41.2–45.4) →
+  corridor lanes → **C0G cap ladder at x=134** (C5–C8 moved) → gated T568 fan (gate-x ascends
+  with pin depth; CH3 pair hops to F.Cu for the 3/6 wrap; CH4+ hops F over its own return);
+  I²C = four parallel F.Cu diagonals (enabled by the pin swap); +5 V feed runs the south edge
+  at y=95; In2/In1-east zones extended to x=158. DRC iterations: 92 → 32 → 8 → 1 → **0**.
+- Deliverables: `docs/PANELS_AND_PINOUTS.md` (T568 colors, KK pigtail map ⚠, shield policy,
+  push-in access note); **end-panel machining DXFs** `reports/review/panel-{sensor,daq}.dxf`
+  (datum H0 = 9.54 mm assumed lowest slot — **verify on the physical enclosure**); BOM_REVIEW
+  rev-G section; fresh 3D renders (both sides).
+**Validation:** ERC **0/0** (`erc_rev_g.json`); DRC **0 violations / 0 unconnected**
+(`drc_rev_g.json`; zones refilled+saved); slot-strip scan: no outer copper within 2.5 mm of
+the long edges; SPICE **7/7 PASS** (unchanged electrically — connector/shield pins only).
+**Decisions (rationale):**
+- Chassis grounding: the RJ45's EMI fingers bond enclosure↔cable-shield↔AGND at one point
+  (the jack); RTD cable shields land on block pin 5 (board end only). Single-point discipline
+  preserved.
+- I²C cable is now the only board↔T7 galvanic ground tie — documented as mandatory-connected.
+- PT blocks are push-in (not screw): wires insert through the panel; release needs panel off
+  (4 screws) — accepted; pluggable MC-style headers noted as the alternative if this annoys.
+**Open issues / risks:**
+- Panel DXF vertical datum + KK housing envelope + PT body height are drawing-nominal —
+  **verify against the physical enclosure/parts before machining** (flagged in the DXFs).
+- KK pigtail must be crimped to the REVERSED pin map (silent-fatal; documented twice).
+- USER_MANUAL §layout/§BOM prose not yet rewritten for rev-G (BOM_REVIEW + PANELS_AND_PINOUTS
+  are current; manual refresh is cosmetic follow-up).
+**Next action:** Lucas reviews rev-G (renders + panel DXFs + pinout doc) → tag `rev-G` +
+`fab-rev-G` → `fab_drop` → order per BOM_REVIEW (rev-G table + rev-F passives; DKRed
+walkthrough in ORDERING_DKRED.md still applies; drill note unchanged).
+**Commit:** this commit on `main`.
+
+---
+
 ## Session 013 — 2026-07-11 — HANDOFF: rev-E+rev-F merged to main, awaiting Lucas review (continuing on another machine)
 
 **Purpose of this entry:** a fresh session on another machine should recover full state from

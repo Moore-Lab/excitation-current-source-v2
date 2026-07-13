@@ -430,7 +430,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal"
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_PT-1,5-5-3.5-H_1x05_P3.50mm_Horizontal"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -474,7 +474,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Phoenix Contact (or any 4-pos 5.08 mm screw terminal)"
+		(property "Manufacturer" "Phoenix Contact (PT 1,5/5-3,5-H, 3.5 mm pitch; pin 5 = cable shield to AGND)"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -510,7 +510,7 @@
 		(symbol "Conn_RTD_4W_0_1"
 			(rectangle
 				(start -2.54 6.35)
-				(end 2.54 -6.35)
+				(end 2.54 -8.89)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -586,6 +586,24 @@
 					)
 				)
 				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -7.62 0)
+				(length 5.08)
+				(name "Shield"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1661,7 +1679,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:PinHeader_1x04_P2.54mm_Vertical"
+		(property "Footprint" "rtd-readout:Molex_KK-254_AE-7395-04A_1x04_P2.54mm_Horizontal"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1762,7 +1780,7 @@
 						)
 					)
 				)
-				(number "1"
+				(number "4"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1780,7 +1798,7 @@
 						)
 					)
 				)
-				(number "2"
+				(number "3"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1798,7 +1816,7 @@
 						)
 					)
 				)
-				(number "3"
+				(number "2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1816,7 +1834,7 @@
 						)
 					)
 				)
-				(number "4"
+				(number "1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1853,7 +1871,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1886,7 +1904,7 @@
 				)
 			)
 		)
-		(property "MPN" "1729128 (MKDS 1,5/2-5,08)"
+		(property "MPN" "1984617 (PT 1,5/2-3,5-H)"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1897,7 +1915,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Phoenix Contact (or any 2-pos 5.08 mm screw terminal)"
+		(property "Manufacturer" "Phoenix Contact (PT 1,5/2-3,5-H, 3.5 mm pitch)"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1983,7 +2001,7 @@
 		)
 		(embedded_fonts no)
 	)
-(symbol "rtd-readout:Conn_T7_Analog"
+(symbol "rtd-readout:Conn_T7_RJ45"
 		(pin_names hide)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2000,7 +2018,7 @@
 				)
 			)
 		)
-		(property "Value" "Conn_T7_Analog"
+		(property "Value" "Conn_T7_RJ45"
 			(at 0 -10.16 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2010,7 +2028,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:PinHeader_2x05_P2.54mm_Vertical"
+		(property "Footprint" "rtd-readout:RJ45_Amphenol_RJHSE5380"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2021,7 +2039,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://cdn.amphenol-cs.com/media/wysiwyg/files/drawing/rjhsex380.pdf"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2032,7 +2050,7 @@
 				)
 			)
 		)
-		(property "Description" "V_RTD sense-pair output to the T7 analog (CB37). 3 Sense+/- differential pairs (one per RTD channel) + 2 AGND. 2x04 header; route each pair tight and differential."
+		(property "Description" "Shielded right-angle RJ45 (no LEDs/magnetics) carrying the 4 filtered sense pairs to the T7 over CAT6a S/FTP. T568 pair map: CH1=pins 1/2, CH2=3/6, CH3=4/5, CH4=7/8; SH = cable shield to AGND (single-point; jack EMI fingers also bond the enclosure panel here). Pigtail colors (T568B): CH1=orange, CH2=green, CH3=blue, CH4=brown."
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2043,7 +2061,7 @@
 				)
 			)
 		)
-		(property "MPN" "(2x4 2.54 mm header)"
+		(property "MPN" "RJHSE-5380"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2054,7 +2072,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "(generic)"
+		(property "Manufacturer" "Amphenol CS (Commercial Products)"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2087,9 +2105,9 @@
 				)
 			)
 		)
-		(symbol "Conn_T7_Analog_0_1"
+		(symbol "Conn_T7_RJ45_0_1"
 			(rectangle
-				(start -3.81 8.89)
+				(start -3.81 10.16)
 				(end 3.81 -12.7)
 				(stroke
 					(width 0.254)
@@ -2099,12 +2117,10 @@
 					(type background)
 				)
 			)
-		)
-		(symbol "Conn_T7_Analog_1_1"
 			(pin passive line
-				(at -7.62 6.35 0)
+				(at -7.62 8.89 0)
 				(length 3.81)
-				(name "CH1_Sense+"
+				(name "CH1+"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2120,9 +2136,9 @@
 				)
 			)
 			(pin passive line
-				(at 7.62 6.35 180)
+				(at -7.62 6.35 0)
 				(length 3.81)
-				(name "CH1_Sense-"
+				(name "CH1-"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2138,9 +2154,9 @@
 				)
 			)
 			(pin passive line
-				(at -7.62 2.54 0)
+				(at -7.62 3.81 0)
 				(length 3.81)
-				(name "CH2_Sense+"
+				(name "CH2+"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2156,9 +2172,9 @@
 				)
 			)
 			(pin passive line
-				(at 7.62 2.54 180)
+				(at -7.62 1.27 0)
 				(length 3.81)
-				(name "CH2_Sense-"
+				(name "CH3+"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2176,7 +2192,7 @@
 			(pin passive line
 				(at -7.62 -1.27 0)
 				(length 3.81)
-				(name "CH3_Sense+"
+				(name "CH3-"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2192,9 +2208,9 @@
 				)
 			)
 			(pin passive line
-				(at 7.62 -1.27 180)
+				(at -7.62 -3.81 0)
 				(length 3.81)
-				(name "CH3_Sense-"
+				(name "CH2-"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2210,9 +2226,9 @@
 				)
 			)
 			(pin passive line
-				(at -7.62 -5.08 0)
+				(at -7.62 -6.35 0)
 				(length 3.81)
-				(name "AGND"
+				(name "CH4+"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2228,9 +2244,9 @@
 				)
 			)
 			(pin passive line
-				(at 7.62 -5.08 180)
+				(at -7.62 -8.89 0)
 				(length 3.81)
-				(name "AGND"
+				(name "CH4-"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2246,16 +2262,16 @@
 				)
 			)
 			(pin passive line
-				(at -7.62 -8.89 0)
+				(at -7.62 -11.43 0)
 				(length 3.81)
-				(name "CH4_Sense+"
+				(name "SHIELD"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "9"
+				(number "SH"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2263,24 +2279,8 @@
 					)
 				)
 			)
-			(pin passive line
-				(at 7.62 -8.89 180)
-				(length 3.81)
-				(name "CH4_Sense-"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "10"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
+		)
+		(symbol "Conn_T7_RJ45_1_1"
 		)
 		(embedded_fonts no)
 	)
@@ -2699,7 +2699,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-4-5.08_1x04_P5.08mm_Horizontal"
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_PT-1,5-5-3.5-H_1x05_P3.50mm_Horizontal"
 			(at 63.5 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2732,7 +2732,7 @@
 				)
 			)
 		)
-		(property "MPN" "1729144 (MKDS 1,5/4-5,08)"
+		(property "MPN" "1984646 (PT 1,5/5-3,5-H)"
 			(at 63.5 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2743,7 +2743,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Phoenix Contact (or any 4-pos 5.08 mm screw terminal)"
+		(property "Manufacturer" "Phoenix Contact (PT 1,5/5-3,5-H, 3.5 mm pitch; pin 5 = cable shield to AGND)"
 			(at 63.5 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2780,6 +2780,7 @@
 		(pin "2" (uuid "dee50d7f-d187-4170-8433-62c216d8509d"))
 		(pin "3" (uuid "e65b5fa0-9a7d-470b-989d-66d56a183008"))
 		(pin "4" (uuid "b6fd4b16-2e73-4952-85d0-43f93632a522"))
+		(pin "5" (uuid "4f6dd519-1c4f-4d00-a15c-33c5a38f08d9"))
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "J1") (unit 1))))
 	)
 (symbol
@@ -3980,7 +3981,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:PinHeader_1x04_P2.54mm_Vertical"
+		(property "Footprint" "rtd-readout:Molex_KK-254_AE-7395-04A_1x04_P2.54mm_Horizontal"
 			(at 298.45 53.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4013,7 +4014,7 @@
 				)
 			)
 		)
-		(property "MPN" "PREC004SAAN-RC"
+		(property "MPN" "22-05-7048"
 			(at 298.45 53.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4024,7 +4025,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Sullins"
+		(property "Manufacturer" "Molex (KK 254; mate: housing 22-01-3047 + crimps 0008500160)"
 			(at 298.45 53.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4350,7 +4351,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
+		(property "Footprint" "rtd-readout:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal"
 			(at 76.2 139.7 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4383,7 +4384,7 @@
 				)
 			)
 		)
-		(property "MPN" "1729128 (MKDS 1,5/2-5,08)"
+		(property "MPN" "1984617 (PT 1,5/2-3,5-H)"
 			(at 76.2 139.7 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4394,7 +4395,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Phoenix Contact (or any 2-pos 5.08 mm screw terminal)"
+		(property "Manufacturer" "Phoenix Contact (PT 1,5/2-3,5-H, 3.5 mm pitch)"
 			(at 76.2 139.7 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4462,8 +4463,8 @@
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "#PWR014") (unit 1))))
 	)
 (symbol
-		(lib_id "rtd-readout:Conn_T7_Analog")
-		(at 127 165.1 0)
+		(lib_id "rtd-readout:Conn_T7_RJ45")
+		(at 390 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4471,7 +4472,7 @@
 		(dnp no)
 		(uuid "c370df02-fa3b-4dd6-a54e-01308f6c1cdf")
 		(property "Reference" "J4"
-			(at 132.08 165.1 0)
+			(at 395 165.1 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4480,8 +4481,8 @@
 				)
 			)
 		)
-		(property "Value" "Conn_T7_Analog"
-			(at 127 184.15 0)
+		(property "Value" "Conn_T7_RJ45"
+			(at 390 181.60999999999999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4490,19 +4491,8 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:PinHeader_2x05_P2.54mm_Vertical"
-			(at 127 165.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 127 165.1 0)
+		(property "Footprint" "rtd-readout:RJ45_Amphenol_RJHSE5380"
+			(at 390 165.1 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -4512,8 +4502,8 @@
 				)
 			)
 		)
-		(property "Description" "V_RTD sense-pair output to the T7 analog (CB37). 3 Sense+/- differential pairs (one per RTD channel) + 2 AGND. 2x04 header; route each pair tight and differential."
-			(at 127 165.1 0)
+		(property "Datasheet" "https://cdn.amphenol-cs.com/media/wysiwyg/files/drawing/rjhsex380.pdf"
+			(at 390 165.1 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -4523,8 +4513,8 @@
 				)
 			)
 		)
-		(property "MPN" "PREC005DAAN-RC (2x5; confirm)"
-			(at 127 165.1 0)
+		(property "Description" "Shielded RA RJ45 to T7 over CAT6a S/FTP. T568: CH1=1/2 (orange), CH2=3/6 (green), CH3=4/5 (blue), CH4=7/8 (brown); SH = shield to AGND (single point; EMI fingers bond enclosure panel)."
+			(at 390 165.1 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -4534,8 +4524,8 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Sullins"
-			(at 127 165.1 0)
+		(property "MPN" "RJHSE-5380"
+			(at 390 165.1 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -4545,8 +4535,8 @@
 				)
 			)
 		)
-		(property "ki_keywords" "connector header T7 analog CB37 sense pair V_RTD"
-			(at 127 165.1 0)
+		(property "Manufacturer" "Amphenol CS (Commercial Products)"
+			(at 390 165.1 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -4556,27 +4546,15 @@
 				)
 			)
 		)
-		(property "ki_fp_filters" "PinHeader*2x04*2.54*"
-			(at 127 165.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1" (uuid "773ae88c-355b-4cd8-aca5-45a637186c42"))
-		(pin "2" (uuid "56de2e40-e95e-487f-a6aa-70b540f33a0b"))
-		(pin "3" (uuid "cf003897-ce46-4361-bc50-69866bda14c4"))
-		(pin "4" (uuid "bade82fa-4fbc-4fe1-8fa4-5a5a62a107ea"))
-		(pin "5" (uuid "96b79586-6315-4ede-bb1a-f535f203404f"))
-		(pin "6" (uuid "caa61e2c-74d8-4ec7-86d4-da27bf5de605"))
-		(pin "7" (uuid "b5ebcd93-6ef9-45bf-9065-e9dfea0a69f0"))
-		(pin "9" (uuid "f7152cda-61af-4604-998a-1ee511d46e07"))
-		(pin "10" (uuid "ae49dc32-5bfd-4f3d-809e-b6ebfb9ae48a"))
-		(pin "8" (uuid "b5f15db4-603c-4613-82ce-9981be2113a7"))
+		(pin "1" (uuid "751ce22c-5e4b-431f-8b39-6a8d3055364b"))
+		(pin "2" (uuid "ecd6d1d6-2419-4b69-b36b-b7f8957748ef"))
+		(pin "3" (uuid "559f01a4-8723-41ed-b933-8d437d296c70"))
+		(pin "4" (uuid "a16f3d84-8636-4c14-94b2-b19d57a291b0"))
+		(pin "5" (uuid "9a460d43-d576-4684-9c97-9aa7b4607738"))
+		(pin "6" (uuid "201b8ac2-99cc-46a9-a6af-b27bb4d36e78"))
+		(pin "7" (uuid "1f6ff516-aa74-48a8-8793-baab0a1f392b"))
+		(pin "8" (uuid "90bb3a3f-fe71-413b-846a-0e523df038f7"))
+		(pin "SH" (uuid "99ae24b1-acaa-4328-bdf0-ea3ff22f3496"))
 		(instances (project "rtd-readout" (path "/6ce05a31-b5af-4e3a-a08f-83802c091454" (reference "J4") (unit 1))))
 	)
 (wire (pts (xy 119.38 158.75) (xy 116.84 158.75)) (stroke (width 0) (type default)) (uuid "a6b779da-2283-494f-b272-ab67974301f3"))
@@ -6728,6 +6706,226 @@
 (wire (pts (xy 135.89 176.53) (xy 237.49 176.53)) (stroke (width 0) (type default)) (uuid "8483ad8e-6b84-49ac-a722-d9f6cee6b604"))
 (wire (pts (xy 237.49 176.53) (xy 237.49 175.26)) (stroke (width 0) (type default)) (uuid "fe74a27e-c6e5-4d62-a991-4b492c1439ca"))
 (wire (pts (xy 237.49 175.26) (xy 234.95 175.26)) (stroke (width 0) (type default)) (uuid "16447f51-be5e-46e8-9296-d24447620694"))
+(global_label "CH1_T7+"
+		(shape input)
+		(at 119.38 158.75 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c996ee81-729d-459a-afea-8e5a762f756d")
+	)
+(global_label "CH1_T7-"
+		(shape input)
+		(at 134.62 158.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "19bb5ae2-be53-4f09-ae55-fa8c76af861e")
+	)
+(global_label "CH2_T7+"
+		(shape input)
+		(at 119.38 162.56 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d855f7d6-644d-4dde-92aa-36a5173e94ae")
+	)
+(global_label "CH2_T7-"
+		(shape input)
+		(at 134.62 162.56 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "83bb1a45-a839-4528-aa11-68ab817562c3")
+	)
+(global_label "CH3_T7+"
+		(shape input)
+		(at 119.38 166.37 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e13101c8-34cd-42a4-a5d4-f0c35b60e584")
+	)
+(global_label "CH3_T7-"
+		(shape input)
+		(at 134.62 166.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "988dd77c-d233-44e1-ac1a-c6dca626d9b4")
+	)
+(global_label "GND"
+		(shape input)
+		(at 119.38 170.18 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7073c0c3-09a0-46e8-a894-e8e14a8a59fc")
+	)
+(global_label "GND"
+		(shape input)
+		(at 134.62 170.18 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "48c94f97-f63b-43e6-bedd-d506dcc4c243")
+	)
+(global_label "CH4_T7+"
+		(shape input)
+		(at 119.38 173.99 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3183d95a-19d0-4bc6-9e00-98a8a9191118")
+	)
+(global_label "CH4_T7-"
+		(shape input)
+		(at 134.62 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1cf9138e-5f72-4d3a-bf12-d1ff528d3cbd")
+	)
+(global_label "GND"
+		(shape input)
+		(at 55.88 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "60a78051-5d20-4409-aa53-4ec7aa7263a0")
+	)
+(global_label "CH1_T7+"
+		(shape input)
+		(at 382.38 156.21 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "08ff13f7-2ea6-40cb-a903-4f929de759ce")
+	)
+(global_label "CH1_T7-"
+		(shape input)
+		(at 382.38 158.75 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8de5d89b-9eb8-4b2c-98ca-3bb9a6ca24b9")
+	)
+(global_label "CH2_T7+"
+		(shape input)
+		(at 382.38 161.29 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4b9a1aae-8836-49b8-b6ed-86bb2f553ef7")
+	)
+(global_label "CH3_T7+"
+		(shape input)
+		(at 382.38 163.83 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "aa9be59d-b5ae-4dac-bfe3-f219c450d719")
+	)
+(global_label "CH3_T7-"
+		(shape input)
+		(at 382.38 166.37 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "947300ea-bc57-4474-819b-bc576a892312")
+	)
+(global_label "CH2_T7-"
+		(shape input)
+		(at 382.38 168.91 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b2ffacd9-e9ff-48b3-a93f-5a51423b70d6")
+	)
+(global_label "CH4_T7+"
+		(shape input)
+		(at 382.38 171.45 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "45e63309-f5cd-4b97-beb9-4ce2bb697498")
+	)
+(global_label "CH4_T7-"
+		(shape input)
+		(at 382.38 173.99 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d517ce7c-9589-4e80-b96f-76dd46c8b8ca")
+	)
+(global_label "GND"
+		(shape input)
+		(at 382.38 176.53 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "85e4604a-4666-4198-9f95-b7610164eabc")
+	)
 (sheet_instances
 		(path "/" (page "1"))
 	)
