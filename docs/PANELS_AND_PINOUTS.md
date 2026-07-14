@@ -40,11 +40,13 @@ Cable **shield → AGND at the board end only** (via the jack shield tails); lea
 pigtail-end shield unterminated. The jack's EMI fingers bond the enclosure panel at the
 cutout — this is the **single chassis-ground point** by design.
 
-**I²C/power pigtail (J5, Molex KK 254 22-05-7048; mate = housing 22-01-3047 + crimps
-0008500160)** → T7 screw terminals. ⚠ **Pin numbers were deliberately reversed in rev-G**
-(routing): crimp the pigtail as:
+**I²C/power pigtail (J5, Molex PicoBlade 53048-0410; mate = pre-made pigtail
+2181120404, 425 mm, or 2181120402, 225 mm — NO crimping)** → cut the flying-lead end to
+length and land in the T7 screw terminals. ⚠ **Pin numbers are deliberately reversed**
+(rev-G routing). Identify wire 1 by the pin-1 mark on the pigtail housing / the header's
+pin-1 pad (square), then:
 
-| KK pin | Net | T7 terminal |
+| PicoBlade pin | Net | T7 terminal |
 |---|---|---|
 | 1 | SCL | FIO (I²C SCL) |
 | 2 | SDA | FIO (I²C SDA) |

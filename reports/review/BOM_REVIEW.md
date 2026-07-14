@@ -9,7 +9,7 @@
 > | Enclosure | Hammond **1455N1601** (clear; BK = 1455N1601BK) | HM979-ND, $34.37, 308 pcs | 1 | end panels machined per `reports/review/panel-*.dxf` |
 > | RTD inputs J1–J3,J7 | Phoenix **PT 1,5/5-3,5-H** (1984646) | 277-1723-ND | 4 | 3.5 mm push-in, 26–16 AWG; **pin 5 = cable shield** |
 > | T7 analog J4 | Amphenol **RJHSE-5380** shielded RA RJ45 | 664-RJHSE5380-ND, $1.72, 14.8k | 1 | T568 map + shield policy in PANELS_AND_PINOUTS |
-> | T7 I²C J5 | Molex KK 254 header **22-05-7048** | WM2786-ND | 1 | + housing **22-01-3047** (WM2002-ND) + 4× crimp **0008500160** (WM16517-ND); ⚠ pin order reversed — see PANELS_AND_PINOUTS |
+> | T7 I²C J5 | Molex PicoBlade header **53048-0410** | WM1744-ND | 1 | + pre-made pigtail **2181120404** (425 mm, 900-2181120404-ND) — **no crimping**; ⚠ pin order reversed — see PANELS_AND_PINOUTS |
 > | Power J6 | Phoenix **PT 1,5/2-3,5-H** (1984617) | 277-1721-ND | 1 | |
 > | Cables | CAT6a S/FTP patch (cut one end) + ferrules 26–20 AWG | any | — | |
 >

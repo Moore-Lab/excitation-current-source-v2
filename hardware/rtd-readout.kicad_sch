@@ -1679,7 +1679,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:Molex_KK-254_AE-7395-04A_1x04_P2.54mm_Horizontal"
+		(property "Footprint" "rtd-readout:Molex_PicoBlade_53048-0410_1x04_P1.25mm_Horizontal"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3981,7 +3981,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rtd-readout:Molex_KK-254_AE-7395-04A_1x04_P2.54mm_Horizontal"
+		(property "Footprint" "rtd-readout:Molex_PicoBlade_53048-0410_1x04_P1.25mm_Horizontal"
 			(at 298.45 53.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4014,7 +4014,7 @@
 				)
 			)
 		)
-		(property "MPN" "22-05-7048"
+		(property "MPN" "53048-0410"
 			(at 298.45 53.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4025,7 +4025,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Molex (KK 254; mate: housing 22-01-3047 + crimps 0008500160)"
+		(property "Manufacturer" "Molex (PicoBlade; mate: pre-made pigtail 2181120404, 425 mm - NO crimping)"
 			(at 298.45 53.34 0)
 			(show_name no)
 			(do_not_autoplace no)
